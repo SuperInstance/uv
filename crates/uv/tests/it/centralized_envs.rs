@@ -180,6 +180,79 @@ fn sync_centralized_env() -> Result<()> {
     Ok(())
 }
 
+/// On Windows, centralized environments on SMB cannot be linked from a local workspace.
+///
+/// Requires `UV_INTERNAL__TEST_SMB_FS`.
+#[test]
+#[cfg(windows)]
+fn sync_centralized_env_smb_cache_writes_path_file() -> Result<()> {
+    let Some(context) = uv_test::test_context_with_versions!(&["3.12"]).with_cache_on_smb_fs()?
+    else {
+        return Ok(());
+    };
+
+    let pyproject_toml = context.temp_dir.child("pyproject.toml");
+    pyproject_toml.write_str(
+        r#"
+        [project]
+        name = "project"
+        version = "0.1.0"
+        requires-python = ">=3.12"
+        dependencies = []
+        "#,
+    )?;
+
+    uv_snapshot!(context.filters(), context.sync()
+        .arg("--preview-features")
+        .arg("centralized-envs"), @r"
+    success: true
+    exit_code: 0
+    ----- stdout -----
+
+    ----- stderr -----
+    Using CPython 3.12.[X] interpreter at: [PYTHON-3.12]
+    Creating virtual environment `project-py3.12-[HASH]` in the centralized store
+    warning: Failed to create symlink, wrote a path file instead: The filename, directory name, or volume label syntax is incorrect. (os error 123)
+    Resolved 1 package in [TIME]
+    Checked in [TIME]
+    ");
+
+    let venv = context.temp_dir.child(".venv");
+    assert!(venv.is_file());
+    assert!(fs_err::read_link(venv.path()).is_err());
+
+    let link_target = fs_err::read_to_string(venv.path())?;
+    let link_target = std::path::Path::new(&link_target);
+    assert!(link_target.is_dir());
+    assert!(link_target.join("pyvenv.cfg").is_file());
+    let link_target = link_target.strip_prefix(context.cache_dir.path())?;
+
+    insta::with_settings!({ filters => context.filters() }, {
+        insta::assert_snapshot!(
+            link_target.portable_display().to_string(),
+            @"environments-v2/project-py3.12-[HASH]"
+        );
+    });
+
+    uv_snapshot!(context.filters(), context.run()
+        .arg("--preview-features")
+        .arg("centralized-envs")
+        .arg("python")
+        .arg("-c")
+        .arg("print('hello')"), @r"
+    success: true
+    exit_code: 0
+    ----- stdout -----
+    hello
+
+    ----- stderr -----
+    Resolved 1 package in [TIME]
+    Checked in [TIME]
+    ");
+
+    Ok(())
+}
+
 /// Test that `uv sync --preview-features centralized-envs` creates and uses a centralised
 /// environment despite an existing real `.venv` directory. And that it clobbers it to create the
 /// link.
