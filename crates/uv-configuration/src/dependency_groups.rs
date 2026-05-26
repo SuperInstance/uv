@@ -223,11 +223,6 @@ impl DependencyGroupsInner {
         group.iter().chain(no_group).chain(only_group)
     }
 
-    /// Returns `true` if the specification will have no effect.
-    pub fn is_empty(&self) -> bool {
-        self.prod() && self.exclude.is_empty() && self.include.is_empty()
-    }
-
     /// Get the raw history for diagnostics
     pub fn history(&self) -> &DependencyGroupsHistory {
         &self.history
@@ -367,24 +362,6 @@ impl IncludeGroups {
         match self {
             Self::Some(groups) => groups.contains(group),
             Self::All => true,
-        }
-    }
-
-    /// Returns `true` if the specification will have no effect.
-    pub fn is_empty(&self) -> bool {
-        match self {
-            Self::Some(groups) => groups.is_empty(),
-            // Although technically this is a noop if they have no groups,
-            // conceptually they're *trying* to have an effect, so treat it as one.
-            Self::All => false,
-        }
-    }
-
-    /// Iterate over all groups referenced in the [`IncludeGroups`].
-    pub fn names(&self) -> std::slice::Iter<'_, GroupName> {
-        match self {
-            Self::Some(groups) => groups.iter(),
-            Self::All => [].iter(),
         }
     }
 }

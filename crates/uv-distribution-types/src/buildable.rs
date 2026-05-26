@@ -135,11 +135,6 @@ impl SourceUrl<'_> {
             })
         )
     }
-
-    /// Return true if the source refers to a local file or directory.
-    pub fn is_local(&self) -> bool {
-        matches!(self, Self::Path(_) | Self::Directory(_))
-    }
 }
 
 impl std::fmt::Display for SourceUrl<'_> {

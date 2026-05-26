@@ -36,8 +36,6 @@ pub struct VirtualEnvironment {
 pub struct PyVenvConfiguration {
     /// The `PYTHONHOME` directory containing the base Python executable.
     pub(crate) home: Option<PathBuf>,
-    /// Was the virtual environment created with the `virtualenv` package?
-    pub(crate) virtualenv: bool,
     /// Was the virtual environment created with the `uv` package?
     pub(crate) uv: bool,
     /// Is the virtual environment relocatable?
@@ -234,7 +232,6 @@ impl PyVenvConfiguration {
     /// Parse a `pyvenv.cfg` file into a [`PyVenvConfiguration`].
     pub fn parse(cfg: impl AsRef<Path>) -> Result<Self, Error> {
         let mut home = None;
-        let mut virtualenv = false;
         let mut uv = false;
         let mut relocatable = false;
         let mut seed = false;
@@ -253,9 +250,6 @@ impl PyVenvConfiguration {
             match key.trim() {
                 "home" => {
                     home = Some(PathBuf::from(value.trim()));
-                }
-                "virtualenv" => {
-                    virtualenv = true;
                 }
                 "uv" => {
                     uv = true;
@@ -281,18 +275,12 @@ impl PyVenvConfiguration {
 
         Ok(Self {
             home,
-            virtualenv,
             uv,
             relocatable,
             seed,
             include_system_site_packages,
             version,
         })
-    }
-
-    /// Returns true if the virtual environment was created with the `virtualenv` package.
-    pub fn is_virtualenv(&self) -> bool {
-        self.virtualenv
     }
 
     /// Returns true if the virtual environment was created with the uv package.

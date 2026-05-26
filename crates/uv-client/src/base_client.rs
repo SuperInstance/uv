@@ -733,11 +733,6 @@ impl BaseClient {
         self.read_timeout
     }
 
-    /// The configured client connect timeout.
-    pub fn connect_timeout(&self) -> Duration {
-        self.connect_timeout
-    }
-
     /// The configured connectivity mode.
     pub fn connectivity(&self) -> Connectivity {
         self.connectivity
@@ -1043,20 +1038,6 @@ impl<'a> RequestBuilder<'a> {
         <HeaderValue as TryFrom<V>>::Error: Into<http::Error>,
     {
         self.builder = self.builder.header(key, value);
-        self
-    }
-
-    /// Add a set of Headers to the existing ones on this Request.
-    ///
-    /// The headers will be merged in to any already set.
-    pub fn headers(mut self, headers: HeaderMap) -> Self {
-        self.builder = self.builder.headers(headers);
-        self
-    }
-
-    #[cfg(not(target_arch = "wasm32"))]
-    pub fn version(mut self, version: reqwest::Version) -> Self {
-        self.builder = self.builder.version(version);
         self
     }
 

@@ -33,9 +33,7 @@ use crate::implementation::{
 use crate::installation::{self, PythonInstallationKey};
 use crate::interpreter::Interpreter;
 use crate::python_version::PythonVersion;
-use crate::{
-    PythonInstallationMinorVersionKey, PythonRequest, PythonVariant, macos_dylib, sysconfig,
-};
+use crate::{PythonInstallationMinorVersionKey, PythonVariant, macos_dylib, sysconfig};
 
 #[derive(Error, Debug)]
 pub enum Error {
@@ -498,26 +496,6 @@ impl ManagedPythonInstallation {
         PythonInstallationMinorVersionKey::ref_cast(&self.key)
     }
 
-    pub fn satisfies(&self, request: &PythonRequest) -> bool {
-        match request {
-            PythonRequest::File(path) => self.executable(false) == *path,
-            PythonRequest::Default | PythonRequest::Any => true,
-            PythonRequest::Directory(path) => self.path() == *path,
-            PythonRequest::ExecutableName(name) => self
-                .executable(false)
-                .file_name()
-                .is_some_and(|filename| filename.to_string_lossy() == *name),
-            PythonRequest::Implementation(implementation) => {
-                *implementation == self.implementation()
-            }
-            PythonRequest::ImplementationVersion(implementation, version) => {
-                *implementation == self.implementation() && version.matches_version(&self.version())
-            }
-            PythonRequest::Version(version) => version.matches_version(&self.version()),
-            PythonRequest::Key(request) => request.satisfied_by_key(self.key()),
-        }
-    }
-
     /// Ensure the environment contains the canonical Python executable names.
     pub fn ensure_canonical_executables(&self) -> Result<(), Error> {
         let python = self.executable(false);
@@ -711,14 +689,6 @@ impl ManagedPythonInstallation {
             return false;
         }
         true
-    }
-
-    pub fn url(&self) -> Option<&str> {
-        self.url.as_deref()
-    }
-
-    pub fn sha256(&self) -> Option<&str> {
-        self.sha256.as_deref()
     }
 }
 

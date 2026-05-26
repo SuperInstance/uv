@@ -89,20 +89,6 @@ where
         })
     }
 
-    /// Like `OwnedArchive::new`, but reads the value from the given reader.
-    ///
-    /// Note that this consumes the entirety of the given reader.
-    ///
-    /// # Errors
-    ///
-    /// If the bytes fail validation (e.g., contains unaligned pointers or
-    /// strings aren't valid UTF-8), then this returns an error.
-    pub fn from_reader<R: std::io::Read>(mut rdr: R) -> Result<Self, Error> {
-        let mut buf = AlignedVec::with_capacity(1024);
-        buf.extend_from_reader(&mut rdr).map_err(ErrorKind::Io)?;
-        Self::new(buf)
-    }
-
     /// Creates an owned archive value from the unarchived value.
     ///
     /// # Errors
@@ -117,19 +103,6 @@ where
             raw,
             archive: std::marker::PhantomData,
         })
-    }
-
-    /// Write the underlying bytes of this archived value to the given writer.
-    ///
-    /// Note that because this type has a `Deref` impl, this method requires
-    /// fully-qualified syntax. So, if `o` is an `OwnedValue`, then use
-    /// `OwnedValue::write(&o, wtr)`.
-    ///
-    /// # Errors
-    ///
-    /// Any failures from writing are returned to the caller.
-    pub fn write<W: std::io::Write>(this: &Self, mut wtr: W) -> Result<(), Error> {
-        Ok(wtr.write_all(&this.raw).map_err(ErrorKind::Io)?)
     }
 
     /// Returns the raw underlying bytes of this owned archive value.

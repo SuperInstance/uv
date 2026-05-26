@@ -11,15 +11,6 @@ pub enum KnownPlatform {
 }
 
 impl KnownPlatform {
-    /// Return the platform's `sys.platform` value.
-    pub fn sys_platform(self) -> &'static str {
-        match self {
-            Self::Linux => "linux",
-            Self::Windows => "win32",
-            Self::MacOS => "darwin",
-        }
-    }
-
     /// Return a [`MarkerTree`] for the platform.
     pub(crate) fn marker(self) -> MarkerTree {
         MarkerTree::expression(MarkerExpression::String {

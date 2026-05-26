@@ -643,18 +643,6 @@ impl Interpreter {
             .chain(interpreter.into_iter().flatten().map(Cow::Borrowed))
     }
 
-    /// Check if the interpreter matches the given Python version.
-    ///
-    /// If a patch version is present, we will require an exact match.
-    /// Otherwise, just the major and minor version numbers need to match.
-    pub fn satisfies(&self, version: &PythonVersion) -> bool {
-        if version.patch().is_some() {
-            version.version() == self.python_version()
-        } else {
-            (version.major(), version.minor()) == self.python_tuple()
-        }
-    }
-
     /// Whether or not this Python interpreter is from a default Python executable name, like
     /// `python`, `python3`, or `python.exe`.
     pub(crate) fn has_default_executable_name(&self) -> bool {

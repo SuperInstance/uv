@@ -434,11 +434,6 @@ impl Index {
         &self.url
     }
 
-    /// Consume the [`Index`] and return the [`IndexUrl`].
-    pub fn into_url(self) -> IndexUrl {
-        self.url
-    }
-
     /// Return the raw [`Url`] of the index.
     pub fn raw_url(&self) -> &DisplaySafeUrl {
         self.url.url()
@@ -589,12 +584,6 @@ pub struct IndexMetadata {
 }
 
 impl IndexMetadata {
-    /// Return a reference to the [`IndexMetadata`].
-    pub fn as_ref(&self) -> IndexMetadataRef<'_> {
-        let Self { url, format: kind } = self;
-        IndexMetadataRef { url, format: *kind }
-    }
-
     /// Consume the [`IndexMetadata`] and return the [`IndexUrl`].
     pub fn into_url(self) -> IndexUrl {
         self.url
@@ -614,13 +603,6 @@ impl IndexMetadata {
     /// Return the [`IndexUrl`] of the index.
     pub fn url(&self) -> &IndexUrl {
         &self.url
-    }
-}
-
-impl IndexMetadataRef<'_> {
-    /// Return the [`IndexUrl`] of the index.
-    pub fn url(&self) -> &IndexUrl {
-        self.url
     }
 }
 

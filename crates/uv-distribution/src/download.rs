@@ -27,19 +27,9 @@ pub struct LocalWheel {
 }
 
 impl LocalWheel {
-    /// Return the path to the downloaded wheel's entry in the cache.
-    pub fn target(&self) -> &Path {
-        &self.archive
-    }
-
     /// Return the [`Dist`] from which this wheel was downloaded.
     pub(crate) fn remote(&self) -> &Dist {
         &self.dist
-    }
-
-    /// Return the [`WheelFilename`] of this wheel.
-    pub fn filename(&self) -> &WheelFilename {
-        &self.filename
     }
 
     /// Read the [`ResolutionMetadata`] from a wheel.

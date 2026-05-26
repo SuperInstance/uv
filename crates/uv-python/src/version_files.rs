@@ -193,19 +193,6 @@ impl PythonVersionFile {
         }
     }
 
-    /// Read a Python version file at the given path.
-    ///
-    /// If the file does not exist, an error is returned.
-    pub async fn from_path(path: PathBuf) -> Result<Self, std::io::Error> {
-        let Some(result) = Self::try_from_path(path).await? else {
-            return Err(std::io::Error::new(
-                std::io::ErrorKind::NotFound,
-                "Version file not found".to_string(),
-            ));
-        };
-        Ok(result)
-    }
-
     /// Create a new representation of a version file at the given path.
     ///
     /// The file will not any include versions; see [`PythonVersionFile::with_versions`].

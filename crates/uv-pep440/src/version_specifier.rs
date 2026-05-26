@@ -543,11 +543,6 @@ impl VersionSpecifier {
         &self.version
     }
 
-    /// Get the operator and version parts of this specifier.
-    pub fn into_parts(self) -> (Operator, Version) {
-        (self.operator, self.version)
-    }
-
     /// Whether the version marker includes a prerelease.
     pub fn any_prerelease(&self) -> bool {
         self.version.any_prerelease()

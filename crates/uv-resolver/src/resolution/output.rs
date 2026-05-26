@@ -604,7 +604,7 @@ impl ResolverOutput {
 
     /// Return `true` if there are no packages in the graph.
     pub fn is_empty(&self) -> bool {
-        self.dists().any(AnnotatedDist::is_base)
+        !self.dists().any(AnnotatedDist::is_base)
     }
 
     /// Returns `true` if the graph contains the given package.
@@ -994,4 +994,33 @@ fn has_lower_bound(
         }
     }
     false
+}
+
+#[cfg(test)]
+mod tests {
+    use super::ResolverOutput;
+    use petgraph::graph::Graph;
+    use uv_configuration::{Constraints, Overrides};
+    use uv_distribution_types::RequiresPython;
+    use uv_pep440::Version;
+
+    use crate::Options;
+
+    #[test]
+    fn empty_output_is_empty() {
+        let output = ResolverOutput {
+            graph: Graph::default(),
+            requires_python: RequiresPython::greater_than_equal_version(
+                &"3.12".parse::<Version>().unwrap(),
+            ),
+            fork_markers: Vec::new(),
+            diagnostics: Vec::new(),
+            requirements: Vec::new(),
+            constraints: Constraints::default(),
+            overrides: Overrides::default(),
+            options: Options::default(),
+        };
+
+        assert!(output.is_empty());
+    }
 }

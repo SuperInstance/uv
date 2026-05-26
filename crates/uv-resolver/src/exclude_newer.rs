@@ -338,11 +338,6 @@ impl<'a> IntoIterator for &'a ExcludeNewerPackage {
 }
 
 impl ExcludeNewerPackage {
-    /// Convert to the inner `HashMap`.
-    pub fn into_inner(self) -> FxHashMap<PackageName, ExcludeNewerOverride> {
-        self.0
-    }
-
     /// Returns true if this map is empty (no package-specific settings).
     pub fn is_empty(&self) -> bool {
         self.0.is_empty()
@@ -434,11 +429,6 @@ impl ExcludeNewer {
                 PreviewFeature::IndexExcludeNewer
             );
         }
-    }
-
-    /// Create a new exclude newer configuration.
-    pub fn new(global: Option<ExcludeNewerValue>, package: ExcludeNewerPackage) -> Self {
-        Self { global, package }
     }
 
     /// Create from CLI arguments.

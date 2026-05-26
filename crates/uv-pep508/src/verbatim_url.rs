@@ -276,11 +276,6 @@ impl VerbatimUrl {
         self.url.clone()
     }
 
-    /// Convert a [`VerbatimUrl`] into a [`DisplaySafeUrl`].
-    pub fn into_url(self) -> DisplaySafeUrl {
-        self.url
-    }
-
     /// Return the underlying [`Path`], if the URL is a file URL.
     #[cfg(feature = "non-pep508-extensions")]
     pub fn as_path(&self) -> Result<PathBuf, VerbatimUrlError> {

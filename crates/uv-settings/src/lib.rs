@@ -31,12 +31,6 @@ impl FilesystemOptions {
     pub fn into_options(self) -> Options {
         self.0
     }
-
-    /// Set the [`Origin`] on all indexes without an existing origin.
-    #[must_use]
-    pub fn with_origin(self, origin: Origin) -> Self {
-        Self(self.0.with_origin(origin))
-    }
 }
 
 impl Deref for FilesystemOptions {

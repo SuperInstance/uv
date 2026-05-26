@@ -354,13 +354,6 @@ impl InstalledTools {
         Ok(venv)
     }
 
-    /// Create a temporary tools directory.
-    pub fn temp() -> Result<Self, Error> {
-        Ok(Self::from_path(
-            StateStore::temp()?.bucket(StateBucket::Tools),
-        ))
-    }
-
     /// Initialize the tools directory.
     ///
     /// Ensures the directory is created.

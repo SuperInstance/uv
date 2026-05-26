@@ -73,11 +73,6 @@ impl Requirement {
         self.marker.evaluate_optional_environment(env, extras)
     }
 
-    /// Returns `true` if the requirement is editable.
-    pub fn is_editable(&self) -> bool {
-        self.source.is_editable()
-    }
-
     /// Convert to a [`Requirement`] with a relative path based on the given root.
     pub fn relative_to(self, path: &Path) -> Result<Self, io::Error> {
         Ok(Self {
@@ -710,37 +705,6 @@ impl RequirementSource {
                 verbatim: url.clone(),
             }),
         }
-    }
-
-    /// Convert the source to a version specifier or URL.
-    ///
-    /// If the source is a registry and the specifier is empty, it returns `None`.
-    pub fn version_or_url(&self) -> Option<VersionOrUrl<VerbatimParsedUrl>> {
-        match self {
-            Self::Registry { specifier, .. } => {
-                if specifier.is_empty() {
-                    None
-                } else {
-                    Some(VersionOrUrl::VersionSpecifier(specifier.clone()))
-                }
-            }
-            Self::Url { .. }
-            | Self::GitPath { .. }
-            | Self::GitDirectory { .. }
-            | Self::Path { .. }
-            | Self::Directory { .. } => Some(VersionOrUrl::Url(self.to_verbatim_parsed_url()?)),
-        }
-    }
-
-    /// Returns `true` if the source is editable.
-    pub fn is_editable(&self) -> bool {
-        matches!(
-            self,
-            Self::Directory {
-                editable: Some(true),
-                ..
-            }
-        )
     }
 
     /// Returns `true` if the source is empty.

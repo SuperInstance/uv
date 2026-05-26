@@ -170,13 +170,6 @@ impl PyProjectToml {
             .and_then(|uv| uv.package)
     }
 
-    /// Returns `true` if the project uses a dynamic version.
-    pub fn is_dynamic(&self) -> bool {
-        self.project
-            .as_ref()
-            .is_some_and(|project| project.version.is_none())
-    }
-
     /// Returns whether the project manifest contains any script table.
     pub fn has_scripts(&self) -> bool {
         if let Some(ref project) = self.project {
@@ -1060,16 +1053,6 @@ impl Sources {
     /// The iterator will contain at most one registry source.
     pub fn iter(&self) -> impl Iterator<Item = &Source> {
         self.0.iter()
-    }
-
-    /// Returns `true` if the sources list is empty.
-    pub fn is_empty(&self) -> bool {
-        self.0.is_empty()
-    }
-
-    /// Returns the number of sources in the list.
-    pub fn len(&self) -> usize {
-        self.0.len()
     }
 }
 

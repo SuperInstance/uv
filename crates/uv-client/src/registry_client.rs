@@ -1454,13 +1454,6 @@ impl SimpleDetailMetadata {
         self.versions.iter()
     }
 
-    /// Return the project-level [PEP 792] status marker for this package.
-    ///
-    /// [PEP 792]: https://peps.python.org/pep-0792/
-    pub fn project_status(&self) -> &ProjectStatus {
-        &self.project_status
-    }
-
     fn from_pypi_files(
         files: Vec<uv_pypi_types::PypiFile>,
         package_name: &PackageName,

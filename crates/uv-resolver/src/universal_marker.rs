@@ -490,26 +490,9 @@ impl ConflictMarker {
         Self { marker }
     }
 
-    /// Returns a new conflict marker corresponding to the logical implication
-    /// of `self` and the given consequent.
-    ///
-    /// If the conflict marker returned is always `true`, then it can be said
-    /// that `self` implies `consequent`.
-    #[must_use]
-    pub fn implies(self, other: Self) -> Self {
-        let mut marker = self.marker;
-        marker.implies(other.marker);
-        Self { marker }
-    }
-
     /// Returns true if this conflict marker will always evaluate to `true`.
     pub(crate) fn is_true(self) -> bool {
         self.marker.is_true()
-    }
-
-    /// Returns true if this conflict marker will always evaluate to `false`.
-    pub fn is_false(self) -> bool {
-        self.marker.is_false()
     }
 
     /// Returns inclusion and exclusion (respectively) conflict items parsed

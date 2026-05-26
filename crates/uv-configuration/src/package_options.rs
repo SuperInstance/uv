@@ -38,11 +38,6 @@ impl Reinstall {
         matches!(self, Self::None)
     }
 
-    /// Returns `true` if all packages should be reinstalled.
-    pub fn is_all(&self) -> bool {
-        matches!(self, Self::All)
-    }
-
     /// Returns `true` if the specified package should be reinstalled.
     pub fn contains_package(&self, package_name: &PackageName) -> bool {
         match self {
@@ -160,14 +155,6 @@ impl Upgrade {
     pub(crate) fn none() -> Self {
         Self {
             strategy: UpgradeStrategy::None,
-            constraints: FxHashMap::default(),
-        }
-    }
-
-    /// Create a new [`Upgrade`] to consider all packages.
-    pub fn all() -> Self {
-        Self {
-            strategy: UpgradeStrategy::All,
             constraints: FxHashMap::default(),
         }
     }

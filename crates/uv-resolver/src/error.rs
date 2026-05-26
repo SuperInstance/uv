@@ -3,7 +3,6 @@ use std::fmt::Formatter;
 use std::sync::{Arc, OnceLock};
 
 use indexmap::IndexSet;
-use itertools::Itertools;
 use owo_colors::OwoColorize;
 use pubgrub::{
     DefaultStringReporter, DerivationTree, Derived, External, Range, Ranges, Reporter, Term,
@@ -395,15 +394,6 @@ impl NoSolutionError {
     /// Initialize a [`NoSolutionHeader`] for this error.
     pub fn header(&self) -> NoSolutionHeader {
         NoSolutionHeader::new(self.env.clone())
-    }
-
-    /// Get the packages that are involved in this error.
-    pub fn packages(&self) -> impl Iterator<Item = &PackageName> {
-        self.error
-            .packages()
-            .into_iter()
-            .filter_map(|p| p.name())
-            .unique()
     }
 
     /// Generate the report and hints for this resolution failure.

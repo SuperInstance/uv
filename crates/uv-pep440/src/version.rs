@@ -1765,14 +1765,6 @@ impl LocalVersion {
             Self::Max => LocalVersionSlice::Max,
         }
     }
-
-    /// Clear the local version segments, if they exist.
-    pub fn clear(&mut self) {
-        match self {
-            Self::Segments(segments) => segments.clear(),
-            Self::Max => *self = Self::Segments(Vec::new()),
-        }
-    }
 }
 
 /// Output the local version identifier string.

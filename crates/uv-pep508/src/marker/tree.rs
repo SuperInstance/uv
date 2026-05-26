@@ -20,8 +20,8 @@ use crate::marker::lowering::{
 };
 use crate::marker::parse;
 use crate::{
-    CanonicalMarkerValueExtra, MarkerEnvironment, Pep508Error, Pep508ErrorSource, Pep508Url,
-    Reporter, TracingReporter,
+    CanonicalMarkerValueExtra, MarkerEnvironment, Pep508Error, Pep508ErrorSource, Reporter,
+    TracingReporter,
 };
 
 /// Ways in which marker evaluation can fail
@@ -805,11 +805,6 @@ impl FromStr for MarkerTree {
 }
 
 impl MarkerTree {
-    /// Like [`FromStr::from_str`], but the caller chooses the return type generic.
-    pub fn parse_str<T: Pep508Url>(markers: &str) -> Result<Self, Pep508Error<T>> {
-        parse::parse_markers(markers, &mut TracingReporter)
-    }
-
     /// An empty marker that always evaluates to `true`.
     pub const TRUE: Self = Self(NodeId::TRUE);
 

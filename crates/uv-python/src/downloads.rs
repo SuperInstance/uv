@@ -455,10 +455,6 @@ impl PythonDownloadRequest {
         self.arch.as_ref()
     }
 
-    pub fn os(&self) -> Option<&Os> {
-        self.os.as_ref()
-    }
-
     pub fn libc(&self) -> Option<&Libc> {
         self.libc.as_ref()
     }
@@ -1164,34 +1160,6 @@ impl ManagedPythonDownload {
         .await
     }
 
-    /// Download and extract a Python distribution.
-    #[instrument(skip(client, installation_dir, scratch_dir, reporter), fields(download = % self.key()))]
-    pub async fn fetch(
-        &self,
-        client: &BaseClient,
-        installation_dir: &Path,
-        scratch_dir: &Path,
-        reinstall: bool,
-        python_install_mirror: Option<&str>,
-        pypy_install_mirror: Option<&str>,
-        reporter: Option<&dyn Reporter>,
-    ) -> Result<DownloadResult, Error> {
-        let urls = self.download_urls(python_install_mirror, pypy_install_mirror)?;
-        let url = urls
-            .into_iter()
-            .next()
-            .ok_or(Error::NoPythonDownloadUrlFound)?;
-        self.fetch_from_url(
-            url,
-            client,
-            installation_dir,
-            scratch_dir,
-            reinstall,
-            reporter,
-        )
-        .await
-    }
-
     /// Download and extract a Python distribution from the given URL.
     async fn fetch_from_url(
         &self,
@@ -1477,20 +1445,6 @@ impl ManagedPythonDownload {
 
     pub fn python_version(&self) -> PythonVersion {
         self.key.version()
-    }
-
-    /// Return the primary [`Url`] to use when downloading the distribution.
-    ///
-    /// This is the first URL from [`Self::download_urls`]. For CPython without a user-configured
-    /// mirror, this is the default Astral mirror URL. Use [`Self::download_urls`] to get all
-    /// URLs including fallbacks.
-    pub fn download_url(
-        &self,
-        python_install_mirror: Option<&str>,
-        pypy_install_mirror: Option<&str>,
-    ) -> Result<DisplaySafeUrl, Error> {
-        self.download_urls(python_install_mirror, pypy_install_mirror)
-            .map(|mut urls| urls.remove(0))
     }
 
     /// Return the ordered list of [`Url`]s to try when downloading the distribution.

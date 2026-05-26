@@ -249,17 +249,6 @@ impl Manifest {
         }
     }
 
-    /// Apply the overrides and constraints to a set of requirements.
-    ///
-    /// Constraints are always applied _on top_ of overrides, such that constraints are applied
-    /// even if a requirement is overridden.
-    pub fn apply<'a>(
-        &'a self,
-        requirements: impl IntoIterator<Item = &'a Requirement>,
-    ) -> impl Iterator<Item = Cow<'a, Requirement>> {
-        self.constraints.apply(self.overrides.apply(requirements))
-    }
-
     /// Returns the number of input requirements.
     pub fn num_requirements(&self) -> usize {
         self.requirements.len()

@@ -128,16 +128,6 @@ pub enum VersionOrUrlRef<'a, T: Pep508Url = VerbatimUrl> {
     Url(&'a T),
 }
 
-impl<'a, T: Pep508Url> VersionOrUrlRef<'a, T> {
-    /// If it is a URL, return its value.
-    pub fn url(&self) -> Option<&'a T> {
-        match self {
-            Self::Version(_) => None,
-            Self::Url(url) => Some(url),
-        }
-    }
-}
-
 impl Verbatim for VersionOrUrlRef<'_> {
     fn verbatim(&self) -> Cow<'_, str> {
         match self {
@@ -166,14 +156,6 @@ pub enum InstalledVersion<'a> {
 }
 
 impl<'a> InstalledVersion<'a> {
-    /// If it is a URL, return its value.
-    pub fn url(&self) -> Option<&'a DisplaySafeUrl> {
-        match self {
-            Self::Version(_) => None,
-            Self::Url(url, _) => Some(url),
-        }
-    }
-
     /// If it is a version, return its value.
     pub fn version(&self) -> &'a Version {
         match self {
@@ -662,14 +644,6 @@ impl Dist {
         match self {
             Self::Built(wheel) => Some(wheel.version()),
             Self::Source(source_dist) => source_dist.version(),
-        }
-    }
-
-    /// Convert this distribution into a reference.
-    pub fn as_ref(&self) -> DistRef<'_> {
-        match self {
-            Self::Built(dist) => DistRef::Built(dist),
-            Self::Source(dist) => DistRef::Source(dist),
         }
     }
 }

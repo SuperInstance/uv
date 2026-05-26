@@ -22,8 +22,4 @@ impl Exclusions {
     pub(crate) fn upgrade(&self, package: &PackageName) -> bool {
         self.upgrade.contains(package)
     }
-
-    pub fn contains(&self, package: &PackageName) -> bool {
-        self.reinstall(package) || self.upgrade(package)
-    }
 }

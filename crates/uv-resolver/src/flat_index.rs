@@ -89,11 +89,6 @@ impl FlatDistributions {
         self.0.iter()
     }
 
-    /// Removes the [`PrioritizedDist`] for the given version.
-    pub fn remove(&mut self, version: &Version) -> Option<PrioritizedDist> {
-        self.0.remove(version)
-    }
-
     /// Add the given [`File`] to the [`FlatDistributions`] for the given package.
     fn add_file(
         &mut self,

@@ -118,7 +118,6 @@ impl ExtrasSpecification {
 
         ExtrasSpecificationWithDefaults {
             cur: Self::from_history(history),
-            prev: self.clone(),
         }
     }
 }
@@ -245,32 +244,12 @@ impl ExtrasSpecificationHistory {
 }
 
 /// A trivial newtype wrapped around [`ExtrasSpecification`][] that signifies "defaults applied"
-///
-/// It includes a copy of the previous semantics to provide info on if
-/// the group being a default actually affected it being enabled, because it's obviously "correct".
-/// (These are Arcs so it's ~free to hold onto the previous semantics)
 #[derive(Debug, Clone)]
 pub struct ExtrasSpecificationWithDefaults {
     /// The active semantics
     cur: ExtrasSpecification,
-    /// The semantics before defaults were applied
-    prev: ExtrasSpecification,
 }
 
-impl ExtrasSpecificationWithDefaults {
-    /// Do not enable any extras
-    ///
-    /// Many places in the code need to know what extras are active,
-    /// but various commands or subsystems never enable any extras,
-    /// in which case they want this.
-    pub fn none() -> Self {
-        ExtrasSpecification::default().with_defaults(DefaultExtras::default())
-    }
-    /// Returns `true` if the specification was enabled, and *only* because it was a default
-    pub fn contains_because_default(&self, extra: &ExtraName) -> bool {
-        self.cur.contains(extra) && !self.prev.contains(extra)
-    }
-}
 impl std::ops::Deref for ExtrasSpecificationWithDefaults {
     type Target = ExtrasSpecification;
     fn deref(&self) -> &Self::Target {
@@ -302,14 +281,6 @@ impl IncludeExtras {
             // Although technically this is a noop if they have no extras,
             // conceptually they're *trying* to have an effect, so treat it as one.
             Self::All => false,
-        }
-    }
-
-    /// Iterate over all extras referenced in the [`IncludeExtras`].
-    pub fn names(&self) -> std::slice::Iter<'_, ExtraName> {
-        match self {
-            Self::Some(extras) => extras.iter(),
-            Self::All => [].iter(),
         }
     }
 }
