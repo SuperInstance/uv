@@ -155,7 +155,8 @@ are not recommended, as they may cause the RPC mechanism to fail.
 
 use std::collections::HashMap;
 
-pub use credential::{Credential, CredentialBuilder};
+pub use credential::Credential;
+pub(crate) use credential::CredentialBuilder;
 pub use error::{Error, Result};
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]

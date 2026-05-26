@@ -1,9 +1,11 @@
 pub use dependency_mode::DependencyMode;
-pub use error::{ErrorTree, NoSolutionError, NoSolutionHeader, ResolveError, SentinelRange};
+pub(crate) use error::ErrorTree;
+pub use error::{NoSolutionError, NoSolutionHeader, ResolveError, SentinelRange};
+pub(crate) use exclude_newer::ExcludeNewerValueWithSpanRef;
 pub use exclude_newer::{
     ExcludeNewer, ExcludeNewerChange, ExcludeNewerOverrideChange, ExcludeNewerPackage,
     ExcludeNewerPackageChange, ExcludeNewerPackageEntry, ExcludeNewerValueChange,
-    ExcludeNewerValueWithSpanRef, serialize_exclude_newer_package_with_spans,
+    serialize_exclude_newer_package_with_spans,
 };
 pub use exclusions::Exclusions;
 pub use flat_index::{FlatDistributions, FlatIndex};
@@ -24,11 +26,12 @@ pub use resolution::{
 };
 pub use resolution_mode::ResolutionMode;
 pub use resolver::{
-    DefaultResolverProvider, InMemoryIndex, MetadataResponse, PackageVersionsResult,
-    Reporter as ResolverReporter, Resolver, ResolverEnvironment, ResolverProvider,
-    VersionsResponse, WheelMetadataResult,
+    DefaultResolverProvider, InMemoryIndex, MetadataResponse, Reporter as ResolverReporter,
+    Resolver, ResolverEnvironment, ResolverProvider, VersionsResponse,
 };
-pub use universal_marker::{ConflictMarker, UniversalMarker};
+pub(crate) use resolver::{PackageVersionsResult, WheelMetadataResult};
+pub(crate) use universal_marker::ConflictMarker;
+pub use universal_marker::UniversalMarker;
 pub use upgrade::UpgradePackages;
 pub use uv_distribution_types::{ExcludeNewerOverride, ExcludeNewerSpan, ExcludeNewerValue};
 pub use version_map::VersionMap;

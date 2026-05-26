@@ -16,16 +16,18 @@ pub(crate) mod parse;
 mod simplify;
 mod tree;
 
-pub use environment::{MarkerEnvironment, MarkerEnvironmentBuilder};
+pub use environment::MarkerEnvironment;
+pub(crate) use environment::MarkerEnvironmentBuilder;
 pub use lowering::{
     CanonicalMarkerValueExtra, CanonicalMarkerValueString, CanonicalMarkerValueVersion,
 };
 pub use tree::{
     ContainsMarkerTree, ExtraMarkerTree, ExtraOperator, InMarkerTree, MarkerExpression,
-    MarkerOperator, MarkerTree, MarkerTreeContents, MarkerTreeKind, MarkerValue, MarkerValueExtra,
-    MarkerValueList, MarkerValueString, MarkerValueVersion, MarkerWarningKind, StringMarkerTree,
-    StringVersion, VersionMarkerTree,
+    MarkerOperator, MarkerTree, MarkerTreeContents, MarkerTreeKind, MarkerValueExtra,
+    MarkerValueList, MarkerValueString, MarkerValueVersion, StringMarkerTree, StringVersion,
+    VersionMarkerTree,
 };
+pub(crate) use tree::{MarkerValue, MarkerWarningKind};
 
 /// `serde` helpers for [`MarkerTree`].
 pub mod ser {

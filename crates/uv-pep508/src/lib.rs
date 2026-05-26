@@ -34,10 +34,11 @@ use crate::cursor::Cursor;
 pub use crate::marker::{
     CanonicalMarkerValueExtra, CanonicalMarkerValueString, CanonicalMarkerValueVersion,
     ContainsMarkerTree, ExtraMarkerTree, ExtraOperator, InMarkerTree, MarkerEnvironment,
-    MarkerEnvironmentBuilder, MarkerExpression, MarkerOperator, MarkerTree, MarkerTreeContents,
-    MarkerTreeKind, MarkerValue, MarkerValueExtra, MarkerValueList, MarkerValueString,
-    MarkerValueVersion, MarkerWarningKind, StringMarkerTree, StringVersion, VersionMarkerTree,
+    MarkerExpression, MarkerOperator, MarkerTree, MarkerTreeContents, MarkerTreeKind,
+    MarkerValueExtra, MarkerValueList, MarkerValueString, MarkerValueVersion, StringMarkerTree,
+    StringVersion, VersionMarkerTree,
 };
+pub(crate) use crate::marker::{MarkerEnvironmentBuilder, MarkerValue, MarkerWarningKind};
 pub use crate::origin::RequirementOrigin;
 #[cfg(feature = "non-pep508-extensions")]
 pub use crate::unnamed::{UnnamedRequirement, UnnamedRequirementUrl};

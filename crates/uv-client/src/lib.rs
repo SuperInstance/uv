@@ -7,11 +7,13 @@ pub use base_client::{
 pub use cached_client::{CacheControl, CachedClient, CachedClientError, DataWithCachePolicy};
 pub use error::{Error, ErrorKind, ProblemDetails, WrappedReqwestError};
 pub use flat_index::{FlatIndexClient, FlatIndexEntries, FlatIndexEntry, FlatIndexError};
+pub(crate) use registry_client::SimpleIndexMetadata;
 pub use registry_client::{
     Connectivity, MetadataFormat, RegistryClient, RegistryClientBuilder, SimpleDetailMetadata,
-    SimpleDetailMetadatum, SimpleIndexMetadata, VersionFiles,
+    SimpleDetailMetadatum, VersionFiles,
 };
-pub use retry::{RetriableError, RetryState, UvRetryableStrategy, retryable_on_request_failure};
+pub(crate) use retry::UvRetryableStrategy;
+pub use retry::{RetriableError, RetryState, retryable_on_request_failure};
 pub use rkyvutil::OwnedArchive;
 
 mod base_client;

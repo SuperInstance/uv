@@ -9,7 +9,7 @@ pub use crate::discovery::{
     PythonPreference, PythonRequest, PythonSource, PythonVariant, VersionRequest,
     find_python_installations,
 };
-pub use crate::downloads::PlatformRequest;
+pub(crate) use crate::downloads::PlatformRequest;
 pub use crate::environment::{InvalidEnvironmentKind, PythonEnvironment};
 pub use crate::implementation::{ImplementationName, LenientImplementationName};
 pub use crate::installation::{
@@ -22,9 +22,10 @@ pub use crate::pointer_size::PointerSize;
 pub use crate::prefix::Prefix;
 pub use crate::python_version::{BuildVersionError, PythonVersion};
 pub use crate::target::Target;
+pub(crate) use crate::version_files::PYTHON_VERSIONS_FILENAME;
 pub use crate::version_files::{
     DiscoveryOptions as VersionFileDiscoveryOptions, FilePreference as VersionFilePreference,
-    PYTHON_VERSION_FILENAME, PYTHON_VERSIONS_FILENAME, PythonVersionFile,
+    PYTHON_VERSION_FILENAME, PythonVersionFile,
 };
 pub use crate::virtualenv::{Error as VirtualEnvError, PyVenvConfiguration, VirtualEnvironment};
 
