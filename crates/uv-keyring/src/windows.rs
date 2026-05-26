@@ -345,7 +345,7 @@ impl WinCredential {
     /// If there isn't already one there, it will be created only
     /// when [`set_password`](WinCredential::set_password) is
     /// called.
-    pub fn new_with_target(target: Option<&str>, service: &str, user: &str) -> Result<Self> {
+    pub(crate) fn new_with_target(target: Option<&str>, service: &str, user: &str) -> Result<Self> {
         const VERSION: &str = env!("CARGO_PKG_VERSION");
         let credential = if let Some(target) = target {
             Self {
@@ -385,7 +385,7 @@ pub struct WinCredentialBuilder;
 ///
 /// On Windows, with the default feature set,
 /// this is called once when an entry is first created.
-pub fn default_credential_builder() -> Box<CredentialBuilder> {
+pub(crate) fn default_credential_builder() -> Box<CredentialBuilder> {
     Box::new(WinCredentialBuilder {})
 }
 

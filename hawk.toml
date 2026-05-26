@@ -132,14 +132,16 @@ lint = "hawk::dead_public"
 crate = "uv_trampoline_builder"
 item = "Launcher::write_to_file"
 level = "expect"
-reason = "used by the Windows uv command outside the selected host graph"
+target = "cfg(not(windows))"
+reason = "used by the Windows uv command when analyzing a non-Windows target"
 
 [[override]]
 lint = "hawk::dead_public"
 crate = "uv_trampoline_builder"
 item = "Launcher::with_python_path"
 level = "expect"
-reason = "used by the Windows uv command outside the selected host graph"
+target = "cfg(not(windows))"
+reason = "used by the Windows uv command when analyzing a non-Windows target"
 
 [[override]]
 lint = "hawk::dead_public"
@@ -186,9 +188,18 @@ reason = "used by uv and uv-build-backend integration tests"
 [[override]]
 lint = "hawk::dead_public"
 crate = "uv_fs"
+item = "copy_atomic_sync"
+level = "expect"
+target = "cfg(not(unix))"
+reason = "used by uv-install-wheel only when analyzing a Unix target"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_fs"
 item = "with_retry_sync"
 level = "expect"
-reason = "used by uv-install-wheel on Windows outside the selected host graph"
+target = "cfg(unix)"
+reason = "used by uv-install-wheel only when analyzing a non-Unix target"
 
 [[override]]
 lint = "hawk::dead_public"
@@ -339,6 +350,22 @@ reason = "used by uv-python unit tests"
 
 [[override]]
 lint = "hawk::dead_public"
+crate = "uv_python"
+item = "interpreter::Interpreter::pointer_size"
+level = "expect"
+target = "cfg(not(unix))"
+reason = "used by uv-virtualenv only when analyzing a Unix target"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_python"
+item = "pointer_size::PointerSize::is_64"
+level = "expect"
+target = "cfg(not(unix))"
+reason = "used by uv-virtualenv only when analyzing a Unix target"
+
+[[override]]
+lint = "hawk::dead_public"
 crate = "uv_distribution_types"
 item = "index_url::IndexLocations::simple_api_cache_control_for"
 level = "expect"
@@ -405,6 +432,15 @@ lint = "hawk::dead_public"
 crate = "uv_keyring"
 item = "macos::MacCredential::get_credential"
 level = "expect"
+target = "cfg(target_os = \"macos\")"
+reason = "used by uv-keyring platform unit tests"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_keyring"
+item = "windows::WinCredential::get_credential"
+level = "expect"
+target = "cfg(windows)"
 reason = "used by uv-keyring platform unit tests"
 
 [[override]]
@@ -420,6 +456,46 @@ crate = "uv_keyring"
 item = "mock::default_credential_builder"
 level = "expect"
 reason = "public mock credential API documented for tests"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_windows"
+item = "ctrl_handler::CtrlHandlerError::code"
+level = "expect"
+target = "cfg(windows)"
+reason = "used by the uv-trampoline binary outside the selected uv graph"
+
+[[override]]
+lint = "hawk::unnecessary_public"
+crate = "uv_windows"
+item = "job::JobError::code"
+level = "expect"
+target = "cfg(windows)"
+reason = "used by the uv-trampoline binary outside the selected uv graph"
+
+[[override]]
+lint = "hawk::unnecessary_public"
+crate = "uv_windows"
+item = "job::JobError::message"
+level = "expect"
+target = "cfg(windows)"
+reason = "used by the uv-trampoline binary outside the selected uv graph"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_windows"
+item = "job::Job::new"
+level = "expect"
+target = "cfg(windows)"
+reason = "used by the uv-trampoline binary outside the selected uv graph"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_windows"
+item = "job::Job::assign_process"
+level = "expect"
+target = "cfg(windows)"
+reason = "used by the uv-trampoline binary outside the selected uv graph"
 
 [[override]]
 lint = "hawk::dead_public"
@@ -1392,6 +1468,7 @@ lint = "hawk::dead_public"
 crate = "uv_test"
 item = "READ_ONLY_GITHUB_TOKEN_2"
 level = "expect"
+target = "cfg(not(windows))"
 reason = "public API of the integration test support crate"
 
 [[override]]
@@ -1420,6 +1497,7 @@ lint = "hawk::dead_public"
 crate = "uv_test"
 item = "ReadOnlyDirectoryGuard::new"
 level = "expect"
+target = "cfg(unix)"
 reason = "public API of the integration test support crate"
 
 [[override]]
