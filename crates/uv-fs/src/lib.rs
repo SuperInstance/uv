@@ -447,6 +447,56 @@ pub async fn rename_with_retry(
 }
 
 // TODO(zanieb): Look into reusing this code?
+/// Wrap an arbitrary operation on two files, e.g., copying, with retries on transient operating
+/// system errors.
+#[cfg_attr(not(windows), allow(unused_variables))]
+pub fn with_retry_sync(
+    from: impl AsRef<Path>,
+    to: impl AsRef<Path>,
+    operation_name: &str,
+    operation: impl Fn() -> Result<(), std::io::Error>,
+) -> Result<(), std::io::Error> {
+    #[cfg(windows)]
+    {
+        use backon::BlockingRetryable;
+        // On Windows, antivirus software can lock files temporarily, making them inaccessible.
+        // This is most common for DLLs, and the common suggestion is to retry the operation with
+        // some backoff.
+        //
+        // See: <https://github.com/astral-sh/uv/issues/1491> & <https://github.com/astral-sh/uv/issues/9531>
+        let from = from.as_ref();
+        let to = to.as_ref();
+
+        operation
+            .retry(backoff_file_move())
+            .sleep(std::thread::sleep)
+            .when(|err| err.kind() == std::io::ErrorKind::PermissionDenied)
+            .notify(|err, _dur| {
+                warn!(
+                    "Retrying {} from {} to {} due to transient error: {}",
+                    operation_name,
+                    from.display(),
+                    to.display(),
+                    err
+                );
+            })
+            .call()
+            .map_err(|err| {
+                std::io::Error::other(format!(
+                    "Failed {} {} to {}: {}",
+                    operation_name,
+                    from.display(),
+                    to.display(),
+                    err
+                ))
+            })
+    }
+    #[cfg(not(windows))]
+    {
+        operation()
+    }
+}
+
 /// Why a file persist failed
 #[cfg(windows)]
 enum PersistRetryError {
