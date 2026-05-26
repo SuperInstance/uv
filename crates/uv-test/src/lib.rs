@@ -141,21 +141,21 @@ pub const INSTA_FILTERS: &[(&str, &str)] = &[
 /// * Set a shared test timestamp so snapshots don't change after a new release.
 /// * Set the venv to a fresh `.venv` in `temp_dir`
 pub struct TestContext {
-    pub root: ChildPath,
-    pub temp_dir: ChildPath,
-    pub cache_dir: ChildPath,
-    pub python_dir: ChildPath,
-    pub home_dir: ChildPath,
-    pub user_config_dir: ChildPath,
-    pub bin_dir: ChildPath,
-    pub venv: ChildPath,
-    pub workspace_root: PathBuf,
+    pub(crate) root: ChildPath,
+    pub(crate) temp_dir: ChildPath,
+    pub(crate) cache_dir: ChildPath,
+    pub(crate) python_dir: ChildPath,
+    pub(crate) home_dir: ChildPath,
+    pub(crate) user_config_dir: ChildPath,
+    pub(crate) bin_dir: ChildPath,
+    pub(crate) venv: ChildPath,
+    pub(crate) workspace_root: PathBuf,
 
     /// The Python version used for the virtual environment, if any.
-    pub python_version: Option<PythonVersion>,
+    pub(crate) python_version: Option<PythonVersion>,
 
     /// All the Python versions available during this test context.
-    pub python_versions: Vec<(PythonVersion, PathBuf)>,
+    pub(crate) python_versions: Vec<(PythonVersion, PathBuf)>,
 
     /// Path to the uv binary.
     uv_bin: PathBuf,

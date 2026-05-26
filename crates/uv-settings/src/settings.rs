@@ -136,7 +136,7 @@ pub struct Options {
             cache-keys = [{ file = "pyproject.toml" }, { file = "requirements.txt" }, { git = { commit = true } }]
         "#
     )]
-    pub cache_keys: Option<Vec<CacheKey>>,
+    pub(crate) cache_keys: Option<Vec<CacheKey>>,
 
     // NOTE(charlie): These fields are shared with `ToolUv` in
     // `crates/uv-workspace/src/pyproject.rs`. The documentation lives on that struct.
@@ -163,31 +163,31 @@ pub struct Options {
     // `crates/uv-workspace/src/pyproject.rs`. The documentation lives on that struct.
     // They're only respected in `pyproject.toml` files, and should be rejected in `uv.toml` files.
     #[cfg_attr(feature = "schemars", schemars(skip))]
-    pub conflicts: Option<serde::de::IgnoredAny>,
+    pub(crate) conflicts: Option<serde::de::IgnoredAny>,
 
     #[cfg_attr(feature = "schemars", schemars(skip))]
-    pub workspace: Option<serde::de::IgnoredAny>,
+    pub(crate) workspace: Option<serde::de::IgnoredAny>,
 
     #[cfg_attr(feature = "schemars", schemars(skip))]
-    pub sources: Option<serde::de::IgnoredAny>,
+    pub(crate) sources: Option<serde::de::IgnoredAny>,
 
     #[cfg_attr(feature = "schemars", schemars(skip))]
-    pub dev_dependencies: Option<serde::de::IgnoredAny>,
+    pub(crate) dev_dependencies: Option<serde::de::IgnoredAny>,
 
     #[cfg_attr(feature = "schemars", schemars(skip))]
-    pub default_groups: Option<serde::de::IgnoredAny>,
+    pub(crate) default_groups: Option<serde::de::IgnoredAny>,
 
     #[cfg_attr(feature = "schemars", schemars(skip))]
-    pub dependency_groups: Option<serde::de::IgnoredAny>,
+    pub(crate) dependency_groups: Option<serde::de::IgnoredAny>,
 
     #[cfg_attr(feature = "schemars", schemars(skip))]
-    pub managed: Option<serde::de::IgnoredAny>,
+    pub(crate) managed: Option<serde::de::IgnoredAny>,
 
     #[cfg_attr(feature = "schemars", schemars(skip))]
-    pub r#package: Option<serde::de::IgnoredAny>,
+    pub(crate) r#package: Option<serde::de::IgnoredAny>,
 
     #[cfg_attr(feature = "schemars", schemars(skip))]
-    pub build_backend: Option<serde::de::IgnoredAny>,
+    pub(crate) build_backend: Option<serde::de::IgnoredAny>,
 }
 
 impl Options {
@@ -438,25 +438,25 @@ pub struct GlobalOptions {
 /// Settings relevant to all installer operations.
 #[derive(Debug, Clone, Default, CombineOptions)]
 pub struct InstallerOptions {
-    pub index: Option<Vec<Index>>,
-    pub index_url: Option<PipIndex>,
-    pub extra_index_url: Option<Vec<PipExtraIndex>>,
-    pub no_index: Option<bool>,
-    pub find_links: Option<Vec<PipFindLinks>>,
-    pub index_strategy: Option<IndexStrategy>,
-    pub keyring_provider: Option<KeyringProviderType>,
-    pub config_settings: Option<ConfigSettings>,
-    pub exclude_newer: Option<ExcludeNewerValue>,
-    pub link_mode: Option<LinkMode>,
-    pub compile_bytecode: Option<bool>,
-    pub reinstall: Option<Reinstall>,
-    pub build_isolation: Option<BuildIsolation>,
-    pub no_build: Option<bool>,
-    pub no_build_package: Option<Vec<PackageName>>,
-    pub no_binary: Option<bool>,
-    pub no_binary_package: Option<Vec<PackageName>>,
-    pub no_sources: Option<bool>,
-    pub no_sources_package: Option<Vec<PackageName>>,
+    pub(crate) index: Option<Vec<Index>>,
+    pub(crate) index_url: Option<PipIndex>,
+    pub(crate) extra_index_url: Option<Vec<PipExtraIndex>>,
+    pub(crate) no_index: Option<bool>,
+    pub(crate) find_links: Option<Vec<PipFindLinks>>,
+    pub(crate) index_strategy: Option<IndexStrategy>,
+    pub(crate) keyring_provider: Option<KeyringProviderType>,
+    pub(crate) config_settings: Option<ConfigSettings>,
+    pub(crate) exclude_newer: Option<ExcludeNewerValue>,
+    pub(crate) link_mode: Option<LinkMode>,
+    pub(crate) compile_bytecode: Option<bool>,
+    pub(crate) reinstall: Option<Reinstall>,
+    pub(crate) build_isolation: Option<BuildIsolation>,
+    pub(crate) no_build: Option<bool>,
+    pub(crate) no_build_package: Option<Vec<PackageName>>,
+    pub(crate) no_binary: Option<bool>,
+    pub(crate) no_binary_package: Option<Vec<PackageName>>,
+    pub(crate) no_sources: Option<bool>,
+    pub(crate) no_sources_package: Option<Vec<PackageName>>,
 }
 
 /// Settings relevant to all resolver operations.
@@ -2140,68 +2140,68 @@ impl From<ResolverInstallerSchema> for InstallerOptions {
 #[serde(deny_unknown_fields, rename_all = "kebab-case")]
 #[cfg_attr(feature = "schemars", derive(schemars::JsonSchema))]
 pub struct ToolOptions {
-    pub index: Option<Vec<Index>>,
-    pub index_url: Option<PipIndex>,
-    pub extra_index_url: Option<Vec<PipExtraIndex>>,
-    pub no_index: Option<bool>,
-    pub find_links: Option<Vec<PipFindLinks>>,
-    pub index_strategy: Option<IndexStrategy>,
-    pub keyring_provider: Option<KeyringProviderType>,
-    pub resolution: Option<ResolutionMode>,
-    pub prerelease: Option<PrereleaseMode>,
-    pub fork_strategy: Option<ForkStrategy>,
-    pub dependency_metadata: Option<Vec<StaticMetadata>>,
-    pub config_settings: Option<ConfigSettings>,
-    pub config_settings_package: Option<PackageConfigSettings>,
-    pub build_isolation: Option<BuildIsolation>,
-    pub extra_build_dependencies: Option<ExtraBuildDependencies>,
-    pub extra_build_variables: Option<ExtraBuildVariables>,
-    pub exclude_newer: Option<ExcludeNewerValue>,
-    pub exclude_newer_package: Option<ExcludeNewerPackage>,
-    pub link_mode: Option<LinkMode>,
-    pub compile_bytecode: Option<bool>,
-    pub no_sources: Option<bool>,
-    pub no_sources_package: Option<Vec<PackageName>>,
-    pub no_build: Option<bool>,
-    pub no_build_package: Option<Vec<PackageName>>,
-    pub no_binary: Option<bool>,
-    pub no_binary_package: Option<Vec<PackageName>>,
-    pub torch_backend: Option<TorchMode>,
+    pub(crate) index: Option<Vec<Index>>,
+    pub(crate) index_url: Option<PipIndex>,
+    pub(crate) extra_index_url: Option<Vec<PipExtraIndex>>,
+    pub(crate) no_index: Option<bool>,
+    pub(crate) find_links: Option<Vec<PipFindLinks>>,
+    pub(crate) index_strategy: Option<IndexStrategy>,
+    pub(crate) keyring_provider: Option<KeyringProviderType>,
+    pub(crate) resolution: Option<ResolutionMode>,
+    pub(crate) prerelease: Option<PrereleaseMode>,
+    pub(crate) fork_strategy: Option<ForkStrategy>,
+    pub(crate) dependency_metadata: Option<Vec<StaticMetadata>>,
+    pub(crate) config_settings: Option<ConfigSettings>,
+    pub(crate) config_settings_package: Option<PackageConfigSettings>,
+    pub(crate) build_isolation: Option<BuildIsolation>,
+    pub(crate) extra_build_dependencies: Option<ExtraBuildDependencies>,
+    pub(crate) extra_build_variables: Option<ExtraBuildVariables>,
+    pub(crate) exclude_newer: Option<ExcludeNewerValue>,
+    pub(crate) exclude_newer_package: Option<ExcludeNewerPackage>,
+    pub(crate) link_mode: Option<LinkMode>,
+    pub(crate) compile_bytecode: Option<bool>,
+    pub(crate) no_sources: Option<bool>,
+    pub(crate) no_sources_package: Option<Vec<PackageName>>,
+    pub(crate) no_build: Option<bool>,
+    pub(crate) no_build_package: Option<Vec<PackageName>>,
+    pub(crate) no_binary: Option<bool>,
+    pub(crate) no_binary_package: Option<Vec<PackageName>>,
+    pub(crate) torch_backend: Option<TorchMode>,
 }
 
 /// The on-disk representation of [`ToolOptions`] in a tool receipt.
 #[derive(Debug, Clone, Default, Serialize, Deserialize)]
 #[serde(deny_unknown_fields, rename_all = "kebab-case")]
 pub struct ToolOptionsWire {
-    pub index: Option<Vec<Index>>,
-    pub index_url: Option<PipIndex>,
-    pub extra_index_url: Option<Vec<PipExtraIndex>>,
-    pub no_index: Option<bool>,
-    pub find_links: Option<Vec<PipFindLinks>>,
-    pub index_strategy: Option<IndexStrategy>,
-    pub keyring_provider: Option<KeyringProviderType>,
-    pub resolution: Option<ResolutionMode>,
-    pub prerelease: Option<PrereleaseMode>,
-    pub fork_strategy: Option<ForkStrategy>,
-    pub dependency_metadata: Option<Vec<StaticMetadata>>,
-    pub config_settings: Option<ConfigSettings>,
-    pub config_settings_package: Option<PackageConfigSettings>,
-    pub build_isolation: Option<BuildIsolation>,
-    pub extra_build_dependencies: Option<ExtraBuildDependencies>,
-    pub extra_build_variables: Option<ExtraBuildVariables>,
-    pub exclude_newer: Option<ExcludeNewerValue>,
-    pub exclude_newer_span: Option<ExcludeNewerSpan>,
+    pub(crate) index: Option<Vec<Index>>,
+    pub(crate) index_url: Option<PipIndex>,
+    pub(crate) extra_index_url: Option<Vec<PipExtraIndex>>,
+    pub(crate) no_index: Option<bool>,
+    pub(crate) find_links: Option<Vec<PipFindLinks>>,
+    pub(crate) index_strategy: Option<IndexStrategy>,
+    pub(crate) keyring_provider: Option<KeyringProviderType>,
+    pub(crate) resolution: Option<ResolutionMode>,
+    pub(crate) prerelease: Option<PrereleaseMode>,
+    pub(crate) fork_strategy: Option<ForkStrategy>,
+    pub(crate) dependency_metadata: Option<Vec<StaticMetadata>>,
+    pub(crate) config_settings: Option<ConfigSettings>,
+    pub(crate) config_settings_package: Option<PackageConfigSettings>,
+    pub(crate) build_isolation: Option<BuildIsolation>,
+    pub(crate) extra_build_dependencies: Option<ExtraBuildDependencies>,
+    pub(crate) extra_build_variables: Option<ExtraBuildVariables>,
+    pub(crate) exclude_newer: Option<ExcludeNewerValue>,
+    pub(crate) exclude_newer_span: Option<ExcludeNewerSpan>,
     #[serde(serialize_with = "serialize_exclude_newer_package_with_spans")]
-    pub exclude_newer_package: Option<ExcludeNewerPackage>,
-    pub link_mode: Option<LinkMode>,
-    pub compile_bytecode: Option<bool>,
-    pub no_sources: Option<bool>,
-    pub no_sources_package: Option<Vec<PackageName>>,
-    pub no_build: Option<bool>,
-    pub no_build_package: Option<Vec<PackageName>>,
-    pub no_binary: Option<bool>,
-    pub no_binary_package: Option<Vec<PackageName>>,
-    pub torch_backend: Option<TorchMode>,
+    pub(crate) exclude_newer_package: Option<ExcludeNewerPackage>,
+    pub(crate) link_mode: Option<LinkMode>,
+    pub(crate) compile_bytecode: Option<bool>,
+    pub(crate) no_sources: Option<bool>,
+    pub(crate) no_sources_package: Option<Vec<PackageName>>,
+    pub(crate) no_build: Option<bool>,
+    pub(crate) no_build_package: Option<Vec<PackageName>>,
+    pub(crate) no_binary: Option<bool>,
+    pub(crate) no_binary_package: Option<Vec<PackageName>>,
+    pub(crate) torch_backend: Option<TorchMode>,
 }
 
 impl From<ResolverInstallerOptions> for ToolOptions {

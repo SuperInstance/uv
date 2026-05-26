@@ -21,7 +21,7 @@ pub struct BuildBackendSettings {
         value_type = "str",
         example = r#"module-root = """#
     )]
-    pub module_root: PathBuf,
+    pub(crate) module_root: PathBuf,
 
     /// The name of the module directory inside `module-root`.
     ///
@@ -46,7 +46,7 @@ pub struct BuildBackendSettings {
         value_type = "str | list[str]",
         example = r#"module-name = "sklearn""#
     )]
-    pub module_name: Option<ModuleName>,
+    pub(crate) module_name: Option<ModuleName>,
 
     /// Glob expressions which files and directories to additionally include in the source
     /// distribution.
@@ -57,7 +57,7 @@ pub struct BuildBackendSettings {
         value_type = "list[str]",
         example = r#"source-include = ["tests/**"]"#
     )]
-    pub source_include: Vec<String>,
+    pub(crate) source_include: Vec<String>,
 
     /// If set to `false`, the default excludes aren't applied.
     ///
@@ -67,7 +67,7 @@ pub struct BuildBackendSettings {
         value_type = "bool",
         example = r#"default-excludes = false"#
     )]
-    pub default_excludes: bool,
+    pub(crate) default_excludes: bool,
 
     /// Glob expressions which files and directories to exclude from the source distribution.
     ///
@@ -78,7 +78,7 @@ pub struct BuildBackendSettings {
         value_type = "list[str]",
         example = r#"source-exclude = ["*.bin"]"#
     )]
-    pub source_exclude: Vec<String>,
+    pub(crate) source_exclude: Vec<String>,
 
     /// Glob expressions which files and directories to exclude from the wheel.
     #[option(
@@ -86,7 +86,7 @@ pub struct BuildBackendSettings {
         value_type = "list[str]",
         example = r#"wheel-exclude = ["*.bin"]"#
     )]
-    pub wheel_exclude: Vec<String>,
+    pub(crate) wheel_exclude: Vec<String>,
 
     /// Build a namespace package.
     ///
@@ -136,7 +136,7 @@ pub struct BuildBackendSettings {
         value_type = "bool",
         example = r#"namespace = true"#
     )]
-    pub namespace: bool,
+    pub(crate) namespace: bool,
 
     /// Data includes for wheels.
     ///
@@ -170,7 +170,7 @@ pub struct BuildBackendSettings {
         value_type = "dict[str, str]",
         example = r#"data = { headers = "include/headers", scripts = "bin" }"#
     )]
-    pub data: WheelDataIncludes,
+    pub(crate) data: WheelDataIncludes,
 }
 
 impl Default for BuildBackendSettings {

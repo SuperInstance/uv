@@ -37,7 +37,7 @@ use crate::error::{Error, Result, decode_password};
 /// The mutex is used to make sure these are Sync.
 #[derive(Debug)]
 pub struct MockCredential {
-    pub inner: Mutex<RefCell<MockData>>,
+    pub(crate) inner: Mutex<RefCell<MockData>>,
 }
 
 impl Default for MockCredential {
@@ -57,8 +57,8 @@ impl Default for MockCredential {
 /// Most keystore implementation hide their internals.)
 #[derive(Debug, Default)]
 pub struct MockData {
-    pub secret: Option<Vec<u8>>,
-    pub error: Option<Error>,
+    pub(crate) secret: Option<Vec<u8>>,
+    pub(crate) error: Option<Error>,
 }
 
 #[async_trait::async_trait]

@@ -490,7 +490,7 @@ impl EnvVars {
     /// [`UV_INSTALLER_GHE_BASE_URL`](Self::UV_INSTALLER_GHE_BASE_URL) override this
     /// variable for `uv self update`.
     #[attr_added_in("0.11.14")]
-    pub const UV_ASTRAL_MIRROR_URL: &'static str = "UV_ASTRAL_MIRROR_URL";
+    pub(crate) const UV_ASTRAL_MIRROR_URL: &'static str = "UV_ASTRAL_MIRROR_URL";
 
     /// Pin managed CPython versions to a specific build version.
     ///
@@ -548,7 +548,7 @@ impl EnvVars {
     /// Use to update the json schema files.
     #[attr_hidden]
     #[attr_added_in("0.1.34")]
-    pub const UV_UPDATE_SCHEMA: &'static str = "UV_UPDATE_SCHEMA";
+    pub(crate) const UV_UPDATE_SCHEMA: &'static str = "UV_UPDATE_SCHEMA";
 
     /// Use to disable line wrapping for diagnostics.
     #[attr_added_in("0.0.5")]
@@ -625,7 +625,7 @@ impl EnvVars {
     /// Used to set a temporary directory for some tests.
     #[attr_hidden]
     #[attr_added_in("0.3.4")]
-    pub const UV_INTERNAL__TEST_DIR: &'static str = "UV_INTERNAL__TEST_DIR";
+    pub(crate) const UV_INTERNAL__TEST_DIR: &'static str = "UV_INTERNAL__TEST_DIR";
 
     /// Path to a directory on a filesystem that supports copy-on-write, e.g., btrfs or APFS.
     ///
@@ -656,7 +656,7 @@ impl EnvVars {
     /// When populated, uv will run additional tests that cover SMB-specific filesystem behavior.
     #[attr_hidden]
     #[attr_added_in("0.11.16")]
-    pub const UV_INTERNAL__TEST_SMB_FS: &'static str = "UV_INTERNAL__TEST_SMB_FS";
+    pub(crate) const UV_INTERNAL__TEST_SMB_FS: &'static str = "UV_INTERNAL__TEST_SMB_FS";
 
     /// Path to a directory on a filesystem with a low hardlink limit (e.g., minix with ~250).
     ///
@@ -697,7 +697,7 @@ impl EnvVars {
 
     /// Path to cache directory on Unix systems.
     #[attr_added_in("0.1.17")]
-    pub const XDG_CACHE_HOME: &'static str = "XDG_CACHE_HOME";
+    pub(crate) const XDG_CACHE_HOME: &'static str = "XDG_CACHE_HOME";
 
     /// Path to directory for storing managed Python installations and tools.
     #[attr_added_in("0.2.16")]
@@ -786,7 +786,7 @@ impl EnvVars {
     ///
     /// See [`PycInvalidationMode`](https://docs.python.org/3/library/py_compile.html#py_compile.PycInvalidationMode).
     #[attr_added_in("0.1.7")]
-    pub const PYC_INVALIDATION_MODE: &'static str = "PYC_INVALIDATION_MODE";
+    pub(crate) const PYC_INVALIDATION_MODE: &'static str = "PYC_INVALIDATION_MODE";
 
     /// Used to detect an activated virtual environment.
     #[attr_added_in("0.0.5")]
@@ -811,7 +811,7 @@ impl EnvVars {
     /// If set to `1` before a virtual environment is activated, then the
     /// virtual environment name will not be prepended to the terminal prompt.
     #[attr_added_in("0.0.5")]
-    pub const VIRTUAL_ENV_DISABLE_PROMPT: &'static str = "VIRTUAL_ENV_DISABLE_PROMPT";
+    pub(crate) const VIRTUAL_ENV_DISABLE_PROMPT: &'static str = "VIRTUAL_ENV_DISABLE_PROMPT";
 
     /// Used to detect the use of the Windows Command Prompt (as opposed to PowerShell).
     #[attr_added_in("0.1.16")]
@@ -896,11 +896,11 @@ impl EnvVars {
 
     /// The standard `PWD` posix env var.
     #[attr_added_in("0.0.5")]
-    pub const PWD: &'static str = "PWD";
+    pub(crate) const PWD: &'static str = "PWD";
 
     /// Used to look for Microsoft Store Pythons installations.
     #[attr_added_in("0.3.3")]
-    pub const LOCALAPPDATA: &'static str = "LOCALAPPDATA";
+    pub(crate) const LOCALAPPDATA: &'static str = "LOCALAPPDATA";
 
     /// Path to the `.git` directory. Ignored by `uv` when performing fetch.
     #[attr_hidden]
@@ -942,7 +942,7 @@ impl EnvVars {
     /// Sets the SSH command used when Git tries to establish a connection using SSH.
     #[attr_hidden]
     #[attr_added_in("0.7.11")]
-    pub const GIT_SSH_COMMAND: &'static str = "GIT_SSH_COMMAND";
+    pub(crate) const GIT_SSH_COMMAND: &'static str = "GIT_SSH_COMMAND";
 
     /// Disable interactive git prompts in terminals, e.g., for credentials. Does not disable
     /// GUI prompts.
@@ -990,17 +990,17 @@ impl EnvVars {
     /// `uv publish` may attempt trusted publishing flows when set
     /// to `true`.
     #[attr_added_in("0.8.18")]
-    pub const GITLAB_CI: &'static str = "GITLAB_CI";
+    pub(crate) const GITLAB_CI: &'static str = "GITLAB_CI";
 
     /// Used for testing GitLab CI trusted publishing.
     #[attr_hidden]
     #[attr_added_in("0.8.18")]
-    pub const PYPI_ID_TOKEN: &'static str = "PYPI_ID_TOKEN";
+    pub(crate) const PYPI_ID_TOKEN: &'static str = "PYPI_ID_TOKEN";
 
     /// Used for testing GitLab CI trusted publishing.
     #[attr_hidden]
     #[attr_added_in("0.8.18")]
-    pub const TESTPYPI_ID_TOKEN: &'static str = "TESTPYPI_ID_TOKEN";
+    pub(crate) const TESTPYPI_ID_TOKEN: &'static str = "TESTPYPI_ID_TOKEN";
 
     /// Sets the encoding for standard I/O streams (e.g., PYTHONIOENCODING=utf-8).
     #[attr_hidden]
@@ -1019,17 +1019,17 @@ impl EnvVars {
 
     /// Adds directories to Python module search path (e.g., `PYTHONPATH=/path/to/modules`).
     #[attr_added_in("0.1.22")]
-    pub const PYTHONPATH: &'static str = "PYTHONPATH";
+    pub(crate) const PYTHONPATH: &'static str = "PYTHONPATH";
 
     /// Used to set the location of Python stdlib when using trampolines.
     #[attr_hidden]
     #[attr_added_in("0.7.13")]
-    pub const PYTHONHOME: &'static str = "PYTHONHOME";
+    pub(crate) const PYTHONHOME: &'static str = "PYTHONHOME";
 
     /// Used to correctly detect virtual environments when using trampolines.
     #[attr_hidden]
     #[attr_added_in("0.7.13")]
-    pub const PYVENV_LAUNCHER: &'static str = "__PYVENV_LAUNCHER__";
+    pub(crate) const PYVENV_LAUNCHER: &'static str = "__PYVENV_LAUNCHER__";
 
     /// Used in tests to enforce a consistent locale setting.
     #[attr_hidden]
@@ -1058,7 +1058,7 @@ impl EnvVars {
 
     /// Use to set the .netrc file location.
     #[attr_added_in("0.1.16")]
-    pub const NETRC: &'static str = "NETRC";
+    pub(crate) const NETRC: &'static str = "NETRC";
 
     /// The standard `PAGER` posix env var. Used by `uv` to configure the appropriate pager.
     #[attr_added_in("0.4.18")]
@@ -1149,7 +1149,7 @@ impl EnvVars {
     /// Specifies the directory where Cargo stores build artifacts (target directory).
     #[attr_hidden]
     #[attr_added_in("0.0.5")]
-    pub const CARGO_TARGET_DIR: &'static str = "CARGO_TARGET_DIR";
+    pub(crate) const CARGO_TARGET_DIR: &'static str = "CARGO_TARGET_DIR";
 
     /// Set by cargo when compiling for Windows-like platforms.
     #[attr_hidden]
@@ -1164,39 +1164,39 @@ impl EnvVars {
     /// Used in tests for environment substitution testing in `requirements.in`.
     #[attr_hidden]
     #[attr_added_in("0.1.18")]
-    pub const URL: &'static str = "URL";
+    pub(crate) const URL: &'static str = "URL";
 
     /// Used in tests for environment substitution testing in `requirements.in`.
     #[attr_hidden]
     #[attr_added_in("0.1.18")]
-    pub const FILE_PATH: &'static str = "FILE_PATH";
+    pub(crate) const FILE_PATH: &'static str = "FILE_PATH";
 
     /// Used in tests for environment substitution testing in `requirements.in`.
     #[attr_hidden]
     #[attr_added_in("0.1.25")]
-    pub const HATCH_PATH: &'static str = "HATCH_PATH";
+    pub(crate) const HATCH_PATH: &'static str = "HATCH_PATH";
 
     /// Used in tests for environment substitution testing in `requirements.in`.
     #[attr_hidden]
     #[attr_added_in("0.1.25")]
-    pub const BLACK_PATH: &'static str = "BLACK_PATH";
+    pub(crate) const BLACK_PATH: &'static str = "BLACK_PATH";
 
     /// Used in testing Hatch's root.uri feature
     ///
     /// See: <https://hatch.pypa.io/dev/config/dependency/#local>.
     #[attr_hidden]
     #[attr_added_in("0.1.22")]
-    pub const ROOT_PATH: &'static str = "ROOT_PATH";
+    pub(crate) const ROOT_PATH: &'static str = "ROOT_PATH";
 
     /// Used in testing extra build dependencies.
     #[attr_hidden]
     #[attr_added_in("0.8.5")]
-    pub const EXPECTED_ANYIO_VERSION: &'static str = "EXPECTED_ANYIO_VERSION";
+    pub(crate) const EXPECTED_ANYIO_VERSION: &'static str = "EXPECTED_ANYIO_VERSION";
 
     /// Used to set test credentials for keyring tests.
     #[attr_hidden]
     #[attr_added_in("0.1.34")]
-    pub const KEYRING_TEST_CREDENTIALS: &'static str = "KEYRING_TEST_CREDENTIALS";
+    pub(crate) const KEYRING_TEST_CREDENTIALS: &'static str = "KEYRING_TEST_CREDENTIALS";
 
     /// Used to disable delay for HTTP retries in tests.
     #[attr_added_in("0.7.21")]
@@ -1210,12 +1210,12 @@ impl EnvVars {
     /// Used for testing named indexes in tests.
     #[attr_hidden]
     #[attr_added_in("0.5.21")]
-    pub const UV_INDEX_MY_INDEX_USERNAME: &'static str = "UV_INDEX_MY_INDEX_USERNAME";
+    pub(crate) const UV_INDEX_MY_INDEX_USERNAME: &'static str = "UV_INDEX_MY_INDEX_USERNAME";
 
     /// Used for testing named indexes in tests.
     #[attr_hidden]
     #[attr_added_in("0.5.21")]
-    pub const UV_INDEX_MY_INDEX_PASSWORD: &'static str = "UV_INDEX_MY_INDEX_PASSWORD";
+    pub(crate) const UV_INDEX_MY_INDEX_PASSWORD: &'static str = "UV_INDEX_MY_INDEX_PASSWORD";
 
     /// Used to set the GitHub fast-path url for tests.
     #[attr_hidden]
@@ -1278,7 +1278,7 @@ impl EnvVars {
     /// Used ephemeral environments like CI to install uv to a specific path while preventing
     /// the installer from modifying shell profiles or environment variables.
     #[attr_added_in("0.5.0")]
-    pub const UV_UNMANAGED_INSTALL: &'static str = "UV_UNMANAGED_INSTALL";
+    pub(crate) const UV_UNMANAGED_INSTALL: &'static str = "UV_UNMANAGED_INSTALL";
 
     /// The URL from which to download uv using the standalone installer. By default, installs from
     /// uv's GitHub Releases. `INSTALLER_DOWNLOAD_URL` is also supported as an alias, for backwards
@@ -1290,7 +1290,7 @@ impl EnvVars {
     /// installer and `self update` feature. `INSTALLER_NO_MODIFY_PATH` is also supported as an
     /// alias, for backwards compatibility.
     #[attr_added_in("0.8.4")]
-    pub const UV_NO_MODIFY_PATH: &'static str = "UV_NO_MODIFY_PATH";
+    pub(crate) const UV_NO_MODIFY_PATH: &'static str = "UV_NO_MODIFY_PATH";
 
     /// Skip writing `uv` installer metadata files (e.g., `INSTALLER`, `REQUESTED`, and `direct_url.json`) to site-packages `.dist-info` directories.
     #[attr_added_in("0.5.7")]
@@ -1421,27 +1421,27 @@ impl EnvVars {
 
     /// The AWS access key ID to use when signing S3 requests.
     #[attr_added_in("0.8.21")]
-    pub const AWS_ACCESS_KEY_ID: &'static str = "AWS_ACCESS_KEY_ID";
+    pub(crate) const AWS_ACCESS_KEY_ID: &'static str = "AWS_ACCESS_KEY_ID";
 
     /// The AWS secret access key to use when signing S3 requests.
     #[attr_added_in("0.8.21")]
-    pub const AWS_SECRET_ACCESS_KEY: &'static str = "AWS_SECRET_ACCESS_KEY";
+    pub(crate) const AWS_SECRET_ACCESS_KEY: &'static str = "AWS_SECRET_ACCESS_KEY";
 
     /// The AWS session token to use when signing S3 requests.
     #[attr_added_in("0.8.21")]
-    pub const AWS_SESSION_TOKEN: &'static str = "AWS_SESSION_TOKEN";
+    pub(crate) const AWS_SESSION_TOKEN: &'static str = "AWS_SESSION_TOKEN";
 
     /// The AWS profile to use when signing S3 requests.
     #[attr_added_in("0.8.21")]
-    pub const AWS_PROFILE: &'static str = "AWS_PROFILE";
+    pub(crate) const AWS_PROFILE: &'static str = "AWS_PROFILE";
 
     /// The AWS config file to use when signing S3 requests.
     #[attr_added_in("0.8.21")]
-    pub const AWS_CONFIG_FILE: &'static str = "AWS_CONFIG_FILE";
+    pub(crate) const AWS_CONFIG_FILE: &'static str = "AWS_CONFIG_FILE";
 
     /// The AWS shared credentials file to use when signing S3 requests.
     #[attr_added_in("0.8.21")]
-    pub const AWS_SHARED_CREDENTIALS_FILE: &'static str = "AWS_SHARED_CREDENTIALS_FILE";
+    pub(crate) const AWS_SHARED_CREDENTIALS_FILE: &'static str = "AWS_SHARED_CREDENTIALS_FILE";
 
     /// Avoid verifying that wheel filenames match their contents when installing wheels. This
     /// is not recommended, as wheels with inconsistent filenames should be considered invalid and

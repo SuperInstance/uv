@@ -214,9 +214,9 @@ type FindPythonResult = Result<PythonInstallation, PythonNotFound>;
 /// See [`FindPythonResult`].
 #[derive(Clone, Debug, Error)]
 pub struct PythonNotFound {
-    pub request: PythonRequest,
-    pub python_preference: PythonPreference,
-    pub environment_preference: EnvironmentPreference,
+    pub(crate) request: PythonRequest,
+    pub(crate) python_preference: PythonPreference,
+    pub(crate) environment_preference: EnvironmentPreference,
 }
 
 /// A location for discovery of a Python installation or interpreter.

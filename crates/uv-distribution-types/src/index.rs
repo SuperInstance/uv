@@ -21,10 +21,10 @@ use crate::{IndexStatusCodeStrategy, IndexUrl, IndexUrlError, SerializableStatus
 pub struct IndexCacheControl {
     /// Cache control header for Simple API requests.
     #[cfg_attr(feature = "schemars", schemars(with = "Option<String>"))]
-    pub api: Option<HeaderValue>,
+    pub(crate) api: Option<HeaderValue>,
     /// Cache control header for file downloads.
     #[cfg_attr(feature = "schemars", schemars(with = "Option<String>"))]
-    pub files: Option<HeaderValue>,
+    pub(crate) files: Option<HeaderValue>,
 }
 
 impl IndexCacheControl {

@@ -22,7 +22,7 @@ pub struct Authenticator {
     pub login: String,
 
     /// Supply an additional account password.
-    pub account: String,
+    pub(crate) account: String,
 
     /// Supply a password
     pub password: String,
@@ -46,7 +46,7 @@ pub struct Netrc {
     pub hosts: HashMap<String, Authenticator>,
 
     /// Dictionary mapping macro names to string lists.
-    pub macros: HashMap<String, Vec<String>>,
+    pub(crate) macros: HashMap<String, Vec<String>>,
 }
 
 impl std::fmt::Display for Netrc {

@@ -189,12 +189,12 @@ impl ExtrasSpecificationInner {
 /// Context about a [`ExtrasSpecification`][] that we've preserved for diagnostics
 #[derive(Debug, Default, Clone)]
 pub struct ExtrasSpecificationHistory {
-    pub extra: Vec<ExtraName>,
-    pub only_extra: Vec<ExtraName>,
-    pub no_extra: Vec<ExtraName>,
-    pub all_extras: bool,
-    pub no_default_extras: bool,
-    pub defaults: DefaultExtras,
+    pub(crate) extra: Vec<ExtraName>,
+    pub(crate) only_extra: Vec<ExtraName>,
+    pub(crate) no_extra: Vec<ExtraName>,
+    pub(crate) all_extras: bool,
+    pub(crate) no_default_extras: bool,
+    pub(crate) defaults: DefaultExtras,
 }
 
 impl ExtrasSpecificationHistory {

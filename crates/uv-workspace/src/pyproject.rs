@@ -223,9 +223,9 @@ pub struct Project {
     /// The name of the project
     pub name: PackageName,
     /// The version of the project
-    pub version: Option<Version>,
+    pub(crate) version: Option<Version>,
     /// The Python versions this project is compatible with.
-    pub requires_python: Option<VersionSpecifiers>,
+    pub(crate) requires_python: Option<VersionSpecifiers>,
     /// The dependencies of the project.
     pub dependencies: Option<Vec<String>>,
     /// The optional dependencies of the project.
@@ -511,7 +511,7 @@ pub struct ToolUv {
             override-dependencies = ["werkzeug==2.3.0"]
         "#
     )]
-    pub override_dependencies: Option<Vec<uv_pep508::Requirement<VerbatimParsedUrl>>>,
+    pub(crate) override_dependencies: Option<Vec<uv_pep508::Requirement<VerbatimParsedUrl>>>,
 
     /// Dependencies to exclude when resolving the project's dependencies.
     ///
@@ -542,7 +542,7 @@ pub struct ToolUv {
             exclude-dependencies = ["werkzeug"]
         "#
     )]
-    pub exclude_dependencies: Option<Vec<PackageName>>,
+    pub(crate) exclude_dependencies: Option<Vec<PackageName>>,
 
     /// Constraints to apply when resolving the project's dependencies.
     ///
@@ -573,7 +573,7 @@ pub struct ToolUv {
             constraint-dependencies = ["grpcio<1.65"]
         "#
     )]
-    pub constraint_dependencies: Option<Vec<uv_pep508::Requirement<VerbatimParsedUrl>>>,
+    pub(crate) constraint_dependencies: Option<Vec<uv_pep508::Requirement<VerbatimParsedUrl>>>,
 
     /// Constraints to apply when solving build dependencies.
     ///
@@ -604,7 +604,8 @@ pub struct ToolUv {
             build-constraint-dependencies = ["setuptools==60.0.0"]
         "#
     )]
-    pub build_constraint_dependencies: Option<Vec<uv_pep508::Requirement<VerbatimParsedUrl>>>,
+    pub(crate) build_constraint_dependencies:
+        Option<Vec<uv_pep508::Requirement<VerbatimParsedUrl>>>,
 
     /// A list of supported environments against which to resolve dependencies.
     ///

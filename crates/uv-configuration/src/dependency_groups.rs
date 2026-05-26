@@ -232,13 +232,13 @@ impl DependencyGroupsInner {
 /// Context about a [`DependencyGroups`][] that we've preserved for diagnostics
 #[derive(Debug, Default, Clone)]
 pub struct DependencyGroupsHistory {
-    pub dev_mode: Option<DevMode>,
-    pub group: Vec<GroupName>,
-    pub only_group: Vec<GroupName>,
-    pub no_group: Vec<GroupName>,
-    pub all_groups: bool,
-    pub no_default_groups: bool,
-    pub defaults: DefaultGroups,
+    pub(crate) dev_mode: Option<DevMode>,
+    pub(crate) group: Vec<GroupName>,
+    pub(crate) only_group: Vec<GroupName>,
+    pub(crate) no_group: Vec<GroupName>,
+    pub(crate) all_groups: bool,
+    pub(crate) no_default_groups: bool,
+    pub(crate) defaults: DefaultGroups,
 }
 
 impl DependencyGroupsHistory {

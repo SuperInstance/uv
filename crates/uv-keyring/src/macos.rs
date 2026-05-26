@@ -43,9 +43,9 @@ use security_framework::os::macos::passwords::find_generic_password;
 /// module to get at those attributes.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct MacCredential {
-    pub domain: MacKeychainDomain,
-    pub service: String,
-    pub account: String,
+    pub(crate) domain: MacKeychainDomain,
+    pub(crate) service: String,
+    pub(crate) account: String,
 }
 
 #[async_trait::async_trait]

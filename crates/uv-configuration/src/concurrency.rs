@@ -15,7 +15,7 @@ pub struct Concurrency {
     /// The maximum number of concurrent builds.
     ///
     /// Note this value must be non-zero.
-    pub builds: usize,
+    pub(crate) builds: usize,
     /// The maximum number of concurrent installs.
     ///
     /// Note this value must be non-zero.

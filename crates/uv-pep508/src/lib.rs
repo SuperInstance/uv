@@ -63,11 +63,11 @@ pub struct Pep508Error<T: Pep508Url = VerbatimUrl> {
     /// Either we have an error string from our parser or an upstream error from `url`
     pub message: Pep508ErrorSource<T>,
     /// Span start index
-    pub start: usize,
+    pub(crate) start: usize,
     /// Span length
-    pub len: usize,
+    pub(crate) len: usize,
     /// The input string so we can print it underlined
-    pub input: String,
+    pub(crate) input: String,
 }
 
 /// Either we have an error string from our parser or an upstream error from `url`

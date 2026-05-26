@@ -192,8 +192,8 @@ impl serde::Serialize for ExcludeNewerValueWithSpanRef<'_> {
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[cfg_attr(feature = "schemars", derive(schemars::JsonSchema))]
 pub struct ExcludeNewerPackageEntry {
-    pub package: PackageName,
-    pub setting: ExcludeNewerOverride,
+    pub(crate) package: PackageName,
+    pub(crate) setting: ExcludeNewerOverride,
 }
 
 impl FromStr for ExcludeNewerPackageEntry {
