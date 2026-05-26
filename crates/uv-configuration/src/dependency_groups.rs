@@ -363,7 +363,7 @@ pub enum IncludeGroups {
 
 impl IncludeGroups {
     /// Returns `true` if the specification includes the given group.
-    pub fn contains(&self, group: &GroupName) -> bool {
+    pub(crate) fn contains(&self, group: &GroupName) -> bool {
         match self {
             Self::Some(groups) => groups.contains(group),
             Self::All => true,

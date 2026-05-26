@@ -124,7 +124,7 @@ impl FilesystemOptions {
 
     /// Load a [`FilesystemOptions`] from a directory, preferring a `uv.toml` file over a
     /// `pyproject.toml` file.
-    pub fn from_directory(dir: &Path) -> Result<Option<Self>, Error> {
+    pub(crate) fn from_directory(dir: &Path) -> Result<Option<Self>, Error> {
         // Read a `uv.toml` file in the current directory.
         let path = dir.join("uv.toml");
         match fs_err::read_to_string(&path) {
@@ -705,7 +705,7 @@ pub struct EnvFlag {
 
 impl EnvFlag {
     /// Create a new [`EnvFlag`] by parsing the given environment variable.
-    pub fn new(env_var: &'static str) -> Result<Self, Error> {
+    pub(crate) fn new(env_var: &'static str) -> Result<Self, Error> {
         Ok(Self {
             value: parse_boolish_environment_variable(env_var)?,
             env_var,

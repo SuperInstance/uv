@@ -37,7 +37,7 @@ pub enum ExcludeNewerValueChange {
 }
 
 impl ExcludeNewerValueChange {
-    pub fn is_relative_timestamp_change(&self) -> bool {
+    pub(crate) fn is_relative_timestamp_change(&self) -> bool {
         matches!(self, Self::RelativeTimestampChanged(_, _, _))
     }
 }
@@ -114,7 +114,7 @@ pub enum ExcludeNewerPackageChange {
 }
 
 impl ExcludeNewerPackageChange {
-    pub fn is_relative_timestamp_change(&self) -> bool {
+    pub(crate) fn is_relative_timestamp_change(&self) -> bool {
         match self {
             Self::PackageAdded(_, _) | Self::PackageRemoved(_) => false,
             Self::PackageChanged(_, change) => change.is_relative_timestamp_change(),
@@ -269,7 +269,7 @@ pub enum ExcludeNewerOverrideChange {
 }
 
 impl ExcludeNewerOverrideChange {
-    pub fn is_relative_timestamp_change(&self) -> bool {
+    pub(crate) fn is_relative_timestamp_change(&self) -> bool {
         match self {
             Self::Disabled { .. } | Self::Enabled { .. } => false,
             Self::TimestampChanged(change) => change.is_relative_timestamp_change(),
@@ -348,7 +348,7 @@ impl ExcludeNewerPackage {
         self.0.is_empty()
     }
 
-    pub fn compare(&self, other: &Self) -> Option<ExcludeNewerPackageChange> {
+    pub(crate) fn compare(&self, other: &Self) -> Option<ExcludeNewerPackageChange> {
         for (package, setting) in self {
             match (setting, other.get(package)) {
                 (
@@ -453,7 +453,7 @@ impl ExcludeNewer {
 
     /// Returns the effective exclude-newer timestamp for a specific package, falling back to the
     /// global value if no package-specific setting exists.
-    pub fn exclude_newer_package(&self, package_name: &PackageName) -> Option<Timestamp> {
+    pub(crate) fn exclude_newer_package(&self, package_name: &PackageName) -> Option<Timestamp> {
         match self.package.get(package_name) {
             Some(ExcludeNewerOverride::Enabled(value)) => Some(value.timestamp()),
             Some(ExcludeNewerOverride::Disabled) => None,
@@ -504,7 +504,7 @@ impl ExcludeNewer {
     }
 
     /// Returns true if this has any configuration (global or per-package).
-    pub fn is_empty(&self) -> bool {
+    pub(crate) fn is_empty(&self) -> bool {
         self.global.is_none() && self.package.is_empty()
     }
 

@@ -158,7 +158,7 @@ impl PythonVersionFile {
     /// Try to read a Python version file at the given path.
     ///
     /// If the file does not exist, `Ok(None)` is returned.
-    pub async fn try_from_path(path: PathBuf) -> Result<Option<Self>, std::io::Error> {
+    pub(crate) async fn try_from_path(path: PathBuf) -> Result<Option<Self>, std::io::Error> {
         match fs::tokio::read_to_string(&path).await {
             Ok(content) => {
                 debug!(

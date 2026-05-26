@@ -699,7 +699,7 @@ impl Lock {
     }
 
     /// Returns the lockfile revision.
-    pub fn revision(&self) -> u32 {
+    pub(crate) fn revision(&self) -> u32 {
         self.revision
     }
 
@@ -756,7 +756,7 @@ impl Lock {
     }
 
     /// Returns the required platforms that were used to generate this lock.
-    pub fn required_environments(&self) -> &[MarkerTree] {
+    pub(crate) fn required_environments(&self) -> &[MarkerTree] {
         &self.required_environments
     }
 
@@ -766,12 +766,12 @@ impl Lock {
     }
 
     /// Returns the dependency groups that were used to generate this lock.
-    pub fn requirements(&self) -> &BTreeSet<Requirement> {
+    pub(crate) fn requirements(&self) -> &BTreeSet<Requirement> {
         &self.manifest.requirements
     }
 
     /// Returns the dependency groups that were used to generate this lock.
-    pub fn dependency_groups(&self) -> &BTreeMap<GroupName, BTreeSet<Requirement>> {
+    pub(crate) fn dependency_groups(&self) -> &BTreeMap<GroupName, BTreeSet<Requirement>> {
         &self.manifest.dependency_groups
     }
 
@@ -3620,7 +3620,7 @@ impl Package {
     }
 
     /// Return the fork markers for this package, if any.
-    pub fn fork_markers(&self) -> &[UniversalMarker] {
+    pub(crate) fn fork_markers(&self) -> &[UniversalMarker] {
         self.fork_markers.as_slice()
     }
 

@@ -534,7 +534,7 @@ impl InstalledDist {
     }
 
     /// Return true if the distribution refers to a local file or directory.
-    pub fn is_local(&self) -> bool {
+    pub(crate) fn is_local(&self) -> bool {
         match &self.kind {
             InstalledDistKind::Registry(_) => false,
             InstalledDistKind::Url(dist) => {

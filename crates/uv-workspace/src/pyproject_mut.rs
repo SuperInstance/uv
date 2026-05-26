@@ -1251,7 +1251,7 @@ fn implicit() -> Item {
 /// Adds a dependency to the given `deps` array.
 ///
 /// Returns `true` if the dependency was added, `false` if it was updated.
-pub fn add_dependency(
+pub(crate) fn add_dependency(
     req: &Requirement,
     deps: &mut Array,
     has_source: bool,

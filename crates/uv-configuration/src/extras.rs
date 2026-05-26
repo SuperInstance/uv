@@ -139,7 +139,7 @@ impl ExtrasSpecificationInner {
     /// and instead just install the extras.
     ///
     /// (This is really just asking if an --only flag was passed.)
-    pub fn prod(&self) -> bool {
+    pub(crate) fn prod(&self) -> bool {
         !self.only_extras
     }
 
@@ -288,7 +288,7 @@ pub enum IncludeExtras {
 
 impl IncludeExtras {
     /// Returns `true` if the specification includes the given extra.
-    pub fn contains(&self, extra: &ExtraName) -> bool {
+    pub(crate) fn contains(&self, extra: &ExtraName) -> bool {
         match self {
             Self::Some(extras) => extras.contains(extra),
             Self::All => true,
@@ -296,7 +296,7 @@ impl IncludeExtras {
     }
 
     /// Returns `true` if the specification will have no effect.
-    pub fn is_empty(&self) -> bool {
+    pub(crate) fn is_empty(&self) -> bool {
         match self {
             Self::Some(extras) => extras.is_empty(),
             // Although technically this is a noop if they have no extras,

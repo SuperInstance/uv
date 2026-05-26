@@ -33,7 +33,7 @@ impl LocalWheel {
     }
 
     /// Return the [`Dist`] from which this wheel was downloaded.
-    pub fn remote(&self) -> &Dist {
+    pub(crate) fn remote(&self) -> &Dist {
         &self.dist
     }
 
@@ -43,7 +43,7 @@ impl LocalWheel {
     }
 
     /// Read the [`ResolutionMetadata`] from a wheel.
-    pub fn metadata(&self) -> Result<ResolutionMetadata, Error> {
+    pub(crate) fn metadata(&self) -> Result<ResolutionMetadata, Error> {
         read_flat_wheel_metadata(&self.filename, &self.archive)
             .map_err(|err| Error::WheelMetadata(self.archive.to_path_buf(), Box::new(err)))
     }

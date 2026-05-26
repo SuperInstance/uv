@@ -464,7 +464,7 @@ impl ManagedPythonInstallation {
     }
 
     /// The [`PythonVersion`] of the toolchain.
-    pub fn version(&self) -> PythonVersion {
+    pub(crate) fn version(&self) -> PythonVersion {
         self.key.version()
     }
 
@@ -485,7 +485,7 @@ impl ManagedPythonInstallation {
         &self.key
     }
 
-    pub fn platform(&self) -> &Platform {
+    pub(crate) fn platform(&self) -> &Platform {
         self.key.platform()
     }
 

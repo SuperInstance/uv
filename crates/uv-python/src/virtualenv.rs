@@ -316,7 +316,7 @@ impl PyVenvConfiguration {
     }
 
     /// Set the key-value pair in the `pyvenv.cfg` file.
-    pub fn set(content: &str, key: &str, value: &str) -> String {
+    pub(crate) fn set(content: &str, key: &str, value: &str) -> String {
         let mut lines = content.lines().map(Cow::Borrowed).collect::<Vec<_>>();
         let mut found = false;
         for line in &mut lines {

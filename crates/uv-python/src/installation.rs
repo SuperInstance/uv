@@ -274,7 +274,7 @@ impl PythonInstallation {
     }
 
     /// Download and install the requested installation.
-    pub async fn fetch(
+    pub(crate) async fn fetch(
         download: &ManagedPythonDownload,
         client: &BaseClient,
         retry_policy: &ExponentialBackoff,
@@ -367,7 +367,7 @@ impl PythonInstallation {
     /// Returns `true` if this is a managed (uv-installed) Python installation.
     ///
     /// Uses the source as a fast path, then falls back to checking the interpreter's base prefix.
-    pub fn is_managed(&self) -> bool {
+    pub(crate) fn is_managed(&self) -> bool {
         self.source.is_managed() || self.interpreter.is_managed()
     }
 
@@ -392,7 +392,7 @@ impl PythonInstallation {
     }
 
     /// Return the [`Os`] of the Python installation as reported by its interpreter.
-    pub fn os(&self) -> Os {
+    pub(crate) fn os(&self) -> Os {
         self.interpreter.os()
     }
 
@@ -532,7 +532,7 @@ pub struct PythonInstallationKey {
 }
 
 impl PythonInstallationKey {
-    pub fn new(
+    pub(crate) fn new(
         implementation: LenientImplementationName,
         major: u8,
         minor: u8,
@@ -604,11 +604,11 @@ impl PythonInstallationKey {
         self.minor
     }
 
-    pub fn prerelease(&self) -> Option<Prerelease> {
+    pub(crate) fn prerelease(&self) -> Option<Prerelease> {
         self.prerelease
     }
 
-    pub fn platform(&self) -> &Platform {
+    pub(crate) fn platform(&self) -> &Platform {
         &self.platform
     }
 

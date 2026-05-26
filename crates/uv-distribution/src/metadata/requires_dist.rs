@@ -42,7 +42,7 @@ impl RequiresDist {
 
     /// Lower by considering `tool.uv` in `pyproject.toml` if present, used for Git and directory
     /// dependencies.
-    pub async fn from_project_maybe_workspace(
+    pub(crate) async fn from_project_maybe_workspace(
         metadata: uv_pypi_types::RequiresDist,
         install_path: &Path,
         git_member: Option<&GitWorkspaceMember<'_>>,

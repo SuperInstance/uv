@@ -21,7 +21,7 @@ impl KnownPlatform {
     }
 
     /// Return a [`MarkerTree`] for the platform.
-    pub fn marker(self) -> MarkerTree {
+    pub(crate) fn marker(self) -> MarkerTree {
         MarkerTree::expression(MarkerExpression::String {
             key: MarkerValueString::SysPlatform,
             operator: MarkerOperator::Equal,

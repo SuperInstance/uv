@@ -688,7 +688,7 @@ impl Scheme {
     }
 
     /// Returns `true` if the scheme is a file scheme.
-    pub fn is_file(self) -> bool {
+    pub(crate) fn is_file(&self) -> bool {
         matches!(self, Self::File)
     }
 }

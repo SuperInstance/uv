@@ -618,7 +618,7 @@ impl Dist {
     }
 
     /// Return true if the distribution is editable.
-    pub fn is_editable(&self) -> bool {
+    pub(crate) fn is_editable(&self) -> bool {
         match self {
             Self::Source(dist) => dist.is_editable(),
             Self::Built(_) => false,
@@ -626,7 +626,7 @@ impl Dist {
     }
 
     /// Return true if the distribution refers to a local file or directory.
-    pub fn is_local(&self) -> bool {
+    pub(crate) fn is_local(&self) -> bool {
         match self {
             Self::Source(dist) => dist.is_local(),
             Self::Built(dist) => dist.is_local(),
@@ -697,7 +697,7 @@ impl<'a> From<&'a BuiltDist> for DistRef<'a> {
 
 impl BuiltDist {
     /// Return true if the distribution refers to a local file or directory.
-    pub fn is_local(&self) -> bool {
+    pub(crate) fn is_local(&self) -> bool {
         matches!(self, Self::Path(_))
     }
 
@@ -712,7 +712,7 @@ impl BuiltDist {
     }
 
     /// Returns the [`File`] instance, if this distribution is from a registry.
-    pub fn file(&self) -> Option<&File> {
+    pub(crate) fn file(&self) -> Option<&File> {
         match self {
             Self::Registry(registry) => Some(&registry.best_wheel().file),
             Self::DirectUrl(_) | Self::Path(_) | Self::GitPath(_) => None,
@@ -742,7 +742,7 @@ impl SourceDist {
     }
 
     /// Returns the [`IndexUrl`], if the distribution is from a registry.
-    pub fn index(&self) -> Option<&IndexUrl> {
+    pub(crate) fn index(&self) -> Option<&IndexUrl> {
         match self {
             Self::Registry(registry) => Some(&registry.index),
             Self::DirectUrl(_)
@@ -754,7 +754,7 @@ impl SourceDist {
     }
 
     /// Returns the [`File`] instance, if this dist is from a registry with simple json api support
-    pub fn file(&self) -> Option<&File> {
+    pub(crate) fn file(&self) -> Option<&File> {
         match self {
             Self::Registry(registry) => Some(&registry.file),
             Self::DirectUrl(_)
@@ -794,7 +794,7 @@ impl SourceDist {
     }
 
     /// Returns `true` if the distribution refers to a local file or directory.
-    pub fn is_local(&self) -> bool {
+    pub(crate) fn is_local(&self) -> bool {
         matches!(self, Self::Directory(_) | Self::Path(_))
     }
 
@@ -808,7 +808,7 @@ impl SourceDist {
     }
 
     /// Returns the source tree of the distribution, if available.
-    pub fn source_tree(&self) -> Option<&Path> {
+    pub(crate) fn source_tree(&self) -> Option<&Path> {
         match self {
             Self::Directory(dist) => Some(&dist.install_path),
             _ => None,

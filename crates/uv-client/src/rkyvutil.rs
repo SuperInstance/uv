@@ -77,7 +77,7 @@ where
     ///
     /// If the bytes fail validation (e.g., contains unaligned pointers or
     /// strings aren't valid UTF-8), then this returns an error.
-    pub fn new(raw: AlignedVec) -> Result<Self, Error> {
+    pub(crate) fn new(raw: AlignedVec) -> Result<Self, Error> {
         // We convert the error to a simple string because... the error type
         // does not implement Send. And I don't think we really need to keep
         // the error type around anyway.
@@ -139,7 +139,7 @@ where
     /// Note that because this type has a `Deref` impl, this method requires
     /// fully-qualified syntax. So, if `o` is an `OwnedValue`, then use
     /// `OwnedValue::as_bytes(&o)`.
-    pub fn as_bytes(this: &Self) -> &[u8] {
+    pub(crate) fn as_bytes(this: &Self) -> &[u8] {
         &this.raw
     }
 

@@ -488,7 +488,7 @@ impl Index {
     }
 
     /// Return the [`IndexStatusCodeStrategy`] for this index.
-    pub fn status_code_strategy(&self) -> IndexStatusCodeStrategy {
+    pub(crate) fn status_code_strategy(&self) -> IndexStatusCodeStrategy {
         if let Some(ignore_error_codes) = &self.ignore_error_codes {
             IndexStatusCodeStrategy::from_ignored_error_codes(ignore_error_codes)
         } else {
@@ -513,7 +513,7 @@ impl Index {
     }
 
     /// Return the `exclude-newer` setting for this index.
-    pub fn exclude_newer(&self) -> Option<&ExcludeNewerOverride> {
+    pub(crate) fn exclude_newer(&self) -> Option<&ExcludeNewerOverride> {
         self.exclude_newer.as_ref()
     }
 }

@@ -217,7 +217,7 @@ pub fn set_default_credential_builder(new: Box<CredentialBuilder>) {
     guard.inner = Some(new);
 }
 
-pub fn default_credential_builder() -> Box<CredentialBuilder> {
+pub(crate) fn default_credential_builder() -> Box<CredentialBuilder> {
     #[cfg(any(
         all(target_os = "linux", feature = "secret-service"),
         all(target_os = "freebsd", feature = "secret-service"),

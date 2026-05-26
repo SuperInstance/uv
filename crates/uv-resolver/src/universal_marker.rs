@@ -359,7 +359,7 @@ impl UniversalMarker {
     /// producing different versions of the same package), then one should
     /// always use a universal marker since it accounts for all possible ways
     /// for a package to be installed.
-    pub fn pep508(self) -> MarkerTree {
+    pub(crate) fn pep508(self) -> MarkerTree {
         self.pep508
     }
 
@@ -436,7 +436,7 @@ impl ConflictMarker {
 
     /// Create a conflict marker that is true only when the production
     /// dependencies for the given package are activated.
-    pub fn project(package: &PackageName) -> Self {
+    pub(crate) fn project(package: &PackageName) -> Self {
         let operator = uv_pep508::ExtraOperator::Equal;
         let name = uv_pep508::MarkerValueExtra::Extra(encode_project(package));
         let expr = uv_pep508::MarkerExpression::Extra { operator, name };
@@ -446,7 +446,7 @@ impl ConflictMarker {
 
     /// Create a conflict marker that is true only when the given extra for the
     /// given package is activated.
-    pub fn extra(package: &PackageName, extra: &ExtraName) -> Self {
+    pub(crate) fn extra(package: &PackageName, extra: &ExtraName) -> Self {
         let operator = uv_pep508::ExtraOperator::Equal;
         let name = uv_pep508::MarkerValueExtra::Extra(encode_package_extra(package, extra));
         let expr = uv_pep508::MarkerExpression::Extra { operator, name };
@@ -456,7 +456,7 @@ impl ConflictMarker {
 
     /// Create a conflict marker that is true only when the given group for the
     /// given package is activated.
-    pub fn group(package: &PackageName, group: &GroupName) -> Self {
+    pub(crate) fn group(package: &PackageName, group: &GroupName) -> Self {
         let operator = uv_pep508::ExtraOperator::Equal;
         let name = uv_pep508::MarkerValueExtra::Extra(encode_package_group(package, group));
         let expr = uv_pep508::MarkerExpression::Extra { operator, name };
@@ -466,7 +466,7 @@ impl ConflictMarker {
 
     /// Returns a new conflict marker that is the negation of this one.
     #[must_use]
-    pub fn negate(self) -> Self {
+    pub(crate) fn negate(self) -> Self {
         Self {
             marker: self.marker.negate(),
         }
@@ -475,7 +475,7 @@ impl ConflictMarker {
     /// Returns a new conflict marker corresponding to the union of `self` and
     /// `other`.
     #[must_use]
-    pub fn or(self, other: Self) -> Self {
+    pub(crate) fn or(self, other: Self) -> Self {
         let mut marker = self.marker;
         marker.or(other.marker);
         Self { marker }
@@ -484,7 +484,7 @@ impl ConflictMarker {
     /// Returns a new conflict marker corresponding to the intersection of
     /// `self` and `other`.
     #[must_use]
-    pub fn and(self, other: Self) -> Self {
+    pub(crate) fn and(self, other: Self) -> Self {
         let mut marker = self.marker;
         marker.and(other.marker);
         Self { marker }
@@ -503,7 +503,7 @@ impl ConflictMarker {
     }
 
     /// Returns true if this conflict marker will always evaluate to `true`.
-    pub fn is_true(self) -> bool {
+    pub(crate) fn is_true(self) -> bool {
         self.marker.is_true()
     }
 

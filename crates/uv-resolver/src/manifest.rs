@@ -111,7 +111,7 @@ impl Manifest {
     /// - Determining which requirements should allow yanked versions.
     /// - Determining which requirements should allow pre-release versions (e.g., `torch>=2.2.0a1`).
     /// - Determining which requirements should allow direct URLs (e.g., `torch @ https://...`).
-    pub fn requirements<'a>(
+    pub(crate) fn requirements<'a>(
         &'a self,
         env: &'a ResolverEnvironment,
         mode: DependencyMode,
@@ -172,7 +172,7 @@ impl Manifest {
     }
 
     /// Only the overrides from [`Self::requirements`].
-    pub fn overrides<'a>(
+    pub(crate) fn overrides<'a>(
         &'a self,
         env: &'a ResolverEnvironment,
         mode: DependencyMode,

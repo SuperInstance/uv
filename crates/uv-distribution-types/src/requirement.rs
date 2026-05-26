@@ -90,7 +90,7 @@ impl Requirement {
     #[must_use]
     pub fn to_absolute(self, path: &Path) -> Self {
         Self {
-            source: self.source.to_absolute(path),
+            source: self.source.into_absolute(path),
             ..self
         }
     }
@@ -609,7 +609,7 @@ pub enum RequirementSource {
 impl RequirementSource {
     /// Construct a [`RequirementSource`] for a URL source, given a URL parsed into components and
     /// the PEP 508 string (after the `@`) as [`VerbatimUrl`].
-    pub fn from_parsed_url(parsed_url: ParsedUrl, url: VerbatimUrl) -> Self {
+    pub(crate) fn from_parsed_url(parsed_url: ParsedUrl, url: VerbatimUrl) -> Self {
         match parsed_url {
             ParsedUrl::Path(local_file) => Self::Path {
                 install_path: local_file.install_path.clone(),
@@ -768,7 +768,7 @@ impl RequirementSource {
     }
 
     /// Convert the source to a [`RequirementSource`] relative to the given path.
-    pub fn relative_to(self, path: &Path) -> Result<Self, io::Error> {
+    pub(crate) fn relative_to(self, path: &Path) -> Result<Self, io::Error> {
         match self {
             Self::Registry { .. }
             | Self::Url { .. }
@@ -802,7 +802,7 @@ impl RequirementSource {
 
     /// Convert the source to a [`RequirementSource`] with an absolute path based on the given root.
     #[must_use]
-    pub fn to_absolute(self, root: &Path) -> Self {
+    pub(crate) fn into_absolute(self, root: &Path) -> Self {
         match self {
             Self::Registry { .. }
             | Self::Url { .. }

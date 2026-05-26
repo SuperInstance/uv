@@ -108,7 +108,7 @@ impl<'a, Context: BuildContext> Preparer<'a, Context> {
     }
     /// Download, build, and unzip a single wheel.
     #[instrument(skip_all, fields(name = % dist, size = ? dist.size(), url = dist.file().map(| file | file.url.to_string()).unwrap_or_default()))]
-    pub async fn get_wheel(
+    pub(crate) async fn get_wheel(
         &self,
         dist: Dist,
         in_flight: &InFlight,

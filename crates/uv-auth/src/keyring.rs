@@ -59,7 +59,7 @@ impl std::fmt::Display for KeyringProviderBackend {
 
 impl KeyringProvider {
     /// Create a new [`KeyringProvider::Native`].
-    pub fn native() -> Self {
+    pub(crate) fn native() -> Self {
         Self {
             backend: KeyringProviderBackend::Native,
         }

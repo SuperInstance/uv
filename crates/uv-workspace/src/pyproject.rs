@@ -187,7 +187,7 @@ impl PyProjectToml {
     }
 
     /// Returns the set of conflicts for the project.
-    pub fn conflicts(&self) -> Conflicts {
+    pub(crate) fn conflicts(&self) -> Conflicts {
         let empty = Conflicts::empty();
         let Some(project) = self.project.as_ref() else {
             return empty;
@@ -776,7 +776,7 @@ impl ToolUvSources {
 
     /// Convert the [`ToolUvSources`] into its inner `BTreeMap`.
     #[must_use]
-    pub fn into_inner(self) -> BTreeMap<PackageName, Sources> {
+    pub(crate) fn into_inner(self) -> BTreeMap<PackageName, Sources> {
         self.0
     }
 }

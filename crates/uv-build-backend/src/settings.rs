@@ -216,7 +216,7 @@ pub struct WheelDataIncludes {
 
 impl WheelDataIncludes {
     /// Yield all data directories name and corresponding paths.
-    pub fn iter(&self) -> impl Iterator<Item = (&'static str, &Path)> {
+    pub(crate) fn iter(&self) -> impl Iterator<Item = (&'static str, &Path)> {
         [
             ("purelib", self.purelib.as_deref()),
             ("platlib", self.platlib.as_deref()),

@@ -235,7 +235,7 @@ pub struct PlatformRequest {
 
 impl PlatformRequest {
     /// Check if this platform request is satisfied by a platform.
-    pub fn matches(&self, platform: &Platform) -> bool {
+    pub(crate) fn matches(&self, platform: &Platform) -> bool {
         if let Some(os) = self.os {
             if !platform.os.supports(os) {
                 return false;
@@ -302,7 +302,7 @@ impl ArchRequest {
 }
 
 impl PythonDownloadRequest {
-    pub fn new(
+    pub(crate) fn new(
         version: Option<VersionRequest>,
         implementation: Option<ImplementationName>,
         arch: Option<ArchRequest>,
@@ -443,11 +443,11 @@ impl PythonDownloadRequest {
         Ok(self)
     }
 
-    pub fn implementation(&self) -> Option<&ImplementationName> {
+    pub(crate) fn implementation(&self) -> Option<&ImplementationName> {
         self.implementation.as_ref()
     }
 
-    pub fn version(&self) -> Option<&VersionRequest> {
+    pub(crate) fn version(&self) -> Option<&VersionRequest> {
         self.version.as_ref()
     }
 
@@ -528,7 +528,7 @@ impl PythonDownloadRequest {
     ///
     /// The resulting string only includes explicitly-set pieces of the request and returns
     /// [`None`] when no segments are explicitly set.
-    pub fn simplified_display(self) -> Option<String> {
+    pub(crate) fn simplified_display(self) -> Option<String> {
         let parts = [
             self.implementation
                 .map(|implementation| implementation.to_string()),
@@ -616,7 +616,7 @@ impl PythonDownloadRequest {
     }
 
     /// Whether this download request opts-in to pre-release Python versions.
-    pub fn allows_prereleases(&self) -> bool {
+    pub(crate) fn allows_prereleases(&self) -> bool {
         self.prereleases.unwrap_or_else(|| {
             self.version
                 .as_ref()
@@ -668,7 +668,7 @@ impl PythonDownloadRequest {
     }
 
     /// Extract the platform components of this request.
-    pub fn platform(&self) -> PlatformRequest {
+    pub(crate) fn platform(&self) -> PlatformRequest {
         PlatformRequest {
             os: self.os,
             arch: self.arch,
@@ -1110,7 +1110,7 @@ async fn fetch_bytes_from_url(client: &BaseClient, url: &DisplaySafeUrl) -> Resu
 }
 
 impl ManagedPythonDownload {
-    pub fn url(&self) -> &Cow<'static, str> {
+    pub(crate) fn url(&self) -> &Cow<'static, str> {
         &self.url
     }
 
@@ -1118,11 +1118,11 @@ impl ManagedPythonDownload {
         &self.key
     }
 
-    pub fn os(&self) -> &Os {
+    pub(crate) fn os(&self) -> &Os {
         self.key.os()
     }
 
-    pub fn sha256(&self) -> Option<&Cow<'static, str>> {
+    pub(crate) fn sha256(&self) -> Option<&Cow<'static, str>> {
         self.sha256.as_ref()
     }
 

@@ -202,7 +202,7 @@ impl Options {
 
     /// Set the [`Origin`] on all indexes without an existing origin.
     #[must_use]
-    pub fn with_origin(mut self, origin: Origin) -> Self {
+    pub(crate) fn with_origin(mut self, origin: Origin) -> Self {
         if let Some(indexes) = &mut self.top_level.index {
             for index in indexes {
                 index.origin.get_or_insert(origin);
@@ -235,7 +235,7 @@ impl Options {
     }
 
     /// Resolve the [`Options`] relative to the given root directory.
-    pub fn relative_to(self, root_dir: &Path) -> Result<Self, IndexUrlError> {
+    pub(crate) fn relative_to(self, root_dir: &Path) -> Result<Self, IndexUrlError> {
         Ok(Self {
             top_level: self.top_level.relative_to(root_dir)?,
             pip: self.pip.map(|pip| pip.relative_to(root_dir)).transpose()?,
@@ -608,7 +608,7 @@ impl From<ResolverInstallerSchema> for ResolverInstallerOptions {
 
 impl ResolverInstallerSchema {
     /// Resolve the [`ResolverInstallerSchema`] relative to the given root directory.
-    pub fn relative_to(self, root_dir: &Path) -> Result<Self, IndexUrlError> {
+    pub(crate) fn relative_to(self, root_dir: &Path) -> Result<Self, IndexUrlError> {
         Ok(Self {
             index: self
                 .index
@@ -1998,7 +1998,7 @@ pub struct PipOptions {
 
 impl PipOptions {
     /// Resolve the [`PipOptions`] relative to the given root directory.
-    pub fn relative_to(self, root_dir: &Path) -> Result<Self, IndexUrlError> {
+    pub(crate) fn relative_to(self, root_dir: &Path) -> Result<Self, IndexUrlError> {
         Ok(Self {
             index: self
                 .index

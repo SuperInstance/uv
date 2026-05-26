@@ -1556,7 +1556,7 @@ impl InMarkerTree<'_> {
     }
 
     /// The value (RHS) for this expression.
-    pub fn value(&self) -> &ArcStr {
+    pub(crate) fn value(&self) -> &ArcStr {
         self.value
     }
 
@@ -1566,7 +1566,7 @@ impl InMarkerTree<'_> {
     }
 
     /// Returns the subtree associated with the given edge value.
-    pub fn edge(&self, value: bool) -> MarkerTree {
+    pub(crate) fn edge(&self, value: bool) -> MarkerTree {
         if value {
             MarkerTree(self.high)
         } else {
@@ -1606,7 +1606,7 @@ impl ContainsMarkerTree<'_> {
     }
 
     /// The value (RHS) for this expression.
-    pub fn value(&self) -> &str {
+    pub(crate) fn value(&self) -> &str {
         self.value
     }
 
@@ -1616,7 +1616,7 @@ impl ContainsMarkerTree<'_> {
     }
 
     /// Returns the subtree associated with the given edge value.
-    pub fn edge(&self, value: bool) -> MarkerTree {
+    pub(crate) fn edge(&self, value: bool) -> MarkerTree {
         if value {
             MarkerTree(self.high)
         } else {
@@ -1703,7 +1703,7 @@ pub struct ExtraMarkerTree<'a> {
 
 impl ExtraMarkerTree<'_> {
     /// Returns the name of the extra in this expression.
-    pub fn name(&self) -> &CanonicalMarkerValueExtra {
+    pub(crate) fn name(&self) -> &CanonicalMarkerValueExtra {
         self.name
     }
 
@@ -1713,7 +1713,7 @@ impl ExtraMarkerTree<'_> {
     }
 
     /// Returns the subtree associated with the given edge value.
-    pub fn edge(&self, value: bool) -> MarkerTree {
+    pub(crate) fn edge(&self, value: bool) -> MarkerTree {
         if value {
             MarkerTree(self.high)
         } else {

@@ -33,7 +33,7 @@ pub struct ToolEnvironment {
 }
 
 impl ToolEnvironment {
-    pub fn new(environment: PythonEnvironment, name: PackageName) -> Self {
+    pub(crate) fn new(environment: PythonEnvironment, name: PackageName) -> Self {
         Self { environment, name }
     }
 

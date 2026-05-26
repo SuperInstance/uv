@@ -1755,7 +1755,7 @@ impl PythonVariant {
         }
     }
 
-    pub fn is_freethreaded(self) -> bool {
+    pub(crate) fn is_freethreaded(self) -> bool {
         match self {
             Self::Default | Self::Debug | Self::Gil | Self::GilDebug => false,
             Self::Freethreaded | Self::FreethreadedDebug => true,
@@ -3216,7 +3216,7 @@ impl VersionRequest {
     /// Convert this request into a concrete PEP 440 `Version` when possible.
     ///
     /// Returns `None` for non-concrete requests
-    pub fn as_pep440_version(&self) -> Option<Version> {
+    pub(crate) fn as_pep440_version(&self) -> Option<Version> {
         match self {
             Self::Default | Self::Any | Self::Range(_, _) => None,
             Self::Major(major, _) => Some(Version::new([u64::from(*major)])),

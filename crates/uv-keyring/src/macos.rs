@@ -190,7 +190,7 @@ impl MacCredential {
     /// This will fail if the service or user strings are empty,
     /// because empty attribute values act as wildcards in the
     /// Keychain Services API.
-    pub fn new_with_target(
+    pub(crate) fn new_with_target(
         target: Option<MacKeychainDomain>,
         service: &str,
         user: &str,
@@ -227,7 +227,7 @@ pub struct MacCredentialBuilder;
 ///
 /// On Mac, with default features enabled,
 /// this is called once when an entry is first created.
-pub fn default_credential_builder() -> Box<CredentialBuilder> {
+pub(crate) fn default_credential_builder() -> Box<CredentialBuilder> {
     Box::new(MacCredentialBuilder {})
 }
 
@@ -320,7 +320,7 @@ fn get_keychain(domain: MacKeychainDomain) -> Result<SecKeychain> {
 ///
 /// The macOS error code values used here are from
 /// [this reference](https://opensource.apple.com/source/libsecurity_keychain/libsecurity_keychain-78/lib/SecBase.h.auto.html)
-pub fn decode_error(err: Error) -> ErrorCode {
+pub(crate) fn decode_error(err: Error) -> ErrorCode {
     match err.code() {
         -25291 => ErrorCode::NoStorageAccess(Box::new(err)), // errSecNotAvailable
         -25292 => ErrorCode::NoStorageAccess(Box::new(err)), // errSecReadOnly

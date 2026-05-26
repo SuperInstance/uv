@@ -116,7 +116,7 @@ impl Interpreter {
     }
 
     /// Return a new [`Interpreter`] to install into the given `--target` directory.
-    pub fn with_target(self, target: Target) -> io::Result<Self> {
+    pub(crate) fn with_target(self, target: Target) -> io::Result<Self> {
         target.init()?;
         Ok(Self {
             target: Some(target),
@@ -125,7 +125,7 @@ impl Interpreter {
     }
 
     /// Return a new [`Interpreter`] to install into the given `--prefix` directory.
-    pub fn with_prefix(self, prefix: Prefix) -> io::Result<Self> {
+    pub(crate) fn with_prefix(self, prefix: Prefix) -> io::Result<Self> {
         prefix.init(self.virtualenv())?;
         Ok(Self {
             prefix: Some(prefix),
@@ -202,7 +202,7 @@ impl Interpreter {
     }
 
     /// Returns the [`PythonInstallationKey`] for this interpreter.
-    pub fn key(&self) -> PythonInstallationKey {
+    pub(crate) fn key(&self) -> PythonInstallationKey {
         PythonInstallationKey::new(
             LenientImplementationName::from(self.implementation_name()),
             self.python_major(),
@@ -229,17 +229,17 @@ impl Interpreter {
     }
 
     /// Return the [`Arch`] reported by the interpreter platform tags.
-    pub fn arch(&self) -> Arch {
+    pub(crate) fn arch(&self) -> Arch {
         Arch::from(&self.platform().arch())
     }
 
     /// Return the [`Libc`] reported by the interpreter platform tags.
-    pub fn libc(&self) -> Libc {
+    pub(crate) fn libc(&self) -> Libc {
         Libc::from(self.platform().os())
     }
 
     /// Return the [`Os`] reported by the interpreter platform tags.
-    pub fn os(&self) -> Os {
+    pub(crate) fn os(&self) -> Os {
         Os::from(self.platform().os())
     }
 
@@ -284,7 +284,7 @@ impl Interpreter {
     /// Returns `true` if this interpreter is managed by uv.
     ///
     /// Returns `false` if we cannot determine the path of the uv managed Python interpreters.
-    pub fn is_managed(&self) -> bool {
+    pub(crate) fn is_managed(&self) -> bool {
         if let Ok(test_managed) =
             std::env::var(uv_static::EnvVars::UV_INTERNAL__TEST_PYTHON_MANAGED)
         {
@@ -487,12 +487,12 @@ impl Interpreter {
     }
 
     /// Return the `purelib` path for this Python interpreter, as returned by `sysconfig.get_paths()`.
-    pub fn purelib(&self) -> &Path {
+    pub(crate) fn purelib(&self) -> &Path {
         &self.scheme.purelib
     }
 
     /// Return the `platlib` path for this Python interpreter, as returned by `sysconfig.get_paths()`.
-    pub fn platlib(&self) -> &Path {
+    pub(crate) fn platlib(&self) -> &Path {
         &self.scheme.platlib
     }
 
@@ -502,12 +502,12 @@ impl Interpreter {
     }
 
     /// Return the `data` path for this Python interpreter, as returned by `sysconfig.get_paths()`.
-    pub fn data(&self) -> &Path {
+    pub(crate) fn data(&self) -> &Path {
         &self.scheme.data
     }
 
     /// Return the `include` path for this Python interpreter, as returned by `sysconfig.get_paths()`.
-    pub fn include(&self) -> &Path {
+    pub(crate) fn include(&self) -> &Path {
         &self.scheme.include
     }
 
@@ -542,12 +542,12 @@ impl Interpreter {
     }
 
     /// Return the `--target` directory for this interpreter, if any.
-    pub fn target(&self) -> Option<&Target> {
+    pub(crate) fn target(&self) -> Option<&Target> {
         self.target.as_ref()
     }
 
     /// Return the `--prefix` directory for this interpreter, if any.
-    pub fn prefix(&self) -> Option<&Prefix> {
+    pub(crate) fn prefix(&self) -> Option<&Prefix> {
         self.prefix.as_ref()
     }
 
