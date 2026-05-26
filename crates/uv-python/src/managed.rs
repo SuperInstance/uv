@@ -690,6 +690,16 @@ impl ManagedPythonInstallation {
         }
         true
     }
+
+    #[cfg(windows)]
+    pub(crate) fn url(&self) -> Option<&str> {
+        self.url.as_deref()
+    }
+
+    #[cfg(windows)]
+    pub(crate) fn sha256(&self) -> Option<&str> {
+        self.sha256.as_deref()
+    }
 }
 
 /// A representation of a minor version symlink directory (or junction on Windows)
