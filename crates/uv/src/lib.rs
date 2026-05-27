@@ -1600,6 +1600,7 @@ async fn run(cli: Cli) -> Result<ExitStatus> {
                 globals.preview,
                 true,
                 false,
+                false,
             ))
             .await
         }
