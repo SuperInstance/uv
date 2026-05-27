@@ -1,0 +1,182 @@
+# Hawk analyzes the `uv` binary and workspace tests as a closed world; retain public API outside those graphs.
+# Invoke with `--exclude-crate uv_keyring`; that vendored crate retains its public client API.
+# Keep each retained finding expected so removing it requires deleting this entry.
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_dispatch"
+item = "BuildDispatch::<'a>::with_build_extra_env_vars"
+level = "expect"
+reason = "retained library API outside the selected binary graph"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_trampoline_builder"
+item = "Launcher::write_to_file"
+level = "expect"
+target = "cfg(not(windows))"
+reason = "used by the Windows uv command when analyzing a non-Windows target"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_trampoline_builder"
+item = "Launcher::with_python_path"
+level = "expect"
+target = "cfg(not(windows))"
+reason = "used by the Windows uv command when analyzing a non-Windows target"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_distribution_types"
+item = "resolution::Resolution::is_empty"
+level = "expect"
+reason = "required companion to public Resolution::len"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_resolver"
+item = "lock::Lock::is_empty"
+level = "expect"
+reason = "required companion to public Lock::len"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_resolver"
+item = "resolution::output::ResolverOutput::is_empty"
+level = "expect"
+reason = "required companion to public ResolverOutput::len"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_fs"
+item = "copy_atomic_sync"
+level = "expect"
+target = "cfg(not(unix))"
+reason = "used by uv-install-wheel only when analyzing a Unix target"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_fs"
+item = "with_retry_sync"
+level = "expect"
+target = "cfg(unix)"
+reason = "used by uv-install-wheel only when analyzing a non-Unix target"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_pypi_types"
+item = "dependency_groups::DependencyGroups::iter"
+level = "expect"
+reason = "required companion to IntoIterator for &DependencyGroups"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_client"
+item = "base_client::BaseClientBuilder::<'a>::extra_middleware"
+level = "expect"
+reason = "supported public middleware extension API"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_client"
+item = "registry_client::RegistryClientBuilder::<'a>::extra_middleware"
+level = "expect"
+reason = "supported public middleware extension API"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_client"
+item = "registry_client::RegistryClientBuilder::<'a>::with_reqwest_client"
+level = "expect"
+reason = "supported public custom HTTP client API"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_client"
+item = "base_client::BaseClientBuilder::<'a>::proxy"
+level = "expect"
+reason = "supported public proxy configuration API"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_client"
+item = "registry_client::RegistryClientBuilder::<'a>::proxy"
+level = "expect"
+reason = "supported public proxy configuration API"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_resolver"
+item = "exclude_newer::ExcludeNewer::global"
+level = "expect"
+reason = "used by uv-bench benchmarks"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_python"
+item = "interpreter::Interpreter::pointer_size"
+level = "expect"
+target = "cfg(not(unix))"
+reason = "used by uv-virtualenv only when analyzing a Unix target"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_python"
+item = "pointer_size::PointerSize::is_64"
+level = "expect"
+target = "cfg(not(unix))"
+reason = "used by uv-virtualenv only when analyzing a Unix target"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_windows"
+item = "ctrl_handler::CtrlHandlerError::code"
+level = "expect"
+target = "cfg(windows)"
+reason = "used by the uv-trampoline binary outside the selected uv graph"
+
+[[override]]
+lint = "hawk::unnecessary_public"
+crate = "uv_windows"
+item = "job::JobError::code"
+level = "expect"
+target = "cfg(windows)"
+reason = "used by the uv-trampoline binary outside the selected uv graph"
+
+[[override]]
+lint = "hawk::unnecessary_public"
+crate = "uv_windows"
+item = "job::JobError::message"
+level = "expect"
+target = "cfg(windows)"
+reason = "used by the uv-trampoline binary outside the selected uv graph"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_windows"
+item = "job::Job::new"
+level = "expect"
+target = "cfg(windows)"
+reason = "used by the uv-trampoline binary outside the selected uv graph"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_windows"
+item = "job::Job::assign_process"
+level = "expect"
+target = "cfg(windows)"
+reason = "used by the uv-trampoline binary outside the selected uv graph"
+
+[[override]]
+lint = "hawk::unnecessary_public"
+crate = "uv_distribution_types"
+item = "config_settings::ConfigSettings::is_empty"
+level = "expect"
+reason = "kept public alongside the public len method"
+
+[[override]]
+lint = "hawk::dead_public"
+crate = "uv_dev"
+item = "run"
+level = "expect"
+reason = "used by the uv-dev binary outside the selected uv graph"

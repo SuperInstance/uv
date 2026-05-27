@@ -43,9 +43,9 @@ use security_framework::os::macos::passwords::find_generic_password;
 /// module to get at those attributes.
 #[derive(Debug, Clone, PartialEq, Eq)]
 pub struct MacCredential {
-    pub(crate) domain: MacKeychainDomain,
-    pub(crate) service: String,
-    pub(crate) account: String,
+    pub domain: MacKeychainDomain,
+    pub service: String,
+    pub account: String,
 }
 
 #[async_trait::async_trait]
@@ -166,7 +166,7 @@ impl MacCredential {
     /// On Mac, this is basically a no-op, because we represent any attributes
     /// other than the ones we use to find the generic credential.
     /// But at least this checks whether the underlying credential exists.
-    pub(crate) async fn get_credential(&self) -> Result<Self> {
+    pub async fn get_credential(&self) -> Result<Self> {
         let service = self.service.clone();
         let account = self.account.clone();
         let domain = self.domain;
@@ -190,7 +190,7 @@ impl MacCredential {
     /// This will fail if the service or user strings are empty,
     /// because empty attribute values act as wildcards in the
     /// Keychain Services API.
-    pub(crate) fn new_with_target(
+    pub fn new_with_target(
         target: Option<MacKeychainDomain>,
         service: &str,
         user: &str,
@@ -227,7 +227,7 @@ pub struct MacCredentialBuilder;
 ///
 /// On Mac, with default features enabled,
 /// this is called once when an entry is first created.
-pub(crate) fn default_credential_builder() -> Box<CredentialBuilder> {
+pub fn default_credential_builder() -> Box<CredentialBuilder> {
     Box::new(MacCredentialBuilder {})
 }
 
@@ -320,7 +320,7 @@ fn get_keychain(domain: MacKeychainDomain) -> Result<SecKeychain> {
 ///
 /// The macOS error code values used here are from
 /// [this reference](https://opensource.apple.com/source/libsecurity_keychain/libsecurity_keychain-78/lib/SecBase.h.auto.html)
-pub(crate) fn decode_error(err: Error) -> ErrorCode {
+pub fn decode_error(err: Error) -> ErrorCode {
     match err.code() {
         -25291 => ErrorCode::NoStorageAccess(Box::new(err)), // errSecNotAvailable
         -25292 => ErrorCode::NoStorageAccess(Box::new(err)), // errSecReadOnly

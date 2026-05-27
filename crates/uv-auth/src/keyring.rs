@@ -396,7 +396,10 @@ impl KeyringProvider {
 
     /// Create a new provider with [`KeyringProviderBackend::Dummy`].
     #[cfg(test)]
-    pub fn dummy<S: Into<String>, T: IntoIterator<Item = (S, &'static str, &'static str)>>(
+    pub(crate) fn dummy<
+        S: Into<String>,
+        T: IntoIterator<Item = (S, &'static str, &'static str)>,
+    >(
         iter: T,
     ) -> Self {
         Self {
@@ -410,7 +413,7 @@ impl KeyringProvider {
 
     /// Create a new provider with no credentials available.
     #[cfg(test)]
-    pub fn empty() -> Self {
+    pub(crate) fn empty() -> Self {
         Self {
             backend: KeyringProviderBackend::Dummy(Vec::new()),
         }

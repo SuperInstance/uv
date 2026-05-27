@@ -560,6 +560,7 @@ impl TestContext {
 
     /// Add a filter that ignores temporary directory in path.
     #[must_use]
+    #[cfg(windows)]
     pub fn with_filtered_windows_temp_dir(mut self) -> Self {
         let pattern = regex::escape(
             &self
@@ -696,6 +697,7 @@ impl TestContext {
 
     /// Clear filters on `TestContext`.
     #[must_use]
+    #[cfg(windows)]
     pub fn clear_filters(mut self) -> Self {
         self.filters.clear();
         self
@@ -1844,6 +1846,7 @@ impl TestContext {
     }
 
     /// Only the filters added to this test context.
+    #[cfg(windows)]
     pub fn filters_without_standard_filters(&self) -> Vec<(&str, &str)> {
         self.filters
             .iter()

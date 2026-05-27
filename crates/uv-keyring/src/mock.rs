@@ -37,7 +37,7 @@ use crate::error::{Error, Result, decode_password};
 /// The mutex is used to make sure these are Sync.
 #[derive(Debug)]
 pub struct MockCredential {
-    pub(crate) inner: Mutex<RefCell<MockData>>,
+    pub inner: Mutex<RefCell<MockData>>,
 }
 
 impl Default for MockCredential {
@@ -57,8 +57,8 @@ impl Default for MockCredential {
 /// Most keystore implementation hide their internals.)
 #[derive(Debug, Default)]
 pub struct MockData {
-    pub(crate) secret: Option<Vec<u8>>,
-    pub(crate) error: Option<Error>,
+    pub secret: Option<Vec<u8>>,
+    pub error: Option<Error>,
 }
 
 #[async_trait::async_trait]
@@ -186,7 +186,7 @@ impl MockCredential {
     /// Error returns always take precedence over the normal
     /// behavior of the mock.  But once an error has been
     /// returned it is removed, so the mock works thereafter.
-    pub(crate) fn set_error(&self, err: Error) {
+    pub fn set_error(&self, err: Error) {
         let mut inner = self
             .inner
             .lock()
@@ -221,7 +221,7 @@ impl CredentialBuilderApi for MockCredentialBuilder {
 }
 
 /// Return a mock credential builder for use by clients.
-pub(crate) fn default_credential_builder() -> Box<CredentialBuilder> {
+pub fn default_credential_builder() -> Box<CredentialBuilder> {
     Box::new(MockCredentialBuilder {})
 }
 

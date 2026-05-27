@@ -155,8 +155,7 @@ are not recommended, as they may cause the RPC mechanism to fail.
 
 use std::collections::HashMap;
 
-pub use credential::Credential;
-pub(crate) use credential::CredentialBuilder;
+pub use credential::{Credential, CredentialBuilder};
 pub use error::{Error, Result};
 
 #[cfg(any(target_os = "macos", target_os = "windows"))]
@@ -218,7 +217,7 @@ pub fn set_default_credential_builder(new: Box<CredentialBuilder>) {
     guard.inner = Some(new);
 }
 
-pub(crate) fn default_credential_builder() -> Box<CredentialBuilder> {
+pub fn default_credential_builder() -> Box<CredentialBuilder> {
     #[cfg(any(
         all(target_os = "linux", feature = "secret-service"),
         all(target_os = "freebsd", feature = "secret-service"),
@@ -278,13 +277,13 @@ impl Entry {
     /// Create an entry for the given target, service, and user.
     ///
     /// The default credential builder is used.
-    pub(crate) fn new_with_target(target: &str, service: &str, user: &str) -> Result<Self> {
+    pub fn new_with_target(target: &str, service: &str, user: &str) -> Result<Self> {
         let entry = build_default_credential(Some(target), service, user)?;
         Ok(entry)
     }
 
     /// Create an entry from a credential that may be in any credential store.
-    pub(crate) fn new_with_credential(credential: Box<Credential>) -> Self {
+    pub fn new_with_credential(credential: Box<Credential>) -> Self {
         Self { inner: credential }
     }
 
@@ -349,7 +348,7 @@ impl Entry {
     /// that matches this entry.  This can only happen
     /// on some platforms, and then only if a third-party
     /// application wrote the ambiguous credential.
-    pub(crate) async fn get_attributes(&self) -> Result<HashMap<String, String>> {
+    pub async fn get_attributes(&self) -> Result<HashMap<String, String>> {
         self.inner.get_attributes().await
     }
 
@@ -368,7 +367,7 @@ impl Entry {
     /// that matches this entry.  This can only happen
     /// on some platforms, and then only if a third-party
     /// application wrote the ambiguous credential.
-    pub(crate) async fn update_attributes(&self, attributes: &HashMap<&str, &str>) -> Result<()> {
+    pub async fn update_attributes(&self, attributes: &HashMap<&str, &str>) -> Result<()> {
         self.inner.update_attributes(attributes).await
     }
 
@@ -394,7 +393,7 @@ impl Entry {
     /// The reference is of the [Any](std::any::Any) type, so it can be
     /// downgraded to a concrete credential object.  The client must know
     /// what type of concrete object to cast to.
-    pub(crate) fn get_credential(&self) -> &dyn std::any::Any {
+    pub fn get_credential(&self) -> &dyn std::any::Any {
         self.inner.as_any()
     }
 }

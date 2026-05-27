@@ -122,6 +122,10 @@ impl std::fmt::Debug for Credential {
 pub enum CredentialPersistence {
     /// Credentials vanish when the entry vanishes (stored in the entry)
     EntryOnly,
+    /// Credentials vanish when the process terminates (stored in process memory)
+    ProcessOnly,
+    /// Credentials persist until the machine reboots (stored in kernel memory)
+    UntilReboot,
     /// Credentials persist until they are explicitly deleted (stored on disk)
     UntilDelete,
 }
