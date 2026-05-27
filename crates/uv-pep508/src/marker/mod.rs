@@ -16,8 +16,7 @@ pub(crate) mod parse;
 mod simplify;
 mod tree;
 
-pub use environment::MarkerEnvironment;
-pub(crate) use environment::MarkerEnvironmentBuilder;
+pub use environment::{MarkerEnvironment, MarkerEnvironmentBuilder};
 pub use lowering::{
     CanonicalMarkerValueExtra, CanonicalMarkerValueString, CanonicalMarkerValueVersion,
 };

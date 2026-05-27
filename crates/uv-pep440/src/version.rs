@@ -1681,9 +1681,9 @@ impl Deref for Release<'_> {
 #[cfg_attr(feature = "rkyv", rkyv(derive(Debug, Eq, PartialEq, PartialOrd, Ord)))]
 pub struct Prerelease {
     /// The kind of pre-release.
-    pub(crate) kind: PrereleaseKind,
+    pub kind: PrereleaseKind,
     /// The number associated with the pre-release.
-    pub(crate) number: u64,
+    pub number: u64,
 }
 
 /// Optional pre-release modifier (alpha, beta or release candidate) appended to version

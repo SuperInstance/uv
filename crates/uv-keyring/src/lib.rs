@@ -278,13 +278,13 @@ impl Entry {
     /// Create an entry for the given target, service, and user.
     ///
     /// The default credential builder is used.
-    pub fn new_with_target(target: &str, service: &str, user: &str) -> Result<Self> {
+    pub(crate) fn new_with_target(target: &str, service: &str, user: &str) -> Result<Self> {
         let entry = build_default_credential(Some(target), service, user)?;
         Ok(entry)
     }
 
     /// Create an entry from a credential that may be in any credential store.
-    pub fn new_with_credential(credential: Box<Credential>) -> Self {
+    pub(crate) fn new_with_credential(credential: Box<Credential>) -> Self {
         Self { inner: credential }
     }
 
@@ -349,7 +349,7 @@ impl Entry {
     /// that matches this entry.  This can only happen
     /// on some platforms, and then only if a third-party
     /// application wrote the ambiguous credential.
-    pub async fn get_attributes(&self) -> Result<HashMap<String, String>> {
+    pub(crate) async fn get_attributes(&self) -> Result<HashMap<String, String>> {
         self.inner.get_attributes().await
     }
 
@@ -368,7 +368,7 @@ impl Entry {
     /// that matches this entry.  This can only happen
     /// on some platforms, and then only if a third-party
     /// application wrote the ambiguous credential.
-    pub async fn update_attributes(&self, attributes: &HashMap<&str, &str>) -> Result<()> {
+    pub(crate) async fn update_attributes(&self, attributes: &HashMap<&str, &str>) -> Result<()> {
         self.inner.update_attributes(attributes).await
     }
 
@@ -394,7 +394,7 @@ impl Entry {
     /// The reference is of the [Any](std::any::Any) type, so it can be
     /// downgraded to a concrete credential object.  The client must know
     /// what type of concrete object to cast to.
-    pub fn get_credential(&self) -> &dyn std::any::Any {
+    pub(crate) fn get_credential(&self) -> &dyn std::any::Any {
         self.inner.as_any()
     }
 }

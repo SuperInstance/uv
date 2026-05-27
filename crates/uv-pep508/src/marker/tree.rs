@@ -655,7 +655,7 @@ impl MarkerExpression {
     /// Returns `None` if the expression consists entirely of meaningless expressions
     /// that are ignored, such as `os_name ~= 'foo'`.
     #[expect(clippy::should_implement_trait)]
-    pub fn from_str(s: &str) -> Result<Option<Self>, Pep508Error> {
+    pub(crate) fn from_str(s: &str) -> Result<Option<Self>, Pep508Error> {
         Self::parse_reporter(s, &mut TracingReporter)
     }
 
@@ -1309,7 +1309,7 @@ impl MarkerTree {
     /// == 'linux' and extra != 'dev'`, the marker will be simplified to
     /// `sys_platform == 'linux'`.
     #[must_use]
-    pub fn simplify_not_extras(self, extras: &[ExtraName]) -> Self {
+    pub(crate) fn simplify_not_extras(self, extras: &[ExtraName]) -> Self {
         self.simplify_not_extras_with(|name| extras.contains(name))
     }
 

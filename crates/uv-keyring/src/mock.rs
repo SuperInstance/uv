@@ -186,7 +186,7 @@ impl MockCredential {
     /// Error returns always take precedence over the normal
     /// behavior of the mock.  But once an error has been
     /// returned it is removed, so the mock works thereafter.
-    pub fn set_error(&self, err: Error) {
+    pub(crate) fn set_error(&self, err: Error) {
         let mut inner = self
             .inner
             .lock()
@@ -221,7 +221,7 @@ impl CredentialBuilderApi for MockCredentialBuilder {
 }
 
 /// Return a mock credential builder for use by clients.
-pub fn default_credential_builder() -> Box<CredentialBuilder> {
+pub(crate) fn default_credential_builder() -> Box<CredentialBuilder> {
     Box::new(MockCredentialBuilder {})
 }
 

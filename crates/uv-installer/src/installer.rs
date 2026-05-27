@@ -66,7 +66,7 @@ impl<'a> Installer<'a> {
 
     /// Set the `installer_name` to something other than `"uv"`.
     #[must_use]
-    pub fn with_installer_name(self, installer_name: Option<String>) -> Self {
+    pub(crate) fn with_installer_name(self, installer_name: Option<String>) -> Self {
         Self {
             name: installer_name,
             ..self
