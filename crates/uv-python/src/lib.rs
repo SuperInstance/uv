@@ -9,7 +9,7 @@ pub use crate::discovery::{
     PythonPreference, PythonRequest, PythonSource, PythonVariant, VersionRequest,
     find_python_installations,
 };
-pub(crate) use crate::downloads::PlatformRequest;
+pub use crate::downloads::PlatformRequest;
 pub use crate::environment::{InvalidEnvironmentKind, PythonEnvironment};
 pub use crate::implementation::{ImplementationName, LenientImplementationName};
 pub use crate::installation::{

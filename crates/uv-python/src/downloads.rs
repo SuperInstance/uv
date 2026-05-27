@@ -1443,7 +1443,7 @@ impl ManagedPythonDownload {
         Ok(())
     }
 
-    pub(crate) fn python_version(&self) -> PythonVersion {
+    pub fn python_version(&self) -> PythonVersion {
         self.key.version()
     }
 

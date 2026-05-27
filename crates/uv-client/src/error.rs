@@ -27,7 +27,7 @@ pub struct ProblemDetails {
     /// A URI reference that identifies the problem type.
     /// When dereferenced, it SHOULD provide human-readable documentation for the problem type.
     #[serde(rename = "type", default = "default_problem_type")]
-    pub(crate) problem_type: String,
+    pub problem_type: String,
 
     /// A short, human-readable summary of the problem type.
     pub(crate) title: Option<String>,
@@ -39,7 +39,7 @@ pub struct ProblemDetails {
     pub(crate) detail: Option<String>,
 
     /// A URI reference that identifies the specific occurrence of the problem.
-    pub(crate) instance: Option<String>,
+    pub instance: Option<String>,
 }
 
 /// Default problem type URI as per RFC 9457

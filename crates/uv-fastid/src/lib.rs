@@ -83,7 +83,7 @@ impl Id {
     ///
     /// The resulting ID is suitable for use in contexts where uniqueness is needed and
     /// the risk of an adversarial collision is non-negligible.
-    pub(crate) fn secure() -> Self {
+    pub fn secure() -> Self {
         let mut raw = [0u8; 16];
         let mut rng = rand::rng();
         rng.fill_bytes(raw.as_mut());

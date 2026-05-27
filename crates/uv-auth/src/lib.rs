@@ -9,10 +9,8 @@ pub use pyx::{
     is_default_pyx_domain,
 };
 pub use realm::{Realm, RealmRef};
-pub use service::Service;
-pub(crate) use service::ServiceParseError;
-pub(crate) use store::AuthScheme;
-pub use store::{AuthBackend, TextCredentialStore, TomlCredentialError};
+pub use service::{Service, ServiceParseError};
+pub use store::{AuthBackend, AuthScheme, TextCredentialStore, TomlCredentialError};
 
 mod access_token;
 mod cache;

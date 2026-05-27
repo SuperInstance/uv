@@ -440,7 +440,7 @@ impl<'a> IndexLocations {
     }
 
     /// Return the Simple API cache control header for an [`IndexUrl`], if configured.
-    pub(crate) fn simple_api_cache_control_for(&self, url: &IndexUrl) -> Option<http::HeaderValue> {
+    pub fn simple_api_cache_control_for(&self, url: &IndexUrl) -> Option<http::HeaderValue> {
         for index in &self.indexes {
             if is_same_index(index.url(), url) {
                 return index.simple_api_cache_control();

@@ -22,11 +22,10 @@ pub use lowering::{
 };
 pub use tree::{
     ContainsMarkerTree, ExtraMarkerTree, ExtraOperator, InMarkerTree, MarkerExpression,
-    MarkerOperator, MarkerTree, MarkerTreeContents, MarkerTreeKind, MarkerValueExtra,
-    MarkerValueList, MarkerValueString, MarkerValueVersion, StringMarkerTree, StringVersion,
-    VersionMarkerTree,
+    MarkerOperator, MarkerTree, MarkerTreeContents, MarkerTreeKind, MarkerValue, MarkerValueExtra,
+    MarkerValueList, MarkerValueString, MarkerValueVersion, MarkerWarningKind, StringMarkerTree,
+    StringVersion, VersionMarkerTree,
 };
-pub(crate) use tree::{MarkerValue, MarkerWarningKind};
 
 /// `serde` helpers for [`MarkerTree`].
 pub mod ser {

@@ -490,7 +490,7 @@ impl EnvVars {
     /// [`UV_INSTALLER_GHE_BASE_URL`](Self::UV_INSTALLER_GHE_BASE_URL) override this
     /// variable for `uv self update`.
     #[attr_added_in("0.11.14")]
-    pub(crate) const UV_ASTRAL_MIRROR_URL: &'static str = "UV_ASTRAL_MIRROR_URL";
+    pub const UV_ASTRAL_MIRROR_URL: &'static str = "UV_ASTRAL_MIRROR_URL";
 
     /// Pin managed CPython versions to a specific build version.
     ///
@@ -625,7 +625,7 @@ impl EnvVars {
     /// Used to set a temporary directory for some tests.
     #[attr_hidden]
     #[attr_added_in("0.3.4")]
-    pub(crate) const UV_INTERNAL__TEST_DIR: &'static str = "UV_INTERNAL__TEST_DIR";
+    pub const UV_INTERNAL__TEST_DIR: &'static str = "UV_INTERNAL__TEST_DIR";
 
     /// Path to a directory on a filesystem that supports copy-on-write, e.g., btrfs or APFS.
     ///
@@ -656,7 +656,7 @@ impl EnvVars {
     /// When populated, uv will run additional tests that cover SMB-specific filesystem behavior.
     #[attr_hidden]
     #[attr_added_in("0.11.16")]
-    pub(crate) const UV_INTERNAL__TEST_SMB_FS: &'static str = "UV_INTERNAL__TEST_SMB_FS";
+    pub const UV_INTERNAL__TEST_SMB_FS: &'static str = "UV_INTERNAL__TEST_SMB_FS";
 
     /// Path to a directory on a filesystem with a low hardlink limit (e.g., minix with ~250).
     ///
@@ -697,7 +697,7 @@ impl EnvVars {
 
     /// Path to cache directory on Unix systems.
     #[attr_added_in("0.1.17")]
-    pub(crate) const XDG_CACHE_HOME: &'static str = "XDG_CACHE_HOME";
+    pub const XDG_CACHE_HOME: &'static str = "XDG_CACHE_HOME";
 
     /// Path to directory for storing managed Python installations and tools.
     #[attr_added_in("0.2.16")]
@@ -786,7 +786,7 @@ impl EnvVars {
     ///
     /// See [`PycInvalidationMode`](https://docs.python.org/3/library/py_compile.html#py_compile.PycInvalidationMode).
     #[attr_added_in("0.1.7")]
-    pub(crate) const PYC_INVALIDATION_MODE: &'static str = "PYC_INVALIDATION_MODE";
+    pub const PYC_INVALIDATION_MODE: &'static str = "PYC_INVALIDATION_MODE";
 
     /// Used to detect an activated virtual environment.
     #[attr_added_in("0.0.5")]
@@ -811,7 +811,7 @@ impl EnvVars {
     /// If set to `1` before a virtual environment is activated, then the
     /// virtual environment name will not be prepended to the terminal prompt.
     #[attr_added_in("0.0.5")]
-    pub(crate) const VIRTUAL_ENV_DISABLE_PROMPT: &'static str = "VIRTUAL_ENV_DISABLE_PROMPT";
+    pub const VIRTUAL_ENV_DISABLE_PROMPT: &'static str = "VIRTUAL_ENV_DISABLE_PROMPT";
 
     /// Used to detect the use of the Windows Command Prompt (as opposed to PowerShell).
     #[attr_added_in("0.1.16")]
@@ -900,7 +900,7 @@ impl EnvVars {
 
     /// Used to look for Microsoft Store Pythons installations.
     #[attr_added_in("0.3.3")]
-    pub(crate) const LOCALAPPDATA: &'static str = "LOCALAPPDATA";
+    pub const LOCALAPPDATA: &'static str = "LOCALAPPDATA";
 
     /// Path to the `.git` directory. Ignored by `uv` when performing fetch.
     #[attr_hidden]
@@ -1024,12 +1024,12 @@ impl EnvVars {
     /// Used to set the location of Python stdlib when using trampolines.
     #[attr_hidden]
     #[attr_added_in("0.7.13")]
-    pub(crate) const PYTHONHOME: &'static str = "PYTHONHOME";
+    pub const PYTHONHOME: &'static str = "PYTHONHOME";
 
     /// Used to correctly detect virtual environments when using trampolines.
     #[attr_hidden]
     #[attr_added_in("0.7.13")]
-    pub(crate) const PYVENV_LAUNCHER: &'static str = "__PYVENV_LAUNCHER__";
+    pub const PYVENV_LAUNCHER: &'static str = "__PYVENV_LAUNCHER__";
 
     /// Used in tests to enforce a consistent locale setting.
     #[attr_hidden]
@@ -1278,7 +1278,7 @@ impl EnvVars {
     /// Used ephemeral environments like CI to install uv to a specific path while preventing
     /// the installer from modifying shell profiles or environment variables.
     #[attr_added_in("0.5.0")]
-    pub(crate) const UV_UNMANAGED_INSTALL: &'static str = "UV_UNMANAGED_INSTALL";
+    pub const UV_UNMANAGED_INSTALL: &'static str = "UV_UNMANAGED_INSTALL";
 
     /// The URL from which to download uv using the standalone installer. By default, installs from
     /// uv's GitHub Releases. `INSTALLER_DOWNLOAD_URL` is also supported as an alias, for backwards
@@ -1290,7 +1290,7 @@ impl EnvVars {
     /// installer and `self update` feature. `INSTALLER_NO_MODIFY_PATH` is also supported as an
     /// alias, for backwards compatibility.
     #[attr_added_in("0.8.4")]
-    pub(crate) const UV_NO_MODIFY_PATH: &'static str = "UV_NO_MODIFY_PATH";
+    pub const UV_NO_MODIFY_PATH: &'static str = "UV_NO_MODIFY_PATH";
 
     /// Skip writing `uv` installer metadata files (e.g., `INSTALLER`, `REQUESTED`, and `direct_url.json`) to site-packages `.dist-info` directories.
     #[attr_added_in("0.5.7")]
@@ -1421,27 +1421,27 @@ impl EnvVars {
 
     /// The AWS access key ID to use when signing S3 requests.
     #[attr_added_in("0.8.21")]
-    pub(crate) const AWS_ACCESS_KEY_ID: &'static str = "AWS_ACCESS_KEY_ID";
+    pub const AWS_ACCESS_KEY_ID: &'static str = "AWS_ACCESS_KEY_ID";
 
     /// The AWS secret access key to use when signing S3 requests.
     #[attr_added_in("0.8.21")]
-    pub(crate) const AWS_SECRET_ACCESS_KEY: &'static str = "AWS_SECRET_ACCESS_KEY";
+    pub const AWS_SECRET_ACCESS_KEY: &'static str = "AWS_SECRET_ACCESS_KEY";
 
     /// The AWS session token to use when signing S3 requests.
     #[attr_added_in("0.8.21")]
-    pub(crate) const AWS_SESSION_TOKEN: &'static str = "AWS_SESSION_TOKEN";
+    pub const AWS_SESSION_TOKEN: &'static str = "AWS_SESSION_TOKEN";
 
     /// The AWS profile to use when signing S3 requests.
     #[attr_added_in("0.8.21")]
-    pub(crate) const AWS_PROFILE: &'static str = "AWS_PROFILE";
+    pub const AWS_PROFILE: &'static str = "AWS_PROFILE";
 
     /// The AWS config file to use when signing S3 requests.
     #[attr_added_in("0.8.21")]
-    pub(crate) const AWS_CONFIG_FILE: &'static str = "AWS_CONFIG_FILE";
+    pub const AWS_CONFIG_FILE: &'static str = "AWS_CONFIG_FILE";
 
     /// The AWS shared credentials file to use when signing S3 requests.
     #[attr_added_in("0.8.21")]
-    pub(crate) const AWS_SHARED_CREDENTIALS_FILE: &'static str = "AWS_SHARED_CREDENTIALS_FILE";
+    pub const AWS_SHARED_CREDENTIALS_FILE: &'static str = "AWS_SHARED_CREDENTIALS_FILE";
 
     /// Avoid verifying that wheel filenames match their contents when installing wheels. This
     /// is not recommended, as wheels with inconsistent filenames should be considered invalid and

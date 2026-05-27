@@ -4,8 +4,7 @@ pub use crate::resolver::{
     GitHttpSettings, GitResolver, GitResolverError, RepositoryReference,
     ResolvedRepositoryReference,
 };
-pub(crate) use crate::source::GitSource;
-pub use crate::source::{Fetch, Reporter};
+pub use crate::source::{Fetch, GitSource, Reporter};
 
 mod credentials;
 mod git;

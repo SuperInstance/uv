@@ -46,7 +46,7 @@ pub struct BuildBackendSettings {
         value_type = "str | list[str]",
         example = r#"module-name = "sklearn""#
     )]
-    pub(crate) module_name: Option<ModuleName>,
+    pub module_name: Option<ModuleName>,
 
     /// Glob expressions which files and directories to additionally include in the source
     /// distribution.

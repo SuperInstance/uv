@@ -585,7 +585,7 @@ pub struct PyxJwt {
     /// The expiration time of the JWT, as a Unix timestamp.
     pub(crate) exp: Option<i64>,
     /// The issuer of the JWT.
-    pub(crate) iss: Option<String>,
+    pub iss: Option<String>,
     /// The name of the organization, if any.
     #[serde(rename = "urn:pyx:org_name")]
     pub name: Option<String>,

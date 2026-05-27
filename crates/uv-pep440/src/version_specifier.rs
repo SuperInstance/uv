@@ -616,7 +616,7 @@ impl VersionSpecifier {
     /// See:
     /// - <https://peps.python.org/pep-0440/#version-specifiers>
     /// - <https://github.com/pypa/packaging/blob/e184feef1a28a5c574ec41f5c263a3a573861f5a/packaging/specifiers.py#L362-L496>
-    pub(crate) fn contains(&self, version: &Version) -> bool {
+    pub fn contains(&self, version: &Version) -> bool {
         // "Except where specifically noted below, local version identifiers MUST NOT be permitted
         // in version specifiers, and local version labels MUST be ignored entirely when checking
         // if candidate versions match a given version specifier."

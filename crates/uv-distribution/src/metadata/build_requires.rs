@@ -17,7 +17,7 @@ use crate::metadata::{LoweredRequirement, MetadataError};
 /// Lowered requirements from a `[build-system.requires]` field in a `pyproject.toml` file.
 #[derive(Debug, Clone)]
 pub struct BuildRequires {
-    pub(crate) name: Option<PackageName>,
+    pub name: Option<PackageName>,
     pub requires_dist: Vec<Requirement>,
 }
 

@@ -1,3 +1,4 @@
+use std::borrow::Cow;
 use std::fmt::{Display, Formatter};
 
 use uv_git_types::{GitLfs, GitReference};
@@ -181,6 +182,17 @@ impl UnresolvedRequirement {
                 },
                 ..requirement
             }),
+        }
+    }
+
+    /// Return the version specifier or URL for the requirement.
+    pub fn source(&self) -> Cow<'_, RequirementSource> {
+        match self {
+            Self::Named(requirement) => Cow::Borrowed(&requirement.source),
+            Self::Unnamed(requirement) => Cow::Owned(RequirementSource::from_parsed_url(
+                requirement.url.parsed_url.clone(),
+                requirement.url.verbatim.clone(),
+            )),
         }
     }
 

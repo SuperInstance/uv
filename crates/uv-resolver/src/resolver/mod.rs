@@ -71,9 +71,9 @@ pub(crate) use crate::resolver::fork_map::{ForkMap, ForkSet};
 pub use crate::resolver::index::InMemoryIndex;
 use crate::resolver::indexes::Indexes;
 pub use crate::resolver::provider::{
-    DefaultResolverProvider, MetadataResponse, ResolverProvider, VersionsResponse,
+    DefaultResolverProvider, MetadataResponse, PackageVersionsResult, ResolverProvider,
+    VersionsResponse, WheelMetadataResult,
 };
-pub(crate) use crate::resolver::provider::{PackageVersionsResult, WheelMetadataResult};
 pub use crate::resolver::reporter::Reporter;
 use crate::resolver::system::SystemDependency;
 pub(crate) use crate::resolver::urls::Urls;
