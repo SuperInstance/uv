@@ -131,6 +131,7 @@ pub(crate) async fn install(
             .and_then(|requirements| requirements.first())
             .map(|requirement| &requirement.requirement),
         registry_target_requirement.as_ref(),
+        constraints.is_empty() && overrides.is_empty(),
         no_config,
         lfs,
         state.git(),
