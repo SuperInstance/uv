@@ -4,9 +4,11 @@ use tracing::debug;
 use uv_client::{MetadataFormat, RegistryClient, VersionFiles};
 use uv_distribution_filename::DistFilename;
 use uv_distribution_types::{
-    IndexCapabilities, IndexLocations, IndexMetadataRef, IndexUrl, RequiresPython,
+    BuiltDist, IndexCapabilities, IndexLocations, IndexMetadataRef, IndexUrl, RegistryBuiltDist,
+    RegistryBuiltWheel, RequiresPython,
 };
 use uv_normalize::PackageName;
+use uv_pep440::VersionSpecifiers;
 use uv_platform_tags::Tags;
 use uv_resolver::{ExcludeNewer, PrereleaseMode};
 use uv_warnings::warn_user_once;
@@ -26,6 +28,15 @@ pub(crate) struct LatestClient<'env> {
     pub(crate) requires_python: Option<&'env RequiresPython>,
 }
 
+/// The selected distribution for a package, along with any static Python requirement declared
+/// by the index.
+#[derive(Debug, Clone)]
+pub(crate) struct LatestDistribution {
+    pub(crate) filename: DistFilename,
+    pub(crate) requires_python: Option<VersionSpecifiers>,
+    pub(crate) wheel: Option<BuiltDist>,
+}
+
 impl LatestClient<'_> {
     fn effective_exclude_newer(
         &self,
@@ -43,6 +54,20 @@ impl LatestClient<'_> {
         index: Option<&IndexUrl>,
         download_concurrency: &Semaphore,
     ) -> Result<Option<DistFilename>, uv_client::Error> {
+        Ok(self
+            .find_latest_with_specifier(package, index, None, download_concurrency)
+            .await?
+            .map(|distribution| distribution.filename))
+    }
+
+    /// Find the latest version of a package matching the provided version specifier.
+    pub(crate) async fn find_latest_with_specifier(
+        &self,
+        package: &PackageName,
+        index: Option<&IndexUrl>,
+        specifier: Option<&VersionSpecifiers>,
+        download_concurrency: &Semaphore,
+    ) -> Result<Option<LatestDistribution>, uv_client::Error> {
         debug!("Fetching latest version of: `{package}`");
 
         let archives = match self
@@ -66,7 +91,7 @@ impl LatestClient<'_> {
             }
         };
 
-        let mut latest: Option<DistFilename> = None;
+        let mut latest: Option<LatestDistribution> = None;
         for (index, archive) in archives {
             let MetadataFormat::Simple(archive) = archive else {
                 continue;
@@ -82,6 +107,11 @@ impl LatestClient<'_> {
                 let mut best = None;
 
                 for (filename, file) in files.all() {
+                    // Skip distributions that do not match the requested package version.
+                    if specifier.is_some_and(|specifier| !specifier.contains(filename.version())) {
+                        continue;
+                    }
+
                     // Skip distributions uploaded after the cutoff.
                     if let Some(exclude_newer) = &exclude_newer {
                         match file.upload_time_utc_ms.as_ref() {
@@ -107,7 +137,11 @@ impl LatestClient<'_> {
                     }
 
                     // Skip distributions that are yanked.
-                    if file.yanked.is_some_and(|yanked| yanked.is_yanked()) {
+                    if file
+                        .yanked
+                        .as_ref()
+                        .is_some_and(|yanked| yanked.is_yanked())
+                    {
                         continue;
                     }
 
@@ -135,20 +169,39 @@ impl LatestClient<'_> {
                     }
 
                     match filename {
-                        DistFilename::WheelFilename(_) => {
-                            best = Some(filename);
+                        DistFilename::WheelFilename(filename) => {
+                            let dist_filename = DistFilename::WheelFilename(filename.clone());
+                            best = Some(LatestDistribution {
+                                filename: dist_filename,
+                                requires_python: file.requires_python.clone(),
+                                wheel: Some(BuiltDist::Registry(RegistryBuiltDist {
+                                    wheels: vec![RegistryBuiltWheel {
+                                        filename,
+                                        file: Box::new(file),
+                                        index: index.clone(),
+                                    }],
+                                    best_wheel_index: 0,
+                                    sdist: None,
+                                })),
+                            });
                             break;
                         }
                         DistFilename::SourceDistFilename(_) => {
                             if best.is_none() {
-                                best = Some(filename);
+                                best = Some(LatestDistribution {
+                                    filename,
+                                    requires_python: file.requires_python,
+                                    wheel: None,
+                                });
                             }
                         }
                     }
                 }
 
                 match (latest.as_ref(), best) {
-                    (Some(current), Some(best)) if best.version() > current.version() => {
+                    (Some(current), Some(best))
+                        if best.filename.version() > current.filename.version() =>
+                    {
                         latest = Some(best);
                     }
                     (None, Some(best)) => {
