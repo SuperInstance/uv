@@ -1,6 +1,16 @@
-# Hawk analyzes the `uv` binary and workspace tests as a closed world; retain public API outside those graphs.
+# Hawk analyzes the `uv` and `uv-dev` binaries and workspace tests as a closed world; retain public API outside those graphs.
 # Invoke with `--exclude-crate uv_keyring`; that vendored crate retains its public client API.
 # Keep each retained finding expected so removing it requires deleting this entry.
+
+[[production]]
+package = "uv"
+bin = "uv"
+reason = "shipped package manager binary"
+
+[[production]]
+package = "uv-dev"
+bin = "uv-dev"
+reason = "developer binary shipped from this workspace"
 
 [[override]]
 lint = "hawk::dead_public"
@@ -173,10 +183,3 @@ crate = "uv_distribution_types"
 item = "config_settings::ConfigSettings::is_empty"
 level = "expect"
 reason = "kept public alongside the public len method"
-
-[[override]]
-lint = "hawk::dead_public"
-crate = "uv_dev"
-item = "run"
-level = "expect"
-reason = "used by the uv-dev binary outside the selected uv graph"
