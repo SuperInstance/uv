@@ -1598,9 +1598,6 @@ async fn run(cli: Cli) -> Result<ExitStatus> {
                 &workspace_cache,
                 printer,
                 globals.preview,
-                true,
-                false,
-                false,
             ))
             .await
         }
