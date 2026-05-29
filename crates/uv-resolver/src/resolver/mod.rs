@@ -3544,7 +3544,7 @@ pub(crate) struct ResolutionDependencyEdge {
     pub(crate) to_index: Option<IndexUrl>,
     pub(crate) to_extra: Option<ExtraName>,
     pub(crate) to_group: Option<GroupName>,
-    marker: MarkerTree,
+    pub(crate) marker: MarkerTree,
 }
 
 impl ResolutionDependencyEdge {

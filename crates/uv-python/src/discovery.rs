@@ -215,7 +215,7 @@ type FindPythonResult = Result<PythonInstallation, PythonNotFound>;
 #[derive(Clone, Debug, Error)]
 pub struct PythonNotFound {
     pub(crate) request: PythonRequest,
-    python_preference: PythonPreference,
+    pub(crate) python_preference: PythonPreference,
     pub(crate) environment_preference: EnvironmentPreference,
 }
 

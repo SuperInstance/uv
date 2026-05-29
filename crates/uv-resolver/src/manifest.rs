@@ -50,7 +50,7 @@ pub struct Manifest {
     /// These represent transitive dependencies that should be incorporated when making
     /// determinations around "allowed" versions (for example, "allowed" URLs or "allowed"
     /// pre-release versions).
-    lookaheads: Vec<RequestedRequirements>,
+    pub(crate) lookaheads: Vec<RequestedRequirements>,
 }
 
 impl Manifest {

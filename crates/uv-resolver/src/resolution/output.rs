@@ -47,7 +47,7 @@ pub struct ResolverOutput {
     /// recreate them in subsequent resolutions.
     pub(crate) fork_markers: Vec<UniversalMarker>,
     /// Any diagnostics that were encountered while building the graph.
-    diagnostics: Vec<ResolutionDiagnostic>,
+    pub(crate) diagnostics: Vec<ResolutionDiagnostic>,
     /// The requirements that were used to build the graph.
     pub(crate) requirements: Vec<Requirement>,
     /// The constraints that were used to build the graph.

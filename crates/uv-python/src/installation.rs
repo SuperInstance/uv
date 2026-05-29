@@ -509,7 +509,7 @@ pub struct PythonInstallationKey {
     pub(crate) minor: u8,
     pub(crate) patch: u8,
     pub(crate) prerelease: Option<Prerelease>,
-    platform: Platform,
+    pub(crate) platform: Platform,
     pub(crate) variant: PythonVariant,
 }
 

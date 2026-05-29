@@ -12,7 +12,7 @@ pub struct ToolReceipt {
 
     /// The raw unserialized document.
     #[serde(skip)]
-    raw: String,
+    pub(crate) raw: String,
 }
 
 impl ToolReceipt {

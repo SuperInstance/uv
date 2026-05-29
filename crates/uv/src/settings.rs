@@ -245,7 +245,7 @@ pub(crate) fn resolve_preview(
 #[derive(Debug, Clone)]
 pub(crate) struct NetworkSettings {
     pub(crate) connectivity: Connectivity,
-    offline: Flag,
+    pub(crate) offline: Flag,
     pub(crate) system_certs: bool,
     pub(crate) http_proxy: Option<ProxyUrl>,
     pub(crate) https_proxy: Option<ProxyUrl>,
@@ -1682,7 +1682,7 @@ pub(crate) struct SyncSettings {
     pub(crate) lock_check: LockCheck,
     pub(crate) frozen: Option<FrozenSource>,
     pub(crate) dry_run: DryRun,
-    script: Option<PathBuf>,
+    pub(crate) script: Option<PathBuf>,
     pub(crate) active: Option<bool>,
     pub(crate) extras: ExtrasSpecification,
     pub(crate) groups: DependencyGroups,
@@ -2243,7 +2243,7 @@ pub(crate) struct RemoveSettings {
     pub(crate) packages: Vec<PackageName>,
     pub(crate) dependency_type: DependencyType,
     pub(crate) package: Option<PackageName>,
-    script: Option<PathBuf>,
+    pub(crate) script: Option<PathBuf>,
     pub(crate) python: Option<String>,
     pub(crate) install_mirrors: PythonInstallMirrors,
     pub(crate) refresh: Refresh,
@@ -2440,7 +2440,7 @@ pub(crate) struct TreeSettings {
     pub(crate) outdated: bool,
     pub(crate) show_sizes: bool,
     #[allow(dead_code)]
-    script: Option<PathBuf>,
+    pub(crate) script: Option<PathBuf>,
     pub(crate) python_version: Option<PythonVersion>,
     pub(crate) python_platform: Option<TargetTriple>,
     pub(crate) python: Option<String>,
@@ -2556,10 +2556,10 @@ pub(crate) struct ExportSettings {
     pub(crate) frozen: Option<FrozenSource>,
     pub(crate) include_annotations: bool,
     pub(crate) include_header: bool,
-    script: Option<PathBuf>,
+    pub(crate) script: Option<PathBuf>,
     pub(crate) python: Option<String>,
     pub(crate) install_mirrors: PythonInstallMirrors,
-    refresh: Refresh,
+    pub(crate) refresh: Refresh,
     pub(crate) settings: ResolverSettings,
 }
 
