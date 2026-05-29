@@ -715,7 +715,7 @@ impl BaseClient {
     }
 
     /// Returns `true` if the host is trusted to use the insecure client.
-    pub(crate) fn disable_ssl(&self, url: &DisplaySafeUrl) -> bool {
+    fn disable_ssl(&self, url: &DisplaySafeUrl) -> bool {
         self.allow_insecure_host
             .iter()
             .any(|allow_insecure_host| allow_insecure_host.matches(url))
@@ -786,7 +786,7 @@ impl RedirectClientWithMiddleware {
     }
 
     /// Executes a request, applying the redirect policy.
-    pub(crate) async fn execute(&self, req: Request) -> reqwest_middleware::Result<Response> {
+    async fn execute(&self, req: Request) -> reqwest_middleware::Result<Response> {
         match self.redirect_policy {
             RedirectPolicy::BypassMiddleware => self.client.execute(req).await,
             RedirectPolicy::RetriggerMiddleware => self.execute_with_redirect_handling(req).await,
@@ -1022,7 +1022,7 @@ pub struct RequestBuilder<'a> {
 }
 
 impl<'a> RequestBuilder<'a> {
-    pub(crate) fn new(
+    fn new(
         builder: reqwest_middleware::RequestBuilder,
         client: &'a RedirectClientWithMiddleware,
     ) -> Self {

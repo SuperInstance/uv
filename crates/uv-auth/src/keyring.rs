@@ -413,7 +413,7 @@ impl KeyringProvider {
 
     /// Create a new provider with no credentials available.
     #[cfg(test)]
-    pub(crate) fn empty() -> Self {
+    fn empty() -> Self {
         Self {
             backend: KeyringProviderBackend::Dummy(Vec::new()),
         }

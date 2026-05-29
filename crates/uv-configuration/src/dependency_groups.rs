@@ -232,13 +232,13 @@ impl DependencyGroupsInner {
 /// Context about a [`DependencyGroups`][] that we've preserved for diagnostics
 #[derive(Debug, Default, Clone)]
 pub struct DependencyGroupsHistory {
-    pub(crate) dev_mode: Option<DevMode>,
-    pub(crate) group: Vec<GroupName>,
-    pub(crate) only_group: Vec<GroupName>,
-    pub(crate) no_group: Vec<GroupName>,
-    pub(crate) all_groups: bool,
-    pub(crate) no_default_groups: bool,
-    pub(crate) defaults: DefaultGroups,
+    dev_mode: Option<DevMode>,
+    group: Vec<GroupName>,
+    only_group: Vec<GroupName>,
+    no_group: Vec<GroupName>,
+    all_groups: bool,
+    no_default_groups: bool,
+    defaults: DefaultGroups,
 }
 
 impl DependencyGroupsHistory {
@@ -358,7 +358,7 @@ pub enum IncludeGroups {
 
 impl IncludeGroups {
     /// Returns `true` if the specification includes the given group.
-    pub(crate) fn contains(&self, group: &GroupName) -> bool {
+    fn contains(&self, group: &GroupName) -> bool {
         match self {
             Self::Some(groups) => groups.contains(group),
             Self::All => true,

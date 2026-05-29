@@ -325,7 +325,7 @@ impl ManagedPythonInstallation {
         }
     }
 
-    pub(crate) fn from_path(path: impl AsRef<Path>) -> Result<Self, Error> {
+    fn from_path(path: impl AsRef<Path>) -> Result<Self, Error> {
         let path = path.as_ref();
 
         let key = PythonInstallationKey::from_str(

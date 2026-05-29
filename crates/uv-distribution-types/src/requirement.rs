@@ -23,7 +23,7 @@ use uv_pypi_types::{
 };
 
 #[derive(Debug, Error)]
-pub(crate) enum RequirementError {
+enum RequirementError {
     #[error(transparent)]
     VerbatimUrlError(#[from] uv_pep508::VerbatimUrlError),
     #[error(transparent)]
@@ -732,7 +732,7 @@ impl RequirementSource {
     }
 
     /// Convert the source to a [`RequirementSource`] relative to the given path.
-    pub(crate) fn relative_to(self, path: &Path) -> Result<Self, io::Error> {
+    fn relative_to(self, path: &Path) -> Result<Self, io::Error> {
         match self {
             Self::Registry { .. }
             | Self::Url { .. }
@@ -766,7 +766,7 @@ impl RequirementSource {
 
     /// Convert the source to a [`RequirementSource`] with an absolute path based on the given root.
     #[must_use]
-    pub(crate) fn into_absolute(self, root: &Path) -> Self {
+    fn into_absolute(self, root: &Path) -> Self {
         match self {
             Self::Registry { .. }
             | Self::Url { .. }

@@ -261,7 +261,7 @@ impl TextCredentialStore {
     }
 
     /// Acquire a lock on the credentials file at the given path.
-    pub(crate) async fn lock(path: &Path) -> Result<LockedFile, TomlCredentialError> {
+    async fn lock(path: &Path) -> Result<LockedFile, TomlCredentialError> {
         if let Some(parent) = path.parent() {
             fs::create_dir_all(parent)?;
         }

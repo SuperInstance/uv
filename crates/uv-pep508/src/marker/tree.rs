@@ -629,10 +629,7 @@ impl Display for ContainerOperator {
 
 impl MarkerExpression {
     /// Parse a [`MarkerExpression`] from a string with the given reporter.
-    pub(crate) fn parse_reporter(
-        s: &str,
-        reporter: &mut impl Reporter,
-    ) -> Result<Option<Self>, Pep508Error> {
+    fn parse_reporter(s: &str, reporter: &mut impl Reporter) -> Result<Option<Self>, Pep508Error> {
         let mut chars = Cursor::new(s);
         let expression = parse::parse_marker_key_op_value(&mut chars, reporter)?;
         chars.eat_whitespace();
@@ -1561,7 +1558,7 @@ impl InMarkerTree<'_> {
     }
 
     /// Returns the subtree associated with the given edge value.
-    pub(crate) fn edge(&self, value: bool) -> MarkerTree {
+    fn edge(&self, value: bool) -> MarkerTree {
         if value {
             MarkerTree(self.high)
         } else {
@@ -1611,7 +1608,7 @@ impl ContainsMarkerTree<'_> {
     }
 
     /// Returns the subtree associated with the given edge value.
-    pub(crate) fn edge(&self, value: bool) -> MarkerTree {
+    fn edge(&self, value: bool) -> MarkerTree {
         if value {
             MarkerTree(self.high)
         } else {
@@ -1708,7 +1705,7 @@ impl ExtraMarkerTree<'_> {
     }
 
     /// Returns the subtree associated with the given edge value.
-    pub(crate) fn edge(&self, value: bool) -> MarkerTree {
+    fn edge(&self, value: bool) -> MarkerTree {
         if value {
             MarkerTree(self.high)
         } else {

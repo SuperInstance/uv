@@ -436,7 +436,7 @@ impl Version {
     /// The version `1.0min0` is smaller than all other `1.0` versions,
     /// like `1.0a1`, `1.0dev0`, etc.
     #[inline]
-    pub(crate) fn min(&self) -> Option<u64> {
+    fn min(&self) -> Option<u64> {
         match self.inner {
             VersionInner::Small { ref small } => small.min(),
             VersionInner::Full { ref full } => full.min,
@@ -449,7 +449,7 @@ impl Version {
     /// The version `1.0max0` is larger than all other `1.0` versions,
     /// like `1.0.post1`, `1.0+local`, etc.
     #[inline]
-    pub(crate) fn max(&self) -> Option<u64> {
+    fn max(&self) -> Option<u64> {
         match self.inner {
             VersionInner::Small { ref small } => small.max(),
             VersionInner::Full { ref full } => full.max,
@@ -1746,12 +1746,12 @@ pub enum LocalVersionSlice<'a> {
 
 impl LocalVersion {
     /// Return an empty local version.
-    pub(crate) fn empty() -> Self {
+    fn empty() -> Self {
         Self::Segments(Vec::new())
     }
 
     /// Returns `true` if the local version is empty.
-    pub(crate) fn is_empty(&self) -> bool {
+    fn is_empty(&self) -> bool {
         match self {
             Self::Segments(segments) => segments.is_empty(),
             Self::Max => false,
@@ -1759,7 +1759,7 @@ impl LocalVersion {
     }
 
     /// Convert the local version segments into a slice.
-    pub(crate) fn as_slice(&self) -> LocalVersionSlice<'_> {
+    fn as_slice(&self) -> LocalVersionSlice<'_> {
         match self {
             Self::Segments(segments) => LocalVersionSlice::Segments(segments),
             Self::Max => LocalVersionSlice::Max,
@@ -1824,7 +1824,7 @@ impl Ord for LocalVersionSlice<'_> {
 
 impl LocalVersionSlice<'_> {
     /// Return an empty local version.
-    pub(crate) const fn empty() -> Self {
+    const fn empty() -> Self {
         Self::Segments(&[])
     }
 

@@ -228,9 +228,9 @@ pub enum ArchRequest {
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, Default)]
 pub struct PlatformRequest {
-    pub(crate) os: Option<Os>,
-    pub(crate) arch: Option<ArchRequest>,
-    pub(crate) libc: Option<Libc>,
+    os: Option<Os>,
+    arch: Option<ArchRequest>,
+    libc: Option<Libc>,
 }
 
 impl PlatformRequest {
@@ -302,7 +302,7 @@ impl ArchRequest {
 }
 
 impl PythonDownloadRequest {
-    pub(crate) fn new(
+    fn new(
         version: Option<VersionRequest>,
         implementation: Option<ImplementationName>,
         arch: Option<ArchRequest>,
@@ -322,7 +322,7 @@ impl PythonDownloadRequest {
     }
 
     #[must_use]
-    pub(crate) fn with_implementation(mut self, implementation: ImplementationName) -> Self {
+    fn with_implementation(mut self, implementation: ImplementationName) -> Self {
         match implementation {
             // Pyodide is actually CPython with an Emscripten OS, we paper over that for usability
             ImplementationName::Pyodide => {
@@ -763,7 +763,7 @@ impl FromStr for PythonDownloadRequest {
         }
 
         impl Position {
-            pub(crate) fn next(&self) -> Self {
+            fn next(&self) -> Self {
                 match self {
                     Self::Start => Self::Implementation,
                     Self::Implementation => Self::Version,
@@ -1114,7 +1114,7 @@ impl ManagedPythonDownload {
         &self.key
     }
 
-    pub(crate) fn os(&self) -> &Os {
+    fn os(&self) -> &Os {
         self.key.os()
     }
 
@@ -1637,7 +1637,7 @@ fn parse_json_downloads(
 }
 
 impl Error {
-    pub(crate) fn from_reqwest(
+    fn from_reqwest(
         url: DisplaySafeUrl,
         err: reqwest::Error,
         retries: Option<u32>,
@@ -1655,10 +1655,7 @@ impl Error {
         }
     }
 
-    pub(crate) fn from_reqwest_middleware(
-        url: DisplaySafeUrl,
-        err: reqwest_middleware::Error,
-    ) -> Self {
+    fn from_reqwest_middleware(url: DisplaySafeUrl, err: reqwest_middleware::Error) -> Self {
         match err {
             reqwest_middleware::Error::Middleware(error) => {
                 Self::NetworkMiddlewareError(url, error)

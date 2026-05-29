@@ -10,9 +10,9 @@ use tracing_subscriber::registry::LookupSpan;
 
 /// The style of a uv logging line.
 pub struct UvFormat {
-    pub(crate) display_timestamp: bool,
-    pub(crate) display_level: bool,
-    pub(crate) show_spans: bool,
+    display_timestamp: bool,
+    display_level: bool,
+    show_spans: bool,
 }
 
 impl Default for UvFormat {

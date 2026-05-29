@@ -436,7 +436,7 @@ impl ConflictMarker {
 
     /// Create a conflict marker that is true only when the production
     /// dependencies for the given package are activated.
-    pub(crate) fn project(package: &PackageName) -> Self {
+    fn project(package: &PackageName) -> Self {
         let operator = uv_pep508::ExtraOperator::Equal;
         let name = uv_pep508::MarkerValueExtra::Extra(encode_project(package));
         let expr = uv_pep508::MarkerExpression::Extra { operator, name };
@@ -446,7 +446,7 @@ impl ConflictMarker {
 
     /// Create a conflict marker that is true only when the given extra for the
     /// given package is activated.
-    pub(crate) fn extra(package: &PackageName, extra: &ExtraName) -> Self {
+    fn extra(package: &PackageName, extra: &ExtraName) -> Self {
         let operator = uv_pep508::ExtraOperator::Equal;
         let name = uv_pep508::MarkerValueExtra::Extra(encode_package_extra(package, extra));
         let expr = uv_pep508::MarkerExpression::Extra { operator, name };
@@ -456,7 +456,7 @@ impl ConflictMarker {
 
     /// Create a conflict marker that is true only when the given group for the
     /// given package is activated.
-    pub(crate) fn group(package: &PackageName, group: &GroupName) -> Self {
+    fn group(package: &PackageName, group: &GroupName) -> Self {
         let operator = uv_pep508::ExtraOperator::Equal;
         let name = uv_pep508::MarkerValueExtra::Extra(encode_package_group(package, group));
         let expr = uv_pep508::MarkerExpression::Extra { operator, name };
@@ -475,7 +475,7 @@ impl ConflictMarker {
     /// Returns a new conflict marker corresponding to the union of `self` and
     /// `other`.
     #[must_use]
-    pub(crate) fn or(self, other: Self) -> Self {
+    fn or(self, other: Self) -> Self {
         let mut marker = self.marker;
         marker.or(other.marker);
         Self { marker }

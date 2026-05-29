@@ -427,7 +427,7 @@ pub enum ConflictKind {
 impl ConflictKind {
     /// If this conflict corresponds to an extra, then return the
     /// extra name.
-    pub(crate) fn extra(&self) -> Option<&ExtraName> {
+    fn extra(&self) -> Option<&ExtraName> {
         match self {
             Self::Extra(extra) => Some(extra),
             Self::Group(_) | Self::Project => None,
@@ -436,7 +436,7 @@ impl ConflictKind {
 
     /// If this conflict corresponds to a group, then return the
     /// group name.
-    pub(crate) fn group(&self) -> Option<&GroupName> {
+    fn group(&self) -> Option<&GroupName> {
         match self {
             Self::Group(group) => Some(group),
             Self::Extra(_) | Self::Project => None,
@@ -465,7 +465,7 @@ pub enum ConflictKindRef<'a> {
 
 impl ConflictKindRef<'_> {
     /// Converts this borrowed conflict to its owned variant.
-    pub(crate) fn to_owned(self) -> ConflictKind {
+    fn to_owned(self) -> ConflictKind {
         match self {
             Self::Extra(extra) => ConflictKind::Extra((*extra).clone()),
             Self::Group(group) => ConflictKind::Group((*group).clone()),

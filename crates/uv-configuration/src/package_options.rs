@@ -152,7 +152,7 @@ pub struct Upgrade {
 
 impl Upgrade {
     /// Create a new [`Upgrade`] with no upgrades nor constraints.
-    pub(crate) fn none() -> Self {
+    fn none() -> Self {
         Self {
             strategy: UpgradeStrategy::None,
             constraints: FxHashMap::default(),

@@ -367,7 +367,7 @@ impl Pin {
     }
 
     /// Return the hashes of the pinned package.
-    pub(crate) fn hashes(&self) -> &[HashDigest] {
+    fn hashes(&self) -> &[HashDigest] {
         self.hashes.as_slice()
     }
 }

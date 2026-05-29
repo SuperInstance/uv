@@ -41,13 +41,13 @@ pub struct CachedWheel {
     /// The filename of the wheel.
     pub(crate) filename: WheelFilename,
     /// The [`CacheEntry`] for the wheel.
-    pub(crate) entry: CacheEntry,
+    entry: CacheEntry,
     /// The [`HashDigest`]s for the wheel.
-    pub(crate) hashes: HashDigests,
+    hashes: HashDigests,
     /// The [`CacheInfo`] for the wheel.
-    pub(crate) cache_info: CacheInfo,
+    cache_info: CacheInfo,
     /// The [`BuildInfo`] for the wheel, if it was built.
-    pub(crate) build_info: Option<BuildInfo>,
+    build_info: Option<BuildInfo>,
 }
 
 impl CachedWheel {

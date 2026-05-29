@@ -374,7 +374,7 @@ impl PythonInstallation {
     }
 
     /// Return the [`Os`] of the Python installation as reported by its interpreter.
-    pub(crate) fn os(&self) -> Os {
+    fn os(&self) -> Os {
         self.interpreter.os()
     }
 
@@ -509,7 +509,7 @@ pub struct PythonInstallationKey {
     pub(crate) minor: u8,
     pub(crate) patch: u8,
     pub(crate) prerelease: Option<Prerelease>,
-    pub(crate) platform: Platform,
+    platform: Platform,
     pub(crate) variant: PythonVariant,
 }
 

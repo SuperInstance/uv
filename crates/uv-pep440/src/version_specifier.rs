@@ -584,7 +584,7 @@ impl VersionSpecifier {
     }
 
     /// Returns a version specifier representing the given lower bound.
-    pub(crate) fn from_lower_bound(bound: &Bound<Version>) -> Option<Self> {
+    fn from_lower_bound(bound: &Bound<Version>) -> Option<Self> {
         match bound {
             Bound::Included(version) => {
                 Some(Self::from_version(Operator::GreaterThanEqual, version.clone()).unwrap())
@@ -597,7 +597,7 @@ impl VersionSpecifier {
     }
 
     /// Returns a version specifier representing the given upper bound.
-    pub(crate) fn from_upper_bound(bound: &Bound<Version>) -> Option<Self> {
+    fn from_upper_bound(bound: &Bound<Version>) -> Option<Self> {
         match bound {
             Bound::Included(version) => {
                 Some(Self::from_version(Operator::LessThanEqual, version.clone()).unwrap())
@@ -978,7 +978,7 @@ impl<'a> TildeVersionSpecifier<'a> {
     ///
     /// If a [`Operator::TildeEqual`] is not used, or the version includes more than minor and patch
     /// segments, this will return [`None`].
-    pub(crate) fn from_specifier(specifier: VersionSpecifier) -> Option<Self> {
+    fn from_specifier(specifier: VersionSpecifier) -> Option<Self> {
         TildeVersionSpecifier::new(Cow::Owned(specifier))
     }
 

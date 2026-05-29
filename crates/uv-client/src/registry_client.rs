@@ -136,7 +136,7 @@ impl<'a> RegistryClientBuilder<'a> {
     /// leakage to untrusted domains.
     #[cfg(test)]
     #[must_use]
-    pub(crate) fn allow_cross_origin_credentials(mut self) -> Self {
+    fn allow_cross_origin_credentials(mut self) -> Self {
         self.base_client_builder = self.base_client_builder.allow_cross_origin_credentials();
         self
     }
@@ -1309,7 +1309,7 @@ impl RegistryClient {
 }
 
 #[derive(Debug)]
-pub(crate) enum SimpleMetadataSearchOutcome {
+enum SimpleMetadataSearchOutcome {
     /// Simple metadata was found
     Found(OwnedArchive<SimpleDetailMetadata>),
     /// Simple metadata was not found

@@ -118,7 +118,7 @@ impl SourceUrl<'_> {
     }
 
     /// Return the source tree of the source, if available.
-    pub(crate) fn source_tree(&self) -> Option<&Path> {
+    fn source_tree(&self) -> Option<&Path> {
         match self {
             Self::Directory(dist) => Some(dist.install_path),
             _ => None,
@@ -126,7 +126,7 @@ impl SourceUrl<'_> {
     }
 
     /// Returns `true` if the source is editable.
-    pub(crate) fn is_editable(&self) -> bool {
+    fn is_editable(&self) -> bool {
         matches!(
             self,
             Self::Directory(DirectorySourceUrl {

@@ -121,7 +121,7 @@ pub struct PyProjectToml {
 
     /// Used to determine whether a `build-system` section is present.
     #[serde(default, skip_serializing)]
-    pub(crate) build_system: Option<serde::de::IgnoredAny>,
+    build_system: Option<serde::de::IgnoredAny>,
 }
 
 impl PyProjectToml {
@@ -223,7 +223,7 @@ pub struct Project {
     /// The name of the project
     pub name: PackageName,
     /// The version of the project
-    pub(crate) version: Option<Version>,
+    version: Option<Version>,
     /// The Python versions this project is compatible with.
     pub(crate) requires_python: Option<VersionSpecifiers>,
     /// The dependencies of the project.
@@ -233,10 +233,10 @@ pub struct Project {
 
     /// Used to determine whether a `gui-scripts` section is present.
     #[serde(default, skip_serializing)]
-    pub(crate) gui_scripts: Option<serde::de::IgnoredAny>,
+    gui_scripts: Option<serde::de::IgnoredAny>,
     /// Used to determine whether a `scripts` section is present.
     #[serde(default, skip_serializing)]
-    pub(crate) scripts: Option<serde::de::IgnoredAny>,
+    scripts: Option<serde::de::IgnoredAny>,
 }
 
 #[derive(Deserialize, Debug)]
@@ -420,7 +420,7 @@ pub struct ToolUv {
             package = false
         "#
     )]
-    pub(crate) package: Option<bool>,
+    package: Option<bool>,
 
     /// The list of `dependency-groups` to install by default.
     ///
@@ -726,7 +726,7 @@ pub struct ToolUv {
     /// Note that those settings only apply when using the `uv_build` backend, other build backends
     /// (such as hatchling) have their own configuration.
     #[option_group]
-    pub(crate) build_backend: Option<BuildBackendSettingsSchema>,
+    build_backend: Option<BuildBackendSettingsSchema>,
 }
 
 #[derive(Default, Debug, Clone, PartialEq, Eq)]

@@ -28,7 +28,7 @@ pub struct LocalWheel {
 
 impl LocalWheel {
     /// Return the [`Dist`] from which this wheel was downloaded.
-    pub(crate) fn remote(&self) -> &Dist {
+    fn remote(&self) -> &Dist {
         &self.dist
     }
 

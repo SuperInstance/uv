@@ -37,7 +37,7 @@ pub enum ExcludeNewerValueChange {
 }
 
 impl ExcludeNewerValueChange {
-    pub(crate) fn is_relative_timestamp_change(&self) -> bool {
+    fn is_relative_timestamp_change(&self) -> bool {
         matches!(self, Self::RelativeTimestampChanged(_, _, _))
     }
 }
@@ -114,7 +114,7 @@ pub enum ExcludeNewerPackageChange {
 }
 
 impl ExcludeNewerPackageChange {
-    pub(crate) fn is_relative_timestamp_change(&self) -> bool {
+    fn is_relative_timestamp_change(&self) -> bool {
         match self {
             Self::PackageAdded(_, _) | Self::PackageRemoved(_) => false,
             Self::PackageChanged(_, change) => change.is_relative_timestamp_change(),
@@ -192,8 +192,8 @@ impl serde::Serialize for ExcludeNewerValueWithSpanRef<'_> {
 #[derive(Debug, Clone, PartialEq, Eq)]
 #[cfg_attr(feature = "schemars", derive(schemars::JsonSchema))]
 pub struct ExcludeNewerPackageEntry {
-    pub(crate) package: PackageName,
-    pub(crate) setting: ExcludeNewerOverride,
+    package: PackageName,
+    setting: ExcludeNewerOverride,
 }
 
 impl FromStr for ExcludeNewerPackageEntry {
@@ -269,7 +269,7 @@ pub enum ExcludeNewerOverrideChange {
 }
 
 impl ExcludeNewerOverrideChange {
-    pub(crate) fn is_relative_timestamp_change(&self) -> bool {
+    fn is_relative_timestamp_change(&self) -> bool {
         match self {
             Self::Disabled { .. } | Self::Enabled { .. } => false,
             Self::TimestampChanged(change) => change.is_relative_timestamp_change(),
@@ -343,7 +343,7 @@ impl ExcludeNewerPackage {
         self.0.is_empty()
     }
 
-    pub(crate) fn compare(&self, other: &Self) -> Option<ExcludeNewerPackageChange> {
+    fn compare(&self, other: &Self) -> Option<ExcludeNewerPackageChange> {
         for (package, setting) in self {
             match (setting, other.get(package)) {
                 (

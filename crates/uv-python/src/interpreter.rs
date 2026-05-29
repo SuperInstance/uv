@@ -229,12 +229,12 @@ impl Interpreter {
     }
 
     /// Return the [`Arch`] reported by the interpreter platform tags.
-    pub(crate) fn arch(&self) -> Arch {
+    fn arch(&self) -> Arch {
         Arch::from(&self.platform().arch())
     }
 
     /// Return the [`Libc`] reported by the interpreter platform tags.
-    pub(crate) fn libc(&self) -> Libc {
+    fn libc(&self) -> Libc {
         Libc::from(self.platform().os())
     }
 
@@ -487,12 +487,12 @@ impl Interpreter {
     }
 
     /// Return the `purelib` path for this Python interpreter, as returned by `sysconfig.get_paths()`.
-    pub(crate) fn purelib(&self) -> &Path {
+    fn purelib(&self) -> &Path {
         &self.scheme.purelib
     }
 
     /// Return the `platlib` path for this Python interpreter, as returned by `sysconfig.get_paths()`.
-    pub(crate) fn platlib(&self) -> &Path {
+    fn platlib(&self) -> &Path {
         &self.scheme.platlib
     }
 
@@ -502,12 +502,12 @@ impl Interpreter {
     }
 
     /// Return the `data` path for this Python interpreter, as returned by `sysconfig.get_paths()`.
-    pub(crate) fn data(&self) -> &Path {
+    fn data(&self) -> &Path {
         &self.scheme.data
     }
 
     /// Return the `include` path for this Python interpreter, as returned by `sysconfig.get_paths()`.
-    pub(crate) fn include(&self) -> &Path {
+    fn include(&self) -> &Path {
         &self.scheme.include
     }
 
@@ -542,12 +542,12 @@ impl Interpreter {
     }
 
     /// Return the `--target` directory for this interpreter, if any.
-    pub(crate) fn target(&self) -> Option<&Target> {
+    fn target(&self) -> Option<&Target> {
         self.target.as_ref()
     }
 
     /// Return the `--prefix` directory for this interpreter, if any.
-    pub(crate) fn prefix(&self) -> Option<&Prefix> {
+    fn prefix(&self) -> Option<&Prefix> {
         self.prefix.as_ref()
     }
 
@@ -737,9 +737,9 @@ impl ExternallyManaged {
 #[derive(Debug, Error)]
 pub struct UnexpectedResponseError {
     #[source]
-    pub(super) err: serde_json::Error,
-    pub(super) stdout: String,
-    pub(super) stderr: String,
+    err: serde_json::Error,
+    stdout: String,
+    stderr: String,
     pub(super) path: PathBuf,
 }
 
@@ -774,9 +774,9 @@ impl Display for UnexpectedResponseError {
 
 #[derive(Debug, Error)]
 pub struct StatusCodeError {
-    pub(super) code: ExitStatus,
-    pub(super) stdout: String,
-    pub(super) stderr: String,
+    code: ExitStatus,
+    stdout: String,
+    stderr: String,
     pub(super) path: PathBuf,
 }
 
@@ -958,7 +958,7 @@ struct InterpreterInfo {
 
 impl InterpreterInfo {
     /// Return the resolved [`InterpreterInfo`] for the given Python executable.
-    pub(crate) fn query(interpreter: &Path, cache: &Cache) -> Result<Self, Error> {
+    fn query(interpreter: &Path, cache: &Cache) -> Result<Self, Error> {
         let tempdir = tempfile::tempdir_in(cache.root())?;
         Self::setup_python_query_files(tempdir.path())?;
 

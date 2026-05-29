@@ -37,13 +37,13 @@ pub struct PyVenvConfiguration {
     /// The `PYTHONHOME` directory containing the base Python executable.
     pub(crate) home: Option<PathBuf>,
     /// Was the virtual environment created with the `uv` package?
-    pub(crate) uv: bool,
+    uv: bool,
     /// Is the virtual environment relocatable?
-    pub(crate) relocatable: bool,
+    relocatable: bool,
     /// Was the virtual environment populated with seed packages?
-    pub(crate) seed: bool,
+    seed: bool,
     /// Should the virtual environment include system site packages?
-    pub(crate) include_system_site_packages: bool,
+    include_system_site_packages: bool,
     /// The Python version the virtual environment was created with
     pub(crate) version: Option<PythonVersion>,
 }

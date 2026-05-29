@@ -138,7 +138,7 @@ impl ExtrasSpecificationInner {
     /// and instead just install the extras.
     ///
     /// (This is really just asking if an --only flag was passed.)
-    pub(crate) fn prod(&self) -> bool {
+    fn prod(&self) -> bool {
         !self.only_extras
     }
 
@@ -189,12 +189,12 @@ impl ExtrasSpecificationInner {
 /// Context about a [`ExtrasSpecification`][] that we've preserved for diagnostics
 #[derive(Debug, Default, Clone)]
 pub struct ExtrasSpecificationHistory {
-    pub(crate) extra: Vec<ExtraName>,
-    pub(crate) only_extra: Vec<ExtraName>,
-    pub(crate) no_extra: Vec<ExtraName>,
-    pub(crate) all_extras: bool,
-    pub(crate) no_default_extras: bool,
-    pub(crate) defaults: DefaultExtras,
+    extra: Vec<ExtraName>,
+    only_extra: Vec<ExtraName>,
+    no_extra: Vec<ExtraName>,
+    all_extras: bool,
+    no_default_extras: bool,
+    defaults: DefaultExtras,
 }
 
 impl ExtrasSpecificationHistory {
@@ -267,7 +267,7 @@ pub enum IncludeExtras {
 
 impl IncludeExtras {
     /// Returns `true` if the specification includes the given extra.
-    pub(crate) fn contains(&self, extra: &ExtraName) -> bool {
+    fn contains(&self, extra: &ExtraName) -> bool {
         match self {
             Self::Some(extras) => extras.contains(extra),
             Self::All => true,
@@ -275,7 +275,7 @@ impl IncludeExtras {
     }
 
     /// Returns `true` if the specification will have no effect.
-    pub(crate) fn is_empty(&self) -> bool {
+    fn is_empty(&self) -> bool {
         match self {
             Self::Some(extras) => extras.is_empty(),
             // Although technically this is a noop if they have no extras,
