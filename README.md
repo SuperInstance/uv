@@ -308,6 +308,20 @@ learned a lot from Nathaniel J. Smith's [Posy](https://github.com/njsmith/posy) 
 [trampoline](https://github.com/njsmith/posy/tree/main/src/trampolines/windows-trampolines/posy-trampoline)
 for Windows support.
 
+## 🏆 SuperInstance Enhancement: Cache Guardian
+
+uv with intelligent cache budget management. Same uv. Won't fill your disk.
+
+```bash
+# Check cache status with conservation law compliance
+uv cache guardian status
+
+# Evict packages using KL divergence analysis
+uv cache guardian evict --target 1GB
+```
+
+[Read more](./INTEGRATION.md)
+
 ## License
 
 uv is licensed under either of

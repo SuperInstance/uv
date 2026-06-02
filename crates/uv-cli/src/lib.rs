@@ -910,6 +910,44 @@ pub enum CacheCommand {
     /// wheels, source distributions, and other cached data. By default, outputs the size in raw
     /// bytes; use `--human` for human-readable output.
     Size(SizeArgs),
+    /// SuperInstance Enhancement: Cache Guardian — resource-aware cache management.
+    ///
+    /// Monitors and enforces disk, bandwidth, and time budgets for the uv cache.
+    /// Uses conservation laws and KL divergence eviction to keep cache usage within budget.
+    ///
+    /// Subcommands:
+    ///   status   Show current cache status and budget usage
+    ///   evict    Evict packages from cache based on dependency profiles
+    Guardian(GuardianArgs),
+}
+
+/// Arguments for the `uv cache guardian` subcommand.
+#[derive(Args, Debug)]
+pub struct GuardianArgs {
+    /// The guardian subcommand.
+    #[command(subcommand)]
+    pub command: GuardianCommand,
+    /// Maximum disk cache size (e.g., "5GB")
+    #[arg(long, default_value = "5GB", global = true)]
+    pub max_disk: Option<String>,
+    /// Maximum daily bandwidth (e.g., "10GB")
+    #[arg(long, default_value = "10GB", global = true)]
+    pub max_bandwidth: Option<String>,
+}
+
+#[derive(Subcommand, Debug)]
+pub enum GuardianCommand {
+    /// Show current cache status with conservation law compliance and phase detection.
+    Status,
+    /// Evict packages from the cache using KL divergence eviction strategy.
+    ///
+    /// Analyzes dependency profiles and evicts packages with the most unique
+    /// dependency patterns first, preserving packages shared across projects.
+    Evict {
+        /// Target bytes to free (e.g., "1GB", "500MB")
+        #[arg(short, long, default_value = "1GB")]
+        target: String,
+    },
 }
 
 #[derive(Args, Debug)]
